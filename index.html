@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Home - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <li class="nav-link nav-home-link"><a href="index.html">Home</a></li><li class="nav-heading">Classes</li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="BundlesQueue.html">BundlesQueue</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="BundlesQueue.html#_handler">_handler</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="BundlesQueue.html#addBundle">addBundle</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="BundlesQueue.html#handleNext">handleNext</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Cursor.html">Cursor</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Cursor.html#get">get</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Cursor.html#set">set</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Cursor.html#splice">splice</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="CursorsManager.html">CursorsManager</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="CursorsManager.html#new">new</a></span></li><li class="nav-heading"><a href="global.html">Globals</a></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#executeBundle">executeBundle</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#executeBundleSet">executeBundleSet</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#executeBundleSplice">executeBundleSplice</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#executeBundleUnset">executeBundleUnset</a></span></li><li class="nav-item"><span class="nav-item-type type-member">M</span><span class="nav-item-name"><a href="global.html#executers">executers</a></span></li>
+</nav>
+
+<div id="main">
+    
+
+    
+
+
+
+    
+
+
+
+
+
+
+
+
+
+    
+
+
+    <section class="readme">
+        <article><h1>AncientCursor</h1><p><a href="https://badge.fury.io/js/ancient-cursor"><img src="https://badge.fury.io/js/ancient-cursor.svg" alt="npm version"></a>
+<a href="https://gitter.im/AncientSouls/Lobby?utm_source=badge&amp;utm_medium=badge&amp;utm_campaign=pr-badge&amp;utm_content=badge"><img src="https://badges.gitter.im/Join%20Chat.svg" alt="Join the chat at https://gitter.im/AncientSouls/Lobby"></a></p>
+<p>Utilities for tracking changes of complex or plain remote data.</p>
+<h2>Install</h2><pre class="prettyprint source lang-bash"><code>npm install --save ancient-cursor</code></pre><h2>Therms</h2><h3>Complex data</h3><p>Data with an deverse structure, for example, dependent on the query.
+For example, it could be a query that connects multiple rows in different tables to some custom object.
+In such a structure, it may be difficult or impossible to get the document identifier, the particular document or its type. It can be just an excerpt from a lot of information.</p>
+<p>Example of your custom query on sql language:</p>
+<pre class="prettyprint source lang-js"><code>{
+  query: `SELECT * FROM weather INNER JOIN cities ON (weather.city = cities.name);`,
+  storage: 'posgresql',
+}</code></pre><p>Example of result data:</p>
+<pre class="prettyprint source lang-js"><code>[
+  {
+    city: 'Neverlend',
+    name: 'Neverlend',
+    temp_lo: 37,
+    temp_hi: 54,
+    date: &quot;1994-11-29&quot;,
+    location: [-194,53],
+  }
+]</code></pre><h3>Plain data</h3><p>Data at each level is rigidly tied to some abstraction, type or schema and has a unique identifier in some storage.</p>
+<p>Example of your custom query on mongodb language:</p>
+<pre class="prettyprint source lang-js"><code>{
+  method: 'find',
+  collection: 'weather',
+  query: { name: 'Neverlend' },
+  storage: 'mongodb',
+}</code></pre><p>Example of result data:</p>
+<pre class="prettyprint source lang-js"><code>[
+  {
+    _id: &quot;507f191e810c19729de860ea&quot;,
+    city: 'Neverlend',
+    temp_lo: 37,
+    temp_hi: 54,
+    date: &quot;1994-11-29&quot;,
+  }
+]</code></pre><p>For more typing and splitting the result set, the server can add some field, such as <code>__type</code>.</p>
+<h2>Lifecycle of data</h2><ul>
+<li>client: Create any custom <strong>query</strong> to your server.<ul>
+<li>The query is any json structure, it can be graphlq with any additional data or anything at your discretion.</li>
+</ul>
+</li>
+<li>client: Construct <strong>instance of cursor</strong> for not yet received data by query. Send a <strong>query to the server</strong> in any your custom way.</li>
+<li>server: Generate first data response to current query, and <strong>send data back to client</strong>.<ul>
+<li>You can think that the query contained a subscription request for requested data changes. With the help of our tracking utilites, or without, you can generate bundles for each cursor for each client. Then you can send it with any custom transport, in your application.</li>
+</ul>
+</li>
+<li>client: Use our utilites (or your custom if you want) for execute bundle for current client, to each cursor.<ul>
+<li>Send changes on our format, (or your custom format if your want) to each cursors for data update.<ul>
+<li>This will emit a notification to be sent to anyone who listens to this cursor.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>Simple example of fake server-client logic writed in test <code>concepts</code> &gt; <code>fake primitive server-client</code>.</p>
+<h2>Tests</h2><p>Tests can be started with comand <code>npm install ancient-cursor &amp;&amp; cd ./node_modules/ancient-cursor &amp;&amp; npm run compile &amp;&amp; npm test</code>. For more information lern <a href="https://github.com/AncientSouls/Cursor/blob/master/src/tests/index.js">src/tests/index.js</a>.</p>
+<h2>License</h2><p>The MIT License (MIT)
+Copyright (c) 2016 Ivan S Glazunov <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#x69;&#x76;&#x61;&#110;&#x73;&#x67;&#x6c;&#97;&#122;&#117;&#x6e;&#x6f;&#118;&#x40;&#x67;&#x6d;&#x61;&#x69;&#108;&#46;&#x63;&#111;&#109;">&#x69;&#x76;&#x61;&#110;&#x73;&#x67;&#x6c;&#97;&#122;&#117;&#x6e;&#x6f;&#118;&#x40;&#x67;&#x6d;&#x61;&#x69;&#108;&#46;&#x63;&#111;&#109;</a></p>
+<p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the &quot;Software&quot;), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:</p>
+<p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p>
+<p>THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p></article>
+    </section>
+
+
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.3</a> on Tue Aug 08 2017 18:26:06 GMT+0000 (UTC) using the Minami theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>
