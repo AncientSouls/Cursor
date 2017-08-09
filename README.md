@@ -1,6 +1,7 @@
 # AncientCursor
 
 [![npm version](https://badge.fury.io/js/ancient-cursor.svg)](https://badge.fury.io/js/ancient-cursor)
+[![GitHub release](https://img.shields.io/github/release/AncientSouls/Cursor.svg)](https://github.com/AncientSouls/Cursor)
 [![Join the chat at https://gitter.im/AncientSouls/Lobby](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/AncientSouls/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 Utilities for tracking changes of complex or plain remote data.
@@ -68,6 +69,59 @@ Example of result data:
 ```
 
 For more typing and splitting the result set, the server can add some field, such as `__type`.
+
+## Usage
+
+It is implied that you will apply `Cursor` as a universal query result to your api. You can simply get and handle changes in loaded data.
+
+```js
+var cursor = new Cursor('sql query for example', { a: [{ b: 'x' }, { c: 'y' }, { d: 'z' }] });
+cursor.set('a.0.b', 'z');
+cursor.get('a.0'); //  { b: 'z' };
+cursor.set('', { x: 'y' });
+cursor.get(); // { x: 'y' };
+```
+
+You can either grab data from any your source and wrap it in `Cursor` class. If you receive `Cursor` via `CursorsManager` instance, then each cursor has a unique id, by which you can get cursor by id `manager.cursors[id]` and send notification about changes with cursor `.set` and `.splice` methods. If you want to have a strict queue of bundles, you can extend and bind `BundlesQueue` instances on those levels where you need it. In this case, your extension will be able to decide how to send changes to the cursor/cursors based on the bundle information.
+
+Also package contains `executeBundle` methods for easy execution bundles with this structures:
+
+```js
+import {
+  Cursor,
+  executers,
+} from 'ancient-cursor';
+
+var cursor = new Cursor('sql query for example',{'some':'thing'});
+
+// executers.unset
+executeBundle({
+  cursor: cursor.id, type: 'set',
+  path: 'some',
+}, cursor, executers);
+
+cursor.get('some'); // undefined
+
+// executers.set
+executeBundle({
+  cursor: cursor.id, type: 'set',
+  path: 'some',
+  value: ['things','and','others'],
+}, cursor, executers);
+
+cursor.get('some[1]'); // 'and'
+
+// executers.splice
+executeBundle({
+  cursor: cursor.id, type: 'splice',
+  path: 'some',
+  start: 2, deleteCount: 0, items: ['some'],
+}, cursor, executers);
+
+cursor.get('some[2]'); // 'some'
+```
+
+Since this is not a fully integrated solution, you can see the list of utilities offered by this package in the [documentation](https://ancientsouls.github.io/Cursor/), and their application in the [src/tests](https://github.com/AncientSouls/Cursor/blob/master/src/tests) directory.
 
 ## Lifecycle of data
 

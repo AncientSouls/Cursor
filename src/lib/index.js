@@ -9,7 +9,7 @@ export class Cursor {
   
   /**
    * @constructs Cursor
-   * @param query - Query resolves current cursor.
+   * @param query - Query resolves current cursor .We keep it just in case. Suddenly, to work with data, you need to compare them with the query?
    * @param data - Any data by resolved query.
    */
   constructor(query, data, manager, id) {
@@ -64,7 +64,7 @@ export class Cursor {
    * Handle event changed, as get handler argument, but returns stop method.
    * @param {string} path
    * @param {Cursor~handler} [handler] - Notify you about changes in data by path.
-   * @retrun {Function} stop
+   * @return {Function} stop
    */
   on(path = null, handler) {
     if (typeof(handler) == 'function') {
