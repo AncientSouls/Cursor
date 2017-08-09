@@ -8,6 +8,8 @@ import {
   executeBundle,
   executers,
 } from '../lib';
+import reactTest from './react';
+
 import lodash from 'lodash';
 import mingo from 'mingo';
 
@@ -103,7 +105,7 @@ describe('AncientSouls/Graph', () => {
         var cursor = new Cursor(undefined, { a: { b: [{ c: 'd' }, { e: 'f' }] } });
         var clientCursors = {};
         
-        cursor.get(null, (before, after, stop) => {
+        cursor.on(null, (before, after, stop) => {
           var bundles = {};
           for (var c in clientCursors) {
             let afterPerCursor = lodash.get(after, clientCursors[c].query);
@@ -196,5 +198,6 @@ describe('AncientSouls/Graph', () => {
       assert.deepEqual(cursor1.get(), server.api.cursor.get('a'));
       assert.deepEqual(cursor2.get(), server.api.cursor.get('a.b[0]'));
     });
+    reactTest();
   });
 });

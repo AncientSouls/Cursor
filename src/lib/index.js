@@ -56,18 +56,29 @@ export class Cursor {
    * @return data - Returns someting from data by spcefied path.
    */
   get(path = null, handler) {
+    this.on(path, handler);
+    return lodash.isNull(path)?this.data:lodash.get(this.data, path);
+  }
+  
+  /**
+   * Handle event changed, as get handler argument, but returns stop method.
+   * @param {string} path
+   * @param {Cursor~handler} [handler] - Notify you about changes in data by path.
+   * @retrun {Function} stop
+   */
+  on(path = null, handler) {
     if (typeof(handler) == 'function') {
       var listener = (before, after) => {
-        var beforeValue = lodash.isNull(path)?before:lodash.get(before, path);
-        var afterValue = lodash.isNull(path)?after:lodash.get(after, path);
+        var beforeValue = !path?before:lodash.get(before, path);
+        var afterValue = !path?after:lodash.get(after, path);
         if (!lodash.isEqual(beforeValue, afterValue)) {
           handler(beforeValue, afterValue, stop, this);
         }
       };
       var stop = () => this.emitter.removeListener('changed', listener);
       this.emitter.on('changed', listener);
+      return stop;
     }
-    return lodash.isNull(path)?this.data:lodash.get(this.data, path);
   }
 }
 
