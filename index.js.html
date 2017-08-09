@@ -24,7 +24,7 @@
 <label for="nav-trigger" class="overlay"></label>
 
 <nav>
-    <li class="nav-link nav-home-link"><a href="index.html">Home</a></li><li class="nav-heading">Classes</li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="BundlesQueue.html">BundlesQueue</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="BundlesQueue.html#_handler">_handler</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="BundlesQueue.html#addBundle">addBundle</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="BundlesQueue.html#handleNext">handleNext</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Cursor.html">Cursor</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Cursor.html#get">get</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Cursor.html#set">set</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Cursor.html#splice">splice</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="CursorsManager.html">CursorsManager</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="CursorsManager.html#new">new</a></span></li><li class="nav-heading"><a href="global.html">Globals</a></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#executeBundle">executeBundle</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#executeBundleSet">executeBundleSet</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#executeBundleSplice">executeBundleSplice</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#executeBundleUnset">executeBundleUnset</a></span></li><li class="nav-item"><span class="nav-item-type type-member">M</span><span class="nav-item-name"><a href="global.html#executers">executers</a></span></li>
+    <li class="nav-link nav-home-link"><a href="index.html">Home</a></li><li class="nav-heading">Classes</li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="BundlesQueue.html">BundlesQueue</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="BundlesQueue.html#_handler">_handler</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="BundlesQueue.html#addBundle">addBundle</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="BundlesQueue.html#handleNext">handleNext</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Cursor.html">Cursor</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Cursor.html#get">get</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Cursor.html#on">on</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Cursor.html#set">set</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Cursor.html#splice">splice</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="CursorsManager.html">CursorsManager</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="CursorsManager.html#new">new</a></span></li><li class="nav-heading"><a href="global.html">Globals</a></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#executeBundle">executeBundle</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#executeBundleSet">executeBundleSet</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#executeBundleSplice">executeBundleSplice</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#executeBundleUnset">executeBundleUnset</a></span></li><li class="nav-item"><span class="nav-item-type type-member">M</span><span class="nav-item-name"><a href="global.html#executers">executers</a></span></li>
 </nav>
 
 <div id="main">
@@ -97,18 +97,29 @@ export class Cursor {
    * @return data - Returns someting from data by spcefied path.
    */
   get(path = null, handler) {
+    this.on(path, handler);
+    return lodash.isNull(path)?this.data:lodash.get(this.data, path);
+  }
+  
+  /**
+   * Handle event changed, as get handler argument, but returns stop method.
+   * @param {string} path
+   * @param {Cursor~handler} [handler] - Notify you about changes in data by path.
+   * @retrun {Function} stop
+   */
+  on(path = null, handler) {
     if (typeof(handler) == 'function') {
       var listener = (before, after) => {
-        var beforeValue = lodash.isNull(path)?before:lodash.get(before, path);
-        var afterValue = lodash.isNull(path)?after:lodash.get(after, path);
+        var beforeValue = !path?before:lodash.get(before, path);
+        var afterValue = !path?after:lodash.get(after, path);
         if (!lodash.isEqual(beforeValue, afterValue)) {
           handler(beforeValue, afterValue, stop, this);
         }
       };
       var stop = () => this.emitter.removeListener('changed', listener);
       this.emitter.on('changed', listener);
+      return stop;
     }
-    return lodash.isNull(path)?this.data:lodash.get(this.data, path);
   }
 }
 
@@ -261,7 +272,7 @@ export var executers = {
 <br class="clear">
 
 <footer>
-    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.3</a> on Tue Aug 08 2017 18:26:06 GMT+0000 (UTC) using the Minami theme.
+    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.3</a> on Wed Aug 09 2017 14:45:00 GMT+0000 (UTC) using the Minami theme.
 </footer>
 
 <script>prettyPrint();</script>
