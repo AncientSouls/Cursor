@@ -63,36 +63,44 @@ export class Cursor {
   
   /**
    * Way to change data changes in specified path.
-   * @param {string} path
+   * @param {string|string[]} path
    * @param after
    */
   set(path, after) {
-    /**
-     * @todo Find better, economically then cloneDeep.
-     */
-    var before = lodash.cloneDeep(this.data);
-    if (!path) this.data = after;
-    else this.data = lodash.set(this.data || {}, path, after);
-    this.emitter.emit('changed', before, this.data);
+    var _path = lodash.toPath(path); 
+    
+    var beforeByPath = lodash.get(this.data, _path);
+    
+    if (!_path.length) this.data = after;
+    else this.data = lodash.set(this.data || {}, _path, after);
+    
+    this.emitter.emit('changed', { before: beforeByPath, path: _path, action: 'set', 'arguments': lodash.toArray(arguments), });
   }
   
   /**
    * Way to change array data in specified path. Unlike the standard splice, all arguments are required, except items.
-   * @param {string} path
+   * @param {string|string[]} path
    * @param {number} start
    * @param {number} deleteCount
    * @param {...*} [items]
    */
   splice(path, start, deleteCount, ...items) {
-    var data = lodash.clone(this.get(path));
+    var _path = lodash.toPath(path); 
+    
+    var beforeByPath = lodash.clone(lodash.get(this.data, _path));
+    
+    var data = this.get(_path);
+    
     if (!lodash.isArray(data)) throw new Error(`Data by path is not an array.`);
+    
     data.splice(start, deleteCount, ...items);
-    this.set(path, data);
+    
+    this.emitter.emit('changed', { before: beforeByPath, path: _path, action: 'splice', 'arguments': lodash.toArray(arguments), });
   }
   
   /**
    * Getter from data. Handler can observe changes by current path in data.
-   * @param {string} path
+   * @param {string|string[]} path
    * @param {Cursor~handler} [handler] - Notify you about changes in data by path.
    * @return data - Returns someting from data by spcefied path.
    */
@@ -103,18 +111,31 @@ export class Cursor {
   
   /**
    * Handle event changed, as get handler argument, but returns stop method.
-   * @param {string} path
+   * @param {string|string[]} path
    * @param {Cursor~handler} [handler] - Notify you about changes in data by path.
    * @return {Function} stop
    */
   on(path = null, handler) {
+    var eventPath = lodash.toPath(path);
     if (typeof(handler) == 'function') {
-      var listener = (before, after) => {
-        var beforeValue = !path?before:lodash.get(before, path);
-        var afterValue = !path?after:lodash.get(after, path);
-        if (!lodash.isEqual(beforeValue, afterValue)) {
-          handler(beforeValue, afterValue, stop, this);
+      var listener = (changes) => {
+        var isClone, beforeValue, afterValue;
+        var eventPathLocal = eventPath.slice(changes.path.length);
+        
+        if (changes.path.length &lt;= eventPath.length) {
+          if (lodash.isEqual(changes.path, eventPath.slice(0, changes.path.length))) {
+            isClone = true;
+            beforeValue = eventPathLocal.length?lodash.get(changes.before, eventPathLocal):changes.before;
+            afterValue = eventPath.length?lodash.get(this.data, eventPath):this.data;
+          } else return;
+        } else {
+          if (lodash.isEqual(eventPath, changes.path.slice(0, eventPath.length))) {
+            isClone = false;
+            beforeValue = afterValue = eventPath.length?lodash.get(this.data, eventPath):this.data;
+          } else return;
         }
+        
+        handler(beforeValue, afterValue, stop, changes, isClone, this);
       };
       var stop = () => this.emitter.removeListener('changed', listener);
       this.emitter.on('changed', listener);
@@ -125,10 +146,14 @@ export class Cursor {
 
 /**
  * @callback Cursor~handler
- * @param before
- * @param after
+ * @param before - Link to this data before the change.
+ * @param after - Link to this data after the change.
  * @param {Function} stop
+ * @param {string[]} path - The exact path where the data has changed.
+ * @param {boolean} isClone - True if changed path deeper then event path. For details, read attention.
  * @param {Cursor} cursor
+ * @description
+ * **Attention!** If the path leads to a higher level of data from the changed, the link to the data `before` the change will lead to the same location as link `after` the change. If the path leads to a changed level or deeper, then `before` and `after` will differ.
  */
 
 /**
@@ -224,7 +249,7 @@ export function executeBundle(bundle, cursor, executers) {
 
 /**
  * @param {Object} bundle
- * @param {string} bundle.path
+ * @param {string|string[]} bundle.path
  * @param bundle.value
  * @param {Cursor} cursor
  */
@@ -234,7 +259,7 @@ export function executeBundleSet(bundle, cursor) {
 
 /**
  * @param {Object} bundle
- * @param {string} bundle.path
+ * @param {string|string[]} bundle.path
  * @param {Cursor} cursor
  */
 export function executeBundleUnset(bundle, cursor) {
@@ -243,7 +268,7 @@ export function executeBundleUnset(bundle, cursor) {
 
 /**
  * @param {Object} bundle
- * @param {string} bundle.path
+ * @param {string|string[]} bundle.path
  * @param {number} bundle.start
  * @param {number} bundle.deleteCount
  * @param {Array} bundle.items
@@ -272,7 +297,7 @@ export var executers = {
 <br class="clear">
 
 <footer>
-    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.3</a> on Wed Aug 09 2017 16:57:37 GMT+0000 (UTC) using the Minami theme.
+    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.3</a> on Sun Aug 13 2017 18:20:55 GMT+0000 (UTC) using the Minami theme.
 </footer>
 
 <script>prettyPrint();</script>
