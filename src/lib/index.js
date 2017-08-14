@@ -108,7 +108,11 @@ export class Cursor {
  * @param before - Link to this data before the change.
  * @param after - Link to this data after the change.
  * @param {Function} stop
- * @param {string[]} path - The exact path where the data has changed.
+ * @param {Object} changes
+ * @param changes.before
+ * @param {string[]} changes.path
+ * @param {string} changes.action
+ * @param {Array} changes.arguments
  * @param {boolean} isClone - True if changed path deeper then event path. For details, read attention.
  * @param {Cursor} cursor
  * @description
