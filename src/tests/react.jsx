@@ -21,8 +21,8 @@ export default function() {
     
     var Container = compose((props, onData) => {
       onData(null, props.cursor.get());
-      return props.cursor.on('', (before, after) => {
-        onData(null, { data: after });
+      return props.cursor.on('', (old, current) => {
+        onData(null, { data: current });
       })
     })(Markup)
     

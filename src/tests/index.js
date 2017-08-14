@@ -27,30 +27,30 @@ describe('AncientSouls/Graph', () => {
       var cursor = new Cursor(true, document);
       assert.equal(cursor.get('any.0.custom.many'), 'data');
     });
-    it('get handle path after set changes', (done) => {
+    it('get handle path current set changes', (done) => {
       var document = { any: [{ custom: { many: 'a' } }] };
       var cursor = new Cursor(true, document);
       var changesPattern = {
-        before: { many: 'a' },
+        old: { many: 'a' },
         path: ['any','0','custom'],
         action: 'set',
         arguments: ['any.0.custom', { many: 'b' }],
       };
-      cursor.on('any.0.custom.many', (before, after, stop, changes, isClone) => {
-        assert.equal(before, 'a');
-        assert.equal(after, 'b');
+      cursor.on('any.0.custom.many', (old, current, stop, changes, isClone) => {
+        assert.equal(old, 'a');
+        assert.equal(current, 'b');
         assert.deepEqual(changes, changesPattern);
         assert.isTrue(isClone);
       });
-      cursor.on('any.0.custom', function(before, after, stop, changes, isClone) {
-        assert.deepEqual(before, { many: 'a' });
-        assert.deepEqual(after, { many: 'b' });
+      cursor.on('any.0.custom', function(old, current, stop, changes, isClone) {
+        assert.deepEqual(old, { many: 'a' });
+        assert.deepEqual(current, { many: 'b' });
         assert.deepEqual(changes, changesPattern);
         assert.isTrue(isClone);
       });
-      cursor.on('any.0', function(before, after, stop, changes, isClone) {
-        assert.deepEqual(before, { custom: { many: 'b' } });
-        assert.deepEqual(after, { custom: { many: 'b' } });
+      cursor.on('any.0', function(old, current, stop, changes, isClone) {
+        assert.deepEqual(old, { custom: { many: 'b' } });
+        assert.deepEqual(current, { custom: { many: 'b' } });
         assert.deepEqual(changes, changesPattern);
         assert.isFalse(isClone);
         done();
@@ -66,17 +66,17 @@ describe('AncientSouls/Graph', () => {
     });
     it('splice', (done) => {
       var cursor = new Cursor(true, { a: [{ b: 'x' }, { c: 'y' }, { d: 'z' }], e: 'f' });
-      cursor.on('a.1', function(before, after, stop, changes, isClone) {
-        assert.deepEqual(before, { c: 'y' });
-        assert.deepEqual(after, { e: 'q' });
+      cursor.on('a.1', function(old, current, stop, changes, isClone) {
+        assert.deepEqual(old, { c: 'y' });
+        assert.deepEqual(current, { e: 'q' });
         assert.isTrue(isClone);
         setTimeout(done, 100);
       });
-      cursor.on('a.0', function(before, after, stop, changes, isClone) {
-        assert.deepEqual(before, after);
+      cursor.on('a.0', function(old, current, stop, changes, isClone) {
+        assert.deepEqual(old, current);
         assert.isTrue(isClone);
       });
-      cursor.on('e', function(before, after, stop, changes, isClone) {
+      cursor.on('e', function(old, current, stop, changes, isClone) {
         throw new Error('It should not be');
       });
       cursor.splice('a', 1, 1, { e: 'q' });
@@ -138,16 +138,16 @@ describe('AncientSouls/Graph', () => {
         var cursor = new Cursor(undefined, { a: { b: [{ c: 'd' }, { e: 'f' }] } });
         var clientCursors = {};
         
-        cursor.on(null, (before, after, stop) => {
+        cursor.on(null, (old, current, stop) => {
           var bundles = {};
           for (var c in clientCursors) {
-            let afterPerCursor = lodash.get(after, clientCursors[c].query);
-            if (!lodash.isEqual(clientCursors[c].before, afterPerCursor)) {
-              clientCursors[c].before = afterPerCursor;
+            let currentPerCursor = lodash.get(current, clientCursors[c].query);
+            if (!lodash.isEqual(clientCursors[c].old, currentPerCursor)) {
+              clientCursors[c].old = currentPerCursor;
               bundles[c] = {
                 id: clientCursors[c].bundlesCounter, 
                 type: 'set', cursor: c,
-                path: '', value: afterPerCursor,
+                path: '', value: currentPerCursor,
               };
               clientCursors[c].bundlesCounter++;
             }
@@ -166,7 +166,7 @@ describe('AncientSouls/Graph', () => {
               clientCursors[clientCursorId] = {
                 bundlesCounter: 0,
                 query: query,
-                before: result,
+                old: result,
               };
             }
             return lodash.cloneDeep(result);
