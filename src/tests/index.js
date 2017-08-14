@@ -28,28 +28,28 @@ describe('AncientSouls/Graph', () => {
       assert.equal(cursor.get('any.0.custom.many'), 'data');
     });
     it('get handle path after set changes', (done) => {
-      var document = { any: [{ custom: { many: 'before' } }] };
+      var document = { any: [{ custom: { many: 'a' } }] };
       var cursor = new Cursor(true, document);
       var changesPattern = {
-        before: 'before',
+        before: 'a',
         path: ['any','0','custom','many'],
         action: 'set',
-        arguments: ['any.0.custom.many', 'after'],
+        arguments: ['any.0.custom.many', 'b'],
       };
       cursor.on('any.0.custom.many', (before, after, stop, changes, isClone) => {
-        assert.equal(before, 'before');
-        assert.equal(after, 'after');
+        assert.equal(before, 'a');
+        assert.equal(after, 'b');
         assert.deepEqual(changes, changesPattern);
         assert.isTrue(isClone);
       });
       cursor.on('any.0.custom', function(before, after, stop, changes, isClone) {
-        assert.deepEqual(before, { many: 'after' });
-        assert.deepEqual(after, { many: 'after' });
+        assert.deepEqual(before, { many: 'b' });
+        assert.deepEqual(after, { many: 'b' });
         assert.deepEqual(changes, changesPattern);
         assert.isFalse(isClone);
         done();
       });
-      cursor.set('any.0.custom.many', 'after');
+      cursor.set('any.0.custom.many', 'b');
     });
     it('set', () => {
       var cursor = new Cursor(true, { a: [{ b: 'x' }, { c: 'y' }, { d: 'z' }] });
