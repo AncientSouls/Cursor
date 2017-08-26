@@ -96,7 +96,7 @@ var cursor = new Cursor('sql query for example',{'some':'thing'});
 
 // executers.unset
 executeBundle({
-  cursor: cursor.id, type: 'set',
+  cursor: cursor.id, type: 'unset',
   path: 'some',
 }, cursor, executers);
 
