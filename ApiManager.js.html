@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Home - Documentation</title>
+    <title>ApiManager.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -29,65 +29,158 @@
 
 <div id="main">
     
+    <h1 class="page-title">ApiManager.js</h1>
+    
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import lodash from 'lodash';
 
+/**
+ * Interface for Api instance returnable from custom `adapterFindApi`.
+ * @interface Api
+ */
 
+/**
+ * @function
+ * @name Api#receiveQuery
+ * @param {UniqueId} clientId
+ * @param {UniqueId} channelId
+ * @param {Query} query
+ * @param {UniqueId} cursorId
+ * @param {Api~sendBundles} sendBundles
+ */
 
+/**
+ * @function
+ * @name Api#channelDisconnected
+ * @param {UniqueId} clientId
+ * @param {UniqueId} channelId
+ * @param {Api~sendBundles} sendBundles
+ */
 
+/**
+ * @function
+ * @name Api#cursorDestroyed
+ * @param {UniqueId} clientId
+ * @param {UniqueId} channelId
+ * @param {UniqueId} cursorId
+ * @param {Api~sendBundles} sendBundles
+ */
 
+/**
+ * @callback ApiManager~sendBundles
+ * @param {UniqueId} channelId
+ * @param {Bundle[]} bundles
+ */
 
+/**
+ * Manager of many api for sync data with cursors.
+ */
+export class ApiManager {
+  
+  /**
+   * @constructs ApiManager
+   * @param {ApiManager~adapterFindApi} adapterFindApi
+   * @param {ApiManager~adapterSend} adapterSend
+   */
+  constructor(adapterFindApi, adapterSend) {
+    this.adapterFindApi = adapterFindApi;
+    this.adapterSend = adapterSend;
+    this.relations = {};
+  }
 
-
-
+  /**
+   * Find api object.
+   * @param {Query} apiQuery
+   * @returns {Promise} - {@link ApiObject}
+   */
+  findApi(apiQuery) {
+    return this.adapterFindApi(apiQuery);
+  }
+  
+  /**
+   * Receive some query from some clientId, with possible need to sync result with some cursorId on client cursors namespace.
+   * @param {UniqueId} clientId
+   * @param {UniqueId} channelId
+   * @param {Query} apiQuery
+   * @param {Query} query
+   * @param {UniqueId} cursorId
+   * @returns {Promise} - {@link ApiObject}
+   */
+  receiveQuery(clientId, channelId, apiQuery, query, cursorId) {
+    return this.findApi(apiQuery).then((api) => {
+      lodash.set(this.relations, [clientId, channelId, cursorId], apiQuery);
+      api.receiveQuery(
+        clientId, channelId, query, cursorId,
+        (clientId, channelId, bundles) => {
+          this.adapterSend(clientId, channelId, bundles);
+        }
+      );
+      return api;
+    });
+  }
+  
+  /**
+   * Call channelDisconnected method apply cursorDestroyed for each cursor used in current channelId.
+   * @param {UniqueId} clientId
+   * @param {UniqueId} channelId
+   */
+  channelDisconnected(clientId, channelId) {
+    var cursors = lodash.get(this.relations, [clientId, channelId]);
     
+    var promises = [];
+    for (var cursorId in cursors) {
+      promises.push(((clientId, channelId, cursorId) => {
+        return new Promise(() => this.cursorDestroyed(clientId, channelId, cursorId));
+      })(clientId, channelId, cursorId));
+    }
 
+    return promises;
+  }
+  
+  /**
+   * Call cursorDestroyed method into api serving for current cursor sync.
+   * @param {UniqueId} clientId
+   * @param {UniqueId} channelId
+   * @param {UniqueId} cursorId
+   */
+  cursorDestroyed(clientId, channelId, cursorId) {
+    var apiQuery = lodash.get(this.relations, [clientId, channelId, cursorId]);
+    return this.findApi(apiQuery).then((api) => {
+      api.cursorDestroyed(
+        clientId, channelId, cursorId,
+        (clientId, channelId, bundles) => {
+          this.adapterSend(clientId, channelId, bundles);
+        }
+      );
+    });
+  }
+}
 
-    <section class="readme">
-        <article><h1>AncientCursor</h1><p><a href="https://badge.fury.io/js/ancient-cursor"><img src="https://badge.fury.io/js/ancient-cursor.svg" alt="npm version"></a>
-<a href="https://github.com/AncientSouls/Cursor"><img src="https://img.shields.io/github/release/AncientSouls/Cursor.svg" alt="GitHub release"></a>
-<a href="https://gitter.im/AncientSouls/Lobby?utm_source=badge&amp;utm_medium=badge&amp;utm_campaign=pr-badge&amp;utm_content=badge"><img src="https://badges.gitter.im/Join%20Chat.svg" alt="Join the chat at https://gitter.im/AncientSouls/Lobby"></a></p>
-<p>Utilities for tracking changes of complex or plain remote data.</p>
-<h2>Install</h2><pre class="prettyprint source lang-bash"><code>npm install --save ancient-cursor</code></pre><h2>Usage</h2><p>There are no usage instructions yet, because the options for the end use are growing too fast.</p>
-<p>If you want to see examples of using each individual module in the package, please see tests.</p>
-<p>If in brief, now this package implements the following abstractions:</p>
-<ul>
-<li>Model of remote maintenance of the relevance of some custom data structure. (<code>Cursor</code> in documentation)</li>
-<li>The model of the management of cursors, as well as the factories of cursors. (<code>CursorsManager</code> in documentation)</li>
-<li>Model of the manager of a set of Api interfaces obtained from custom sources intended for receiving custom queries from cursors, maintaining a remote cursors and monitoring the moment of its destruction. (<code>ApiManager</code> in documentation)</li>
-<li>Model for processing the queue of bands sent from Api to the cursor, to track their sequence and prevent losses. (<code>BundlesQueue</code> in documentation)</li>
-</ul>
-<p>The following statements are also true for this package:</p>
-<ul>
-<li>Completely modular, allows you to deploy models on top of any application architecture and transports.</li>
-<li>Completely independent of the data structure. For synchronization does not need the concept of documents or id, allows you to retrieve from any remote sources any complex data and maintain their relevance.</li>
-<li>Does not contain query caching, the repeated cursors synchronize the data with the remote source separately, because to implement the cache, you need to understand the structure of the specific data structures of your application. If you need a cache, you can not use cursors directly, but manage them through an interlayer like <code>alasql</code>, <code>backbone</code>, <code>relay</code>, <code>redux</code>, <code>minimongo</code> and others ...</li>
-<li>Does not depend to any query language, you can use as query any data transmitted anywhere. This means that this package will perfectly cope with the synchronization of data for <code>graphql</code>, structural and non-structural data, documents and any other structures from any sources.</li>
-</ul>
-<h2>Reason</h2><p>Too narrow the purpose of alternative implementations.</p>
-<ul>
-<li><code>meteor</code> sync only documents by its ids into specific collection name, very limited <code>ddp</code> protocol</li>
-<li><code>graphql</code> recoment sync data by marked in schema id, only for current schema and with description on client in most cases</li>
-<li><code>backbone</code> sync models in collections by id</li>
-</ul>
-<h2>Our plans</h2><ul>
-<li>So agnostic realization of connections between clients.</li>
-<li>The same modular implementation of the protocol of communication api and customers.</li>
-<li>Ready-made application examples with popular api queries and caching systems.</li>
-</ul>
-<h2>Tests</h2><p>Tests can be started with comand <code>npm install ancient-cursor &amp;&amp; cd ./node_modules/ancient-cursor &amp;&amp; npm run compile &amp;&amp; npm test</code>. For more information lern <a href="https://github.com/AncientSouls/Cursor/blob/master/src/tests/index.js">src/tests/index.js</a>.</p>
-<h2>License</h2><p>The MIT License (MIT)
-Copyright (c) 2016 Ivan S Glazunov <a href="&#x6d;&#x61;&#105;&#108;&#x74;&#x6f;&#58;&#x69;&#118;&#x61;&#x6e;&#115;&#x67;&#x6c;&#97;&#x7a;&#x75;&#110;&#x6f;&#118;&#x40;&#103;&#109;&#x61;&#105;&#108;&#x2e;&#x63;&#x6f;&#109;">&#x69;&#118;&#x61;&#x6e;&#115;&#x67;&#x6c;&#97;&#x7a;&#x75;&#110;&#x6f;&#118;&#x40;&#103;&#109;&#x61;&#105;&#108;&#x2e;&#x63;&#x6f;&#109;</a></p>
-<p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the &quot;Software&quot;), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:</p>
-<p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p>
-<p>THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p></article>
+/**
+ * @callback ApiManager~adapterFindApi
+ * @param {Query} apiQuery
+ * @returns {Promise} - {@link ApiObject}
+ * @description
+ * Must be sended into `ApiManager` into constructor. Used for found api instance by apiQuery, from custom application storage logic.
+ */
+
+/**
+ * @callback ApiManager~adapterSend
+ * @param {UniqueId} clientId
+ * @param {UniqueId} channelId
+ * @param {Bundle[]} bundles
+ * @description
+ * Must be sended into `ApiManager` into constructor. Used for send bundles from api to cursor into current clientId and channelId within custom application logic.
+ */</code></pre>
+        </article>
     </section>
-
-
 
 
 
