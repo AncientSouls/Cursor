@@ -1,6 +1,6 @@
 {
   "name": "ancient-cursor",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Utilities for tracking changes of complex or plain remote data.",
   "keywords": [
     "complex",
@@ -58,6 +58,7 @@
     "compile": "babel --presets es2015,react -d ./ src/ -s --minified",
     "compile-w": "babel --presets es2015,react -d ./ src/ -s --minified -w",
     "test": "mocha tests/index.js --require source-map-support/register",
-    "jsdoc": "git submodule update --init --recursive -f && cd ./doc && git checkout gh-pages && cd ../ && npm i && rm -f -r ./doc/*/ && find ./doc ! -name '.git' -type f -exec rm -rf {} + && jsdoc ./src/lib/*.js ./README.md -r -d ./doc -t ./node_modules/minami  -c ./jsdoc.conf.json"
+    "jsdoc": "git submodule update --init --recursive -f && cd ./doc && git checkout gh-pages && cd ../ && npm i && rm -f -r ./doc/*/ && find ./doc ! -name '.git' -type f -exec rm -rf {} + && jsdoc ./src/lib/*.js ./README.md -r -d ./doc -t ./node_modules/minami  -c ./jsdoc.conf.json",
+    "test:watch": "npm run test -- --watch"
   }
 }

@@ -1,0 +1,12 @@
+{
+	"files.exclude": {
+        "**/node_modules/": true
+    },
+    "search.exclude": {
+        "**/node_modules/": true
+    },
+    "mocha.enabled": true,
+    "mocha.sourceDir": "./src",
+    "mocha.outputDir": "./",
+	"mocha.compilerScript": "test:watch"
+}

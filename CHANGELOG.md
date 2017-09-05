@@ -1,3 +1,11 @@
+#### 0.0.2 (2017-9-6)
+
+##### New Features
+
+* **ApiManager** New model for working with cursors.
+* **destroy** Cursors can be destroyed.
+* **renew** Cursors can be renew with CursorsManager.
+
 #### 0.0.1 (2017-8-13)
 
 ##### Bug Fixes

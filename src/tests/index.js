@@ -5,6 +5,7 @@ import {
   Cursor,
   BundlesQueue as BundlesQueueProto,
   CursorsManager,
+  ApiManager,
   executeBundle,
   executers,
 } from '../lib';
@@ -82,6 +83,14 @@ describe('AncientSouls/Graph', () => {
       cursor.splice('a', 1, 1, { e: 'q' });
       assert.equal(cursor.get('a.1.e'), 'q');
     });
+    it('destroy', () => {
+      var cursor = new Cursor(true, { a: [{ b: 'x' }, { c: 'y' }, { d: 'z' }], e: 'f' });
+      cursor.destroy();
+    });
+    it('destroy', () => {
+      var cursor = new Cursor(true, { a: [{ b: 'x' }, { c: 'y' }, { d: 'z' }], e: 'f' });
+      cursor.destroy();
+    });
   });
   describe('BundlesQueue', () => {
     it('only nextId bundle can be handled', () => {
@@ -94,11 +103,60 @@ describe('AncientSouls/Graph', () => {
       assert.equal(testString, 'abcd');
     });
   });
+  describe('ApiManager', () => {
+    it('api instance must receive queries and send bundles', (done) => {
+      var counter = 1;
+      var interval;
+      var manager = new ApiManager(
+        function adapterFounder(apiQuery) {
+          assert.equal(apiQuery, 'a');
+          function sendBundles(clientId, channelId, bundles) {
+            manager.adapterSend(clientId, channelId, bundles);
+          };
+          return new Promise((resolve) => resolve({
+            receiveQuery(clientId, channelId, query, cursorId, sendBundles) {
+              assert.equal(clientId, 1);
+              assert.equal(channelId, 2);
+              assert.equal(query, null);
+              assert.equal(cursorId, 3);
+              interval = setInterval(() => {
+                sendBundles(clientId, channelId, ++counter);
+              }, 100);
+            },
+            cursorDestroyed(clientId, channelId, cursorId, sendBundles) {
+              assert.equal(clientId, 1);
+              assert.equal(channelId, 2);
+              assert.equal(cursorId, 3);
+              clearInterval(interval);
+              done();
+            },
+          }));
+        },
+        function adapterSend(clientId, channelId, bundles) {
+          assert.equal(clientId, 1);
+          assert.equal(channelId, 2);
+          assert.equal(bundles, counter);
+          if (counter > 3) {
+            manager.channelDisconnected(clientId, channelId);
+          }
+        },
+      );
+      manager.receiveQuery(1, 2, 'a', null, 3);
+    });
+  });
   describe('CursorsManager', () => {
     it('just should works', () => {
       var manager = new CursorsManager(Cursor);
       var cursor = manager.new('any','thing');
+      var id0 = cursor.id;
       assert.equal(manager.cursors[cursor.id], cursor);
+      cursor.destroy();
+      assert.notProperty(manager.cursors, cursor.id);
+      manager.renew(cursor, 'other', 'something');
+      var id1 = cursor.id;
+      assert.notEqual(id0, id1);
+      assert.equal(cursor.query, 'other');
+      assert.equal(cursor.data, 'something');
     });
   });
   describe('bundles', () => {
@@ -133,7 +191,7 @@ describe('AncientSouls/Graph', () => {
     });
   });
   describe('concepts', () => {
-    it('fake primitive server-client', () => {
+    it('fake primitive server-client with one api provider', () => {
       var server = (() => {
         var cursor = new Cursor(undefined, { a: { b: [{ c: 'd' }, { e: 'f' }] } });
         var clientCursors = {};

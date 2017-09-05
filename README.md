@@ -11,130 +11,39 @@ Utilities for tracking changes of complex or plain remote data.
 npm install --save ancient-cursor
 ```
 
-## Therms
-
-### Complex data
-
-Data with an deverse structure, for example, dependent on the query.
-For example, it could be a query that connects multiple rows in different tables to some custom object.
-In such a structure, it may be difficult or impossible to get the document identifier, the particular document or its type. It can be just an excerpt from a lot of information.
-
-Example of your custom query on sql language:
-```js
-{
-  query: `SELECT * FROM weather INNER JOIN cities ON (weather.city = cities.name);`,
-  storage: 'posgresql',
-}
-```
-
-Example of result data:
-```js
-[
-  {
-    city: 'Neverlend',
-    name: 'Neverlend',
-    temp_lo: 37,
-    temp_hi: 54,
-    date: "1994-11-29",
-    location: [-194,53],
-  }
-]
-```
-
-### Plain data
-
-Data at each level is rigidly tied to some abstraction, type or schema and has a unique identifier in some storage.
-
-Example of your custom query on mongodb language:
-```js
-{
-  method: 'find',
-  collection: 'weather',
-  query: { name: 'Neverlend' },
-  storage: 'mongodb',
-}
-```
-
-Example of result data:
-```js
-[
-  {
-    _id: "507f191e810c19729de860ea",
-    city: 'Neverlend',
-    temp_lo: 37,
-    temp_hi: 54,
-    date: "1994-11-29",
-  }
-]
-```
-
-For more typing and splitting the result set, the server can add some field, such as `__type`.
-
 ## Usage
 
-It is implied that you will apply `Cursor` as a universal query result to your api. You can simply get and handle changes in loaded data.
+There are no usage instructions yet, because the options for the end use are growing too fast.
 
-```js
-var cursor = new Cursor('sql query for example', { a: [{ b: 'x' }, { c: 'y' }, { d: 'z' }] });
-cursor.set('a.0.b', 'z');
-cursor.get('a.0'); //  { b: 'z' };
-cursor.set('', { x: 'y' });
-cursor.get(); // { x: 'y' };
-```
+If you want to see examples of using each individual module in the package, please see tests.
 
-You can either grab data from any your source and wrap it in `Cursor` class. If you receive `Cursor` via `CursorsManager` instance, then each cursor has a unique id, by which you can get cursor by id `manager.cursors[id]` and send notification about changes with cursor `.set` and `.splice` methods. If you want to have a strict queue of bundles, you can extend and bind `BundlesQueue` instances on those levels where you need it. In this case, your extension will be able to decide how to send changes to the cursor/cursors based on the bundle information.
+If in brief, now this package implements the following abstractions:
 
-Also package contains `executeBundle` methods for easy execution bundles with this structures:
+- Model of remote maintenance of the relevance of some custom data structure. (`Cursor` in documentation)
+- The model of the management of cursors, as well as the factories of cursors. (`CursorsManager` in documentation)
+- Model of the manager of a set of Api interfaces obtained from custom sources intended for receiving custom queries from cursors, maintaining a remote cursors and monitoring the moment of its destruction. (`ApiManager` in documentation)
+- Model for processing the queue of bands sent from Api to the cursor, to track their sequence and prevent losses. (`BundlesQueue` in documentation)
 
-```js
-import {
-  Cursor,
-  executers,
-} from 'ancient-cursor';
+The following statements are also true for this package:
 
-var cursor = new Cursor('sql query for example',{'some':'thing'});
+- Completely modular, allows you to deploy models on top of any application architecture and transports.
+- Completely independent of the data structure. For synchronization does not need the concept of documents or id, allows you to retrieve from any remote sources any complex data and maintain their relevance.
+- Does not contain query caching, the repeated cursors synchronize the data with the remote source separately, because to implement the cache, you need to understand the structure of the specific data structures of your application. If you need a cache, you can not use cursors directly, but manage them through an interlayer like `alasql`, `backbone`, `relay`, `redux`, `minimongo` and others ...
+- Does not depend to any query language, you can use as query any data transmitted anywhere. This means that this package will perfectly cope with the synchronization of data for `graphql`, structural and non-structural data, documents and any other structures from any sources.
 
-// executers.unset
-executeBundle({
-  cursor: cursor.id, type: 'unset',
-  path: 'some',
-}, cursor, executers);
+## Reason
 
-cursor.get('some'); // undefined
+Too narrow the purpose of alternative implementations.
 
-// executers.set
-executeBundle({
-  cursor: cursor.id, type: 'set',
-  path: 'some',
-  value: ['things','and','others'],
-}, cursor, executers);
+- `meteor` sync only documents by its ids into specific collection name, very limited `ddp` protocol
+- `graphql` recoment sync data by marked in schema id, only for current schema and with description on client in most cases
+- `backbone` sync models in collections by id
 
-cursor.get('some[1]'); // 'and'
+## Our plans
 
-// executers.splice
-executeBundle({
-  cursor: cursor.id, type: 'splice',
-  path: 'some',
-  start: 2, deleteCount: 0, items: ['some'],
-}, cursor, executers);
-
-cursor.get('some[2]'); // 'some'
-```
-
-Since this is not a fully integrated solution, you can see the list of utilities offered by this package in the [documentation](https://ancientsouls.github.io/Cursor/), and their application in the [src/tests](https://github.com/AncientSouls/Cursor/blob/master/src/tests) directory.
-
-## Lifecycle of data
-
-- client: Create any custom **query** to your server.
-  - The query is any json structure, it can be graphlq with any additional data or anything at your discretion.
-- client: Construct **instance of cursor** for not yet received data by query. Send a **query to the server** in any your custom way.
-- server: Generate first data response to current query, and **send data back to client**.
-  - You can think that the query contained a subscription request for requested data changes. With the help of our tracking utilites, or without, you can generate bundles for each cursor for each client. Then you can send it with any custom transport, in your application.
-- client: Use our utilites (or your custom if you want) for execute bundle for current client, to each cursor.
-  - Send changes on our format, (or your custom format if your want) to each cursors for data update.
-    - This will emit a notification to be sent to anyone who listens to this cursor.
-
-Simple example of fake server-client logic writed in test `concepts` > `fake primitive server-client`.
+- So agnostic realization of connections between clients.
+- The same modular implementation of the protocol of communication api and customers.
+- Ready-made application examples with popular api queries and caching systems.
 
 ## Tests
 
