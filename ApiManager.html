@@ -99,7 +99,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ApiManager.js.html">ApiManager.js</a>, <a href="ApiManager.js.html#line44">line 44</a>
+        <a href="ApiManager.js.html">ApiManager.js</a>, <a href="ApiManager.js.html#line41">line 41</a>
     </li></ul></dd>
     
 
@@ -235,7 +235,7 @@
 
     
 
-    <h4 class="name" id="channelDisconnected"><span class="type-signature"></span>channelDisconnected<span class="signature">(clientId, channelId)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="channelDisconnected"><span class="type-signature"></span>channelDisconnected<span class="signature">(channelId)</span><span class="type-signature"></span></h4>
 
     
 
@@ -278,7 +278,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ApiManager.js.html">ApiManager.js</a>, <a href="ApiManager.js.html#line93">line 93</a>
+        <a href="ApiManager.js.html">ApiManager.js</a>, <a href="ApiManager.js.html#line88">line 88</a>
     </li></ul></dd>
     
 
@@ -318,32 +318,6 @@
     </thead>
 
     <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>clientId</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>UniqueId</code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                
-                
-            </td>
-        </tr>
-
     
 
         <tr>
@@ -396,7 +370,7 @@
 
     
 
-    <h4 class="name" id="cursorDestroyed"><span class="type-signature"></span>cursorDestroyed<span class="signature">(clientId, channelId, cursorId)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="cursorDestroyed"><span class="type-signature"></span>cursorDestroyed<span class="signature">(channelId, cursorId)</span><span class="type-signature"></span></h4>
 
     
 
@@ -439,7 +413,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ApiManager.js.html">ApiManager.js</a>, <a href="ApiManager.js.html#line112">line 112</a>
+        <a href="ApiManager.js.html">ApiManager.js</a>, <a href="ApiManager.js.html#line106">line 106</a>
     </li></ul></dd>
     
 
@@ -479,32 +453,6 @@
     </thead>
 
     <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>clientId</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>UniqueId</code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                
-                
-            </td>
-        </tr>
-
     
 
         <tr>
@@ -626,7 +574,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ApiManager.js.html">ApiManager.js</a>, <a href="ApiManager.js.html#line62">line 62</a>
+        <a href="ApiManager.js.html">ApiManager.js</a>, <a href="ApiManager.js.html#line59">line 59</a>
     </li></ul></dd>
     
 
@@ -745,14 +693,14 @@
 
     
 
-    <h4 class="name" id="receiveQuery"><span class="type-signature"></span>receiveQuery<span class="signature">(clientId, channelId, apiQuery, query, cursorId)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
+    <h4 class="name" id="receiveQuery"><span class="type-signature"></span>receiveQuery<span class="signature">(channelId, apiQuery, query, cursorId)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
 
     
 
 
 
 <div class="description">
-    <p>Receive some query from some clientId, with possible need to sync result with some cursorId on client cursors namespace.</p>
+    <p>Receive some query from some channelId, with possible need to sync result with some cursorId on channel cursors namespace.</p>
 </div>
 
 
@@ -788,7 +736,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ApiManager.js.html">ApiManager.js</a>, <a href="ApiManager.js.html#line75">line 75</a>
+        <a href="ApiManager.js.html">ApiManager.js</a>, <a href="ApiManager.js.html#line71">line 71</a>
     </li></ul></dd>
     
 
@@ -828,32 +776,6 @@
     </thead>
 
     <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>clientId</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>UniqueId</code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                
-                
-            </td>
-        </tr>
-
     
 
         <tr>
@@ -1060,7 +982,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ApiManager.js.html">ApiManager.js</a>, <a href="ApiManager.js.html#line125">line 125</a>
+        <a href="ApiManager.js.html">ApiManager.js</a>, <a href="ApiManager.js.html#line119">line 119</a>
     </li></ul></dd>
     
 
@@ -1179,14 +1101,14 @@
 
     
 
-    <h4 class="name" id="~adapterSend"><span class="type-signature"></span>adapterSend<span class="signature">(clientId, channelId, bundles)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="~adapterSend"><span class="type-signature"></span>adapterSend<span class="signature">(channelId, bundles)</span><span class="type-signature"></span></h4>
 
     
 
 
 
 <div class="description">
-    <p>Must be sended into <code>ApiManager</code> into constructor. Used for send bundles from api to cursor into current clientId and channelId within custom application logic.</p>
+    <p>Must be sended into <code>ApiManager</code> into constructor. Used for send bundles from api to cursor into current and channelId within custom application logic.</p>
 </div>
 
 
@@ -1222,7 +1144,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ApiManager.js.html">ApiManager.js</a>, <a href="ApiManager.js.html#line133">line 133</a>
+        <a href="ApiManager.js.html">ApiManager.js</a>, <a href="ApiManager.js.html#line127">line 127</a>
     </li></ul></dd>
     
 
@@ -1262,32 +1184,6 @@
     </thead>
 
     <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>clientId</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>UniqueId</code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                
-                
-            </td>
-        </tr>
-
     
 
         <tr>
@@ -1405,7 +1301,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ApiManager.js.html">ApiManager.js</a>, <a href="ApiManager.js.html#line35">line 35</a>
+        <a href="ApiManager.js.html">ApiManager.js</a>, <a href="ApiManager.js.html#line32">line 32</a>
     </li></ul></dd>
     
 
@@ -1533,7 +1429,7 @@
 <br class="clear">
 
 <footer>
-    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.4</a> on Wed Sep 06 2017 02:43:02 GMT+0300 (MSK) using the Minami theme.
+    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.4</a> on Wed Sep 06 2017 18:27:10 GMT+0300 (MSK) using the Minami theme.
 </footer>
 
 <script>prettyPrint();</script>
