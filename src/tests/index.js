@@ -108,23 +108,21 @@ describe('AncientSouls/Graph', () => {
       var counter = 1;
       var interval;
       var manager = new ApiManager(
-        function adapterFounder(apiQuery) {
+        function adapterFindApi(apiQuery) {
           assert.equal(apiQuery, 'a');
-          function sendBundles(clientId, channelId, bundles) {
-            manager.adapterSend(clientId, channelId, bundles);
+          function sendBundles(channelId, bundles) {
+            manager.adapterSend(channelId, bundles);
           };
           return new Promise((resolve) => resolve({
-            receiveQuery(clientId, channelId, query, cursorId, sendBundles) {
-              assert.equal(clientId, 1);
+            receiveQuery(channelId, query, cursorId, sendBundles) {
               assert.equal(channelId, 2);
               assert.equal(query, null);
               assert.equal(cursorId, 3);
               interval = setInterval(() => {
-                sendBundles(clientId, channelId, ++counter);
+                sendBundles(channelId, ++counter);
               }, 100);
             },
-            cursorDestroyed(clientId, channelId, cursorId, sendBundles) {
-              assert.equal(clientId, 1);
+            cursorDestroyed(channelId, cursorId, sendBundles) {
               assert.equal(channelId, 2);
               assert.equal(cursorId, 3);
               clearInterval(interval);
@@ -132,16 +130,15 @@ describe('AncientSouls/Graph', () => {
             },
           }));
         },
-        function adapterSend(clientId, channelId, bundles) {
-          assert.equal(clientId, 1);
+        function adapterSend(channelId, bundles) {
           assert.equal(channelId, 2);
           assert.equal(bundles, counter);
           if (counter > 3) {
-            manager.channelDisconnected(clientId, channelId);
+            manager.channelDisconnected(channelId);
           }
         },
       );
-      manager.receiveQuery(1, 2, 'a', null, 3);
+      manager.receiveQuery(2, 'a', null, 3);
     });
   });
   describe('CursorsManager', () => {

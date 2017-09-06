@@ -1,3 +1,9 @@
+#### 0.0.3 (2017-9-6)
+
+##### New Featurs
+
+* **clientId** Removed excess concept of clientId. Only the channel if left, which provides connection with some client, but without information about client. Application can describe it manually.
+
 #### 0.0.2 (2017-9-6)
 
 ##### New Features

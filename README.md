@@ -41,7 +41,7 @@ Too narrow the purpose of alternative implementations.
 
 ## Our plans
 
-- So agnostic realization of connections between clients.
+- So agnostic realization of channels between clients.
 - The same modular implementation of the protocol of communication api and customers.
 - Ready-made application examples with popular api queries and caching systems.
 
