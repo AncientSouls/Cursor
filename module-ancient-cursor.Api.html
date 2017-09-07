@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>CursorsManager - Documentation</title>
+    <title>Api - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -29,7 +29,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">CursorsManager</h1>
+    <h1 class="page-title">Api</h1>
     
 
     
@@ -44,10 +44,8 @@
         <h2>
             <span class="ancestors"><a href="module-ancient-cursor.html">ancient-cursor</a>.</span>
         
-        CursorsManager
+        Api
         </h2>
-        
-            <div class="class-description"><p>A small registrar of cursors. Sends into Cursor constructor unique id and link to current manager.</p></div>
         
     
 </header>
@@ -56,20 +54,10 @@
     <div class="container-overview">
     
         
-<div class="section-method">
+            <div class="description"><p>Interface for Api instance returnable from custom <code>adapterFindApi</code>.</p></div>
+        
 
-    
-    <h2>Constructor</h2>
-    
-
-    <h4 class="name" id="CursorsManager"><span class="type-signature"></span>new CursorsManager<span class="signature">()</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-
-
+        
 
 
 <dl class="details">
@@ -101,7 +89,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="CursorsManager.js.html">CursorsManager.js</a>, <a href="CursorsManager.js.html#line6">line 6</a>
+        <a href="ApiManager.js.html">ApiManager.js</a>, <a href="ApiManager.js.html#line3">line 3</a>
     </li></ul></dd>
     
 
@@ -113,28 +101,7 @@
 </dl>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</div>
+        
     
     </div>
 
@@ -159,15 +126,11 @@
 
     
 
-    <h4 class="name" id="cursorDestroyed"><span class="type-signature"></span>cursorDestroyed<span class="signature">(cursor)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="channelDisconnected"><span class="type-signature"></span>channelDisconnected<span class="signature">(channelId, sendBundles)</span><span class="type-signature"></span></h4>
 
     
 
 
-
-<div class="description">
-    <p>Calls if used <code>cursor.destroy</code> method. Call <code>this.adapterCursorDestroyed</code> method. Remove cursor from <code>this.cursors</code> hash.</p>
-</div>
 
 
 
@@ -202,7 +165,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="CursorsManager.js.html">CursorsManager.js</a>, <a href="CursorsManager.js.html#line62">line 62</a>
+        <a href="ApiManager.js.html">ApiManager.js</a>, <a href="ApiManager.js.html#line19">line 19</a>
     </li></ul></dd>
     
 
@@ -246,13 +209,39 @@
 
         <tr>
             
-                <td class="name"><code>cursor</code></td>
+                <td class="name"><code>channelId</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type"><code>Cursor</code></span>
+<span class="param-type"><code>UniqueId</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>sendBundles</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>Api~sendBundles</code></span>
 
 
             
@@ -294,15 +283,11 @@
 
     
 
-    <h4 class="name" id="new"><span class="type-signature"></span>new<span class="signature">(query, data)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="cursorDestroyed"><span class="type-signature"></span>cursorDestroyed<span class="signature">(channelId, cursorId, sendBundles)</span><span class="type-signature"></span></h4>
 
     
 
 
-
-<div class="description">
-    <p>Constructs new CursorsManager#Cursor with unique id within current manager. Set constructed cursor into <code>this.cursors</code>. Call <code>this.adapterCustorConstructed</code> method.</p>
-</div>
 
 
 
@@ -337,7 +322,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="CursorsManager.js.html">CursorsManager.js</a>, <a href="CursorsManager.js.html#line20">line 20</a>
+        <a href="ApiManager.js.html">ApiManager.js</a>, <a href="ApiManager.js.html#line27">line 27</a>
     </li></ul></dd>
     
 
@@ -381,10 +366,15 @@
 
         <tr>
             
-                <td class="name"><code>query</code></td>
+                <td class="name"><code>channelId</code></td>
             
 
             <td class="type">
+            
+                
+<span class="param-type"><code>UniqueId</code></span>
+
+
             
             </td>
 
@@ -402,10 +392,41 @@
 
         <tr>
             
-                <td class="name"><code>data</code></td>
+                <td class="name"><code>cursorId</code></td>
             
 
             <td class="type">
+            
+                
+<span class="param-type"><code>UniqueId</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>sendBundles</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>Api~sendBundles</code></span>
+
+
             
             </td>
 
@@ -445,17 +466,11 @@
 
     
 
-    <h4 class="name" id="renew"><span class="type-signature"></span>renew<span class="signature">(cursor, query<span class="signature-attributes">opt</span>, data<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="receiveQuery"><span class="type-signature"></span>receiveQuery<span class="signature">(channelId, query, cursorId, sendBundles)</span><span class="type-signature"></span></h4>
 
     
 
 
-
-<div class="description">
-    <blockquote>
-<p>If cursor not destroyed, throw error.</p>
-</blockquote>
-</div>
 
 
 
@@ -490,7 +505,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="CursorsManager.js.html">CursorsManager.js</a>, <a href="CursorsManager.js.html#line39">line 39</a>
+        <a href="ApiManager.js.html">ApiManager.js</a>, <a href="ApiManager.js.html#line9">line 9</a>
     </li></ul></dd>
     
 
@@ -522,8 +537,6 @@
         <th>Type</th>
 
         
-        <th>Attributes</th>
-        
 
         
 
@@ -536,26 +549,18 @@
 
         <tr>
             
-                <td class="name"><code>cursor</code></td>
+                <td class="name"><code>channelId</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type"><code>Cursor</code></span>
+<span class="param-type"><code>UniqueId</code></span>
 
 
             
             </td>
 
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
             
 
             
@@ -575,18 +580,13 @@
 
             <td class="type">
             
-            </td>
+                
+<span class="param-type"><code>Query</code></span>
+
 
             
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
+            </td>
 
-                
-
-                
-                </td>
             
 
             
@@ -601,23 +601,44 @@
 
         <tr>
             
-                <td class="name"><code>data</code></td>
+                <td class="name"><code>cursorId</code></td>
             
 
             <td class="type">
             
+                
+<span class="param-type"><code>UniqueId</code></span>
+
+
+            
             </td>
 
             
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
 
-                
+            
 
+            <td class="description last">
                 
-                </td>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>sendBundles</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>Api~sendBundles</code></span>
+
+
+            
+            </td>
+
             
 
             
@@ -642,21 +663,6 @@
 
 
 
-
-<div class="section-throws">
-<h5>Throws:</h5>
-
-        
-
-    <div class="param-desc">
-    
-        <p>Cursor must be destroyed.</p>
-    
-    </div>
-
-
-    
-</div>
 
 
 
