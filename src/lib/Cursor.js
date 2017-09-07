@@ -6,7 +6,7 @@ import EventEmitter from 'events';
  * @class
  * @memberof module:ancient-cursor
  */
-export class Cursor {
+class Cursor {
   
   /**
    * @constructs Cursor
@@ -131,3 +131,5 @@ export class Cursor {
  * @description
  * **Attention!** If the path leads to a higher level of data from the changed, the link to the data `old` the change will lead to the same location as link `current` the change. If the path leads to a changed level or deeper, then `old` and `current` will differ.
  */
+
+ export default Cursor;

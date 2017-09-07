@@ -3,7 +3,7 @@
  * @class
  * @memberof module:ancient-cursor
  */
-export class CursorsManager {
+class CursorsManager {
   constructor(Cursor = Cursor, adapterCursorDestroyed, adapterCustorConstructed) {
     this.Cursor = Cursor;
     this.cursors = {};
@@ -83,3 +83,5 @@ export class CursorsManager {
  * @description
  * Can be sended into `ApiManager` into constructor. Used for handle cursor constructed event. For example you can send it information to some api within `ApiManager`.
  */
+
+ export default CursorsManager;

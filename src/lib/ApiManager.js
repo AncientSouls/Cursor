@@ -44,7 +44,7 @@ import lodash from 'lodash';
  * @class
  * @memberof module:ancient-cursor
  */
-export class ApiManager {
+class ApiManager {
   
   /**
    * @constructs ApiManager
@@ -139,3 +139,5 @@ export class ApiManager {
  * @description
  * Must be sended into `ApiManager` into constructor. Used for send bundles from api to cursor into current and channelId within custom application logic.
  */
+
+export default ApiManager;

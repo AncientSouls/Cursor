@@ -4,7 +4,7 @@
  * @class
  * @memberof module:ancient-cursor
  */
-export class BundlesQueue {
+class BundlesQueue {
   
   /**
    * @constructs BundlesQueue
@@ -53,3 +53,5 @@ export class BundlesQueue {
     throw new Error('Method _handler must be overrided.');
   }
 }
+
+export default BundlesQueue;
