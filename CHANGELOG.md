@@ -1,3 +1,11 @@
+#### 0.0.4 (2017-9-7)
+
+##### Bug Fixes
+
+* **exports** Fix index import/export
+* **test** Fix test name
+* **jsdoc** JSDoc fixes
+
 #### 0.0.3 (2017-9-6)
 
 ##### New Featurs
