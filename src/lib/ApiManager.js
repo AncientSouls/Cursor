@@ -3,6 +3,7 @@ import lodash from 'lodash';
 /**
  * Interface for Api instance returnable from custom `adapterFindApi`.
  * @interface Api
+ * @memberof module:ancient-cursor
  */
 
 /**
