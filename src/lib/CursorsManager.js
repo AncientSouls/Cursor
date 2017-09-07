@@ -1,5 +1,7 @@
 /**
  * A small registrar of cursors. Sends into Cursor constructor unique id and link to current manager.
+ * @class
+ * @memberof module:ancient-cursor
  */
 export class CursorsManager {
   constructor(Cursor = Cursor, adapterCursorDestroyed, adapterCustorConstructed) {
@@ -68,6 +70,7 @@ export class CursorsManager {
 
 /**
  * @callback CursorManager~adapterCursorDestroyed
+ * @memberof module:ancient-cursor
  * @param {Cursor} cursor
  * @description
  * Can be sended into `ApiManager` into constructor. Used for handle cursor destroyed event. For example you can send it information to some api within `ApiManager`.
@@ -75,6 +78,7 @@ export class CursorsManager {
 
 /**
  * @callback CursorManager~adapterCustorConstructed
+ * @memberof module:ancient-cursor
  * @param {Cursor} cursor
  * @description
  * Can be sended into `ApiManager` into constructor. Used for handle cursor constructed event. For example you can send it information to some api within `ApiManager`.

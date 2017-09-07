@@ -7,6 +7,7 @@ import lodash from 'lodash';
 
 /**
  * @function
+ * @memberof module:ancient-cursor
  * @name Api#receiveQuery
  * @param {UniqueId} channelId
  * @param {Query} query
@@ -16,6 +17,7 @@ import lodash from 'lodash';
 
 /**
  * @function
+ * @memberof module:ancient-cursor
  * @name Api#channelDisconnected
  * @param {UniqueId} channelId
  * @param {Api~sendBundles} sendBundles
@@ -23,6 +25,7 @@ import lodash from 'lodash';
 
 /**
  * @function
+ * @memberof module:ancient-cursor
  * @name Api#cursorDestroyed
  * @param {UniqueId} channelId
  * @param {UniqueId} cursorId
@@ -31,12 +34,15 @@ import lodash from 'lodash';
 
 /**
  * @callback ApiManager~sendBundles
+ * @memberof module:ancient-cursor
  * @param {UniqueId} channelId
  * @param {Bundle[]} bundles
  */
 
 /**
  * Manager of many api for sync data with cursors.
+ * @class
+ * @memberof module:ancient-cursor
  */
 export class ApiManager {
   
@@ -118,6 +124,7 @@ export class ApiManager {
 
 /**
  * @callback ApiManager~adapterFindApi
+ * @memberof module:ancient-cursor
  * @param {Query} apiQuery
  * @returns {Promise} - {@link ApiObject}
  * @description
@@ -126,6 +133,7 @@ export class ApiManager {
 
 /**
  * @callback ApiManager~adapterSend
+ * @memberof module:ancient-cursor
  * @param {UniqueId} channelId
  * @param {Bundle[]} bundles
  * @description

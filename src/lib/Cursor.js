@@ -3,6 +3,8 @@ import EventEmitter from 'events';
 
 /**
  * One query capsule.
+ * @class
+ * @memberof module:ancient-cursor
  */
 export class Cursor {
   
@@ -115,6 +117,7 @@ export class Cursor {
 
 /**
  * @callback Cursor~handler
+ * @memberof module:ancient-cursor
  * @param old - Link to this data old the change.
  * @param current - Link to this data current the change.
  * @param {Function} stop

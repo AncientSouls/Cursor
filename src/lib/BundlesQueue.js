@@ -1,6 +1,8 @@
 /**
  * Queue of bundles execution.
  * You must override _handler, for parse bandles for your cursors.
+ * @class
+ * @memberof module:ancient-cursor
  */
 export class BundlesQueue {
   

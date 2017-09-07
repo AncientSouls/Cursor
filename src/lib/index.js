@@ -1,3 +1,7 @@
+/**
+ * @module ancient-cursor
+ */
+
 import repl from 'repl';
 import lodash from 'lodash';
 import EventEmitter from 'events';
