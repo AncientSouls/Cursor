@@ -21,7 +21,7 @@ class BundlesQueue extends BundlesQueueProto {
   }
 }
 
-describe('AncientSouls/Graph', () => {
+describe('AncientSouls/Cursor', () => {
   describe('Cursor', () => {
     it('get by path', () => {
       var document = { any: [{ custom: { many: 'data' } }] };

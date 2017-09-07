@@ -6,10 +6,10 @@ import repl from 'repl';
 import lodash from 'lodash';
 import EventEmitter from 'events';
 
-import { Cursor } from './Cursor';
-import { BundlesQueue } from './BundlesQueue';
-import { CursorsManager } from './CursorsManager';
-import { ApiManager } from './ApiManager';
+import Cursor from './Cursor';
+import BundlesQueue from './BundlesQueue';
+import CursorsManager from './CursorsManager';
+import ApiManager from './ApiManager';
 
 export {
   Cursor,
