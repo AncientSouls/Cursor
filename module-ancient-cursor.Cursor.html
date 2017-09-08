@@ -62,7 +62,7 @@
     <h2>Constructor</h2>
     
 
-    <h4 class="name" id="Cursor"><span class="type-signature"></span>new Cursor<span class="signature">(query, data)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="Cursor"><span class="type-signature"></span>new Cursor<span class="signature">(query, data, adapterDestroyed, id<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
 
     
 
@@ -133,6 +133,8 @@
         <th>Type</th>
 
         
+        <th>Attributes</th>
+        
 
         
 
@@ -152,6 +154,14 @@
             
             </td>
 
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
             
 
             
@@ -174,11 +184,92 @@
             </td>
 
             
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
 
             
 
             <td class="description last">
                 <p>Any data by resolved query.</p>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>adapterDestroyed</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>Cursor~adapterDestroyed</code></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">
+                
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>string</code></span>
+|
+
+<span class="param-type"><code>number</code></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">
+                
                 
             </td>
         </tr>
@@ -235,7 +326,7 @@
 
 <div class="description">
     <p>Destroy current cursor.
-If cursor constructed from CursorsManager, then call <code>this.manager.cursorDestroyed</code> method. It remove cursor from <code>this.manager.cursors</code> and unset <code>this.id</code>.
+If cursor constructed with adapterDestroyed method, then call <code>this.adapterDestroyed</code> method. If cursor constructed from <code>CursorManager</code>, it remove cursor from <code>this.manager.cursors</code> and unset <code>this.id</code>.
 Has no other effects.</p>
 </div>
 
@@ -272,7 +363,7 @@ Has no other effects.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Cursor.js.html">Cursor.js</a>, <a href="Cursor.js.html#line111">line 111</a>
+        <a href="Cursor.js.html">Cursor.js</a>, <a href="Cursor.js.html#line113">line 113</a>
     </li></ul></dd>
     
 
@@ -355,7 +446,7 @@ Has no other effects.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Cursor.js.html">Cursor.js</a>, <a href="Cursor.js.html#line67">line 67</a>
+        <a href="Cursor.js.html">Cursor.js</a>, <a href="Cursor.js.html#line69">line 69</a>
     </li></ul></dd>
     
 
@@ -564,7 +655,7 @@ Has no other effects.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Cursor.js.html">Cursor.js</a>, <a href="Cursor.js.html#line78">line 78</a>
+        <a href="Cursor.js.html">Cursor.js</a>, <a href="Cursor.js.html#line80">line 80</a>
     </li></ul></dd>
     
 
@@ -785,7 +876,7 @@ Has no other effects.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Cursor.js.html">Cursor.js</a>, <a href="Cursor.js.html#line29">line 29</a>
+        <a href="Cursor.js.html">Cursor.js</a>, <a href="Cursor.js.html#line31">line 31</a>
     </li></ul></dd>
     
 
@@ -944,7 +1035,7 @@ Has no other effects.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Cursor.js.html">Cursor.js</a>, <a href="Cursor.js.html#line47">line 47</a>
+        <a href="Cursor.js.html">Cursor.js</a>, <a href="Cursor.js.html#line49">line 49</a>
     </li></ul></dd>
     
 
@@ -1161,6 +1252,137 @@ Has no other effects.</p>
 
     
 
+    <h4 class="name" id="~adapterDestroyed"><span class="type-signature"></span>adapterDestroyed<span class="signature">(cursor)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Cursor.js.html">Cursor.js</a>, <a href="Cursor.js.html#line120">line 120</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>cursor</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>Cursor</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                
+<div class="section-method">
+
+    
+
     <h4 class="name" id="~handler"><span class="type-signature"></span>handler<span class="signature">(old, current, stop, changes, isClone, cursor)</span><span class="type-signature"></span></h4>
 
     
@@ -1204,7 +1426,7 @@ Has no other effects.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Cursor.js.html">Cursor.js</a>, <a href="Cursor.js.html#line118">line 118</a>
+        <a href="Cursor.js.html">Cursor.js</a>, <a href="Cursor.js.html#line126">line 126</a>
     </li></ul></dd>
     
 
@@ -1550,7 +1772,7 @@ Has no other effects.</p>
 <br class="clear">
 
 <footer>
-    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.4</a> on Fri Sep 08 2017 19:38:12 GMT+0300 (MSK) using the Minami theme.
+    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.4</a> on Sat Sep 09 2017 01:47:51 GMT+0300 (MSK) using the Minami theme.
 </footer>
 
 <script>prettyPrint();</script>
