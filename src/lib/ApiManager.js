@@ -10,7 +10,7 @@ import lodash from 'lodash';
  * @function
  * @memberof module:ancient-cursor
  * @name Api#receiveQuery
- * @param {UniqueId} channelId
+ * @param {UniqueId} clientId
  * @param {Query} query
  * @param {UniqueId} cursorId
  * @param {Api~sendBundles} sendBundles
@@ -19,8 +19,8 @@ import lodash from 'lodash';
 /**
  * @function
  * @memberof module:ancient-cursor
- * @name Api#channelDisconnected
- * @param {UniqueId} channelId
+ * @name Api#clientDisconnected
+ * @param {UniqueId} clientId
  * @param {Api~sendBundles} sendBundles
  */
 
@@ -28,7 +28,7 @@ import lodash from 'lodash';
  * @function
  * @memberof module:ancient-cursor
  * @name Api#cursorDestroyed
- * @param {UniqueId} channelId
+ * @param {UniqueId} clientId
  * @param {UniqueId} cursorId
  * @param {Api~sendBundles} sendBundles
  */
@@ -36,7 +36,7 @@ import lodash from 'lodash';
 /**
  * @callback ApiManager~sendBundles
  * @memberof module:ancient-cursor
- * @param {UniqueId} channelId
+ * @param {UniqueId} clientId
  * @param {Bundle[]} bundles
  */
 
@@ -68,20 +68,20 @@ class ApiManager {
   }
   
   /**
-   * Receive some query from some channelId, with possible need to sync result with some cursorId on channel cursors namespace.
-   * @param {UniqueId} channelId
+   * Receive some query from some clientId, with possible need to sync result with some cursorId on client cursors namespace.
+   * @param {UniqueId} clientId
    * @param {Query} apiQuery
    * @param {Query} query
    * @param {UniqueId} cursorId
    * @returns {Promise} - {@link ApiObject}
    */
-  receiveQuery(channelId, apiQuery, query, cursorId) {
+  receiveQuery(clientId, apiQuery, query, cursorId) {
     return this.findApi(apiQuery).then((api) => {
-      lodash.set(this.relations, [channelId, cursorId], apiQuery);
+      lodash.set(this.relations, [clientId, cursorId], apiQuery);
       api.receiveQuery(
-        channelId, query, cursorId,
-        (channelId, bundles) => {
-          this.adapterSend(channelId, bundles);
+        clientId, query, cursorId,
+        (clientId, bundles) => {
+          this.adapterSend(clientId, bundles);
         }
       );
       return api;
@@ -89,17 +89,17 @@ class ApiManager {
   }
   
   /**
-   * Call channelDisconnected method apply cursorDestroyed for each cursor used in current channelId.
-   * @param {UniqueId} channelId
+   * Call clientDisconnected method apply cursorDestroyed for each cursor used in current clientId.
+   * @param {UniqueId} clientId
    */
-  channelDisconnected(channelId) {
-    var cursors = lodash.get(this.relations, [channelId]);
+  clientDisconnected(clientId) {
+    var cursors = lodash.get(this.relations, [clientId]);
     
     var promises = [];
     for (var cursorId in cursors) {
-      promises.push(((channelId, cursorId) => {
-        return new Promise(() => this.cursorDestroyed(channelId, cursorId));
-      })(channelId, cursorId));
+      promises.push(((clientId, cursorId) => {
+        return new Promise(() => this.cursorDestroyed(clientId, cursorId));
+      })(clientId, cursorId));
     }
 
     return promises;
@@ -107,16 +107,16 @@ class ApiManager {
   
   /**
    * Call cursorDestroyed method into api serving for current cursor sync.
-   * @param {UniqueId} channelId
+   * @param {UniqueId} clientId
    * @param {UniqueId} cursorId
    */
-  cursorDestroyed(channelId, cursorId) {
-    var apiQuery = lodash.get(this.relations, [channelId, cursorId]);
+  cursorDestroyed(clientId, cursorId) {
+    var apiQuery = lodash.get(this.relations, [clientId, cursorId]);
     return this.findApi(apiQuery).then((api) => {
       api.cursorDestroyed(
-        channelId, cursorId,
-        (channelId, bundles) => {
-          this.adapterSend(channelId, bundles);
+        clientId, cursorId,
+        (clientId, bundles) => {
+          this.adapterSend(clientId, bundles);
         }
       );
     });
@@ -135,10 +135,10 @@ class ApiManager {
 /**
  * @callback ApiManager~adapterSend
  * @memberof module:ancient-cursor
- * @param {UniqueId} channelId
+ * @param {UniqueId} clientId
  * @param {Bundle[]} bundles
  * @description
- * Must be sended into `ApiManager` into constructor. Used for send bundles from api to cursor into current and channelId within custom application logic.
+ * Must be sended into `ApiManager` into constructor. Used for send bundles from api to cursor into current and clientId within custom application logic.
  */
 
 export default ApiManager;

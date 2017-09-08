@@ -110,31 +110,31 @@ describe('AncientSouls/Cursor', () => {
       var manager = new ApiManager(
         function adapterFindApi(apiQuery) {
           assert.equal(apiQuery, 'a');
-          function sendBundles(channelId, bundles) {
-            manager.adapterSend(channelId, bundles);
+          function sendBundles(clientId, bundles) {
+            manager.adapterSend(clientId, bundles);
           };
           return new Promise((resolve) => resolve({
-            receiveQuery(channelId, query, cursorId, sendBundles) {
-              assert.equal(channelId, 2);
+            receiveQuery(clientId, query, cursorId, sendBundles) {
+              assert.equal(clientId, 2);
               assert.equal(query, null);
               assert.equal(cursorId, 3);
               interval = setInterval(() => {
-                sendBundles(channelId, ++counter);
+                sendBundles(clientId, ++counter);
               }, 100);
             },
-            cursorDestroyed(channelId, cursorId, sendBundles) {
-              assert.equal(channelId, 2);
+            cursorDestroyed(clientId, cursorId, sendBundles) {
+              assert.equal(clientId, 2);
               assert.equal(cursorId, 3);
               clearInterval(interval);
               done();
             },
           }));
         },
-        function adapterSend(channelId, bundles) {
-          assert.equal(channelId, 2);
+        function adapterSend(clientId, bundles) {
+          assert.equal(clientId, 2);
           assert.equal(bundles, counter);
           if (counter > 3) {
-            manager.channelDisconnected(channelId);
+            manager.clientDisconnected(clientId);
           }
         },
       );

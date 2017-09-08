@@ -55,7 +55,7 @@
     "source-map-support": "^0.4.2"
   },
   "scripts": {
-    "compile": "babel --presets es2015,react -d ./ src/ -s --minified",
+    "compile": "babel --presets es2015,react -d ./ src/ -s --minified --no-comments",
     "test": "mocha tests/index.js --require source-map-support/register",
     "jsdoc": "git submodule update --init --recursive -f && cd ./doc && git checkout gh-pages && cd ../ && npm i && rm -f -r ./doc/*/ && find ./doc ! -name '.git' -type f -exec rm -rf {} + && jsdoc ./src/lib/*.js ./README.md -r -d ./doc -t ./node_modules/minami  -c ./jsdoc.conf.json",
     "test:watch": "npm run test -- --watch"
