@@ -12,11 +12,13 @@ class Cursor {
    * @constructs Cursor
    * @param query - Query resolves current cursor .We keep it just in case. Suddenly, to work with data, you need to compare them with the query?
    * @param data - Any data by resolved query.
+   * @param {Cursor~adapterDestroyed} adapterDestroyed
+   * @param {string|number} [id]
    */
-  constructor(query, data, manager, id) {
+  constructor(query, data, adapterDestroyed, id) {
     this.query = query;
     this.data = data;
-    this.manager = manager;
+    this.adapterDestroyed = adapterDestroyed;
     this.id = id;
     this.emitter = new EventEmitter();
   }
@@ -105,15 +107,21 @@ class Cursor {
 
   /**
    * Destroy current cursor.
-   * If cursor constructed from CursorsManager, then call `this.manager.cursorDestroyed` method. It remove cursor from `this.manager.cursors` and unset `this.id`.
+   * If cursor constructed with adapterDestroyed method, then call `this.adapterDestroyed` method. If cursor constructed from `CursorManager`, it remove cursor from `this.manager.cursors` and unset `this.id`.
    * Has no other effects.
    */
   destroy() {
-    if (this.manager) {
-      this.manager.cursorDestroyed(this);
+    if (typeof(this.adapterDestroyed) == 'function') {
+      this.adapterDestroyed(this);
     }
   }
 }
+
+/**
+ * @callback Cursor~adapterDestroyed
+ * @memberof module:ancient-cursor
+ * @param {Cursor} cursor
+ */
 
 /**
  * @callback Cursor~handler

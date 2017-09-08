@@ -18,7 +18,7 @@ class CursorsManager {
    * @param data
    */
   new(query, data) {
-    var cursor = new this.Cursor(query, data, this, this.nextId);
+    var cursor = new this.Cursor(query, data, () => this.cursorDestroyed(cursor), this.nextId);
     this.cursors[this.nextId] = cursor;
     this.nextId++;
     if (typeof(this.adapterCustorConstructed) == 'function') {
