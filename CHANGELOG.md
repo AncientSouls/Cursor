@@ -1,3 +1,9 @@
+#### 0.0.6 (2017-9-9)
+
+##### New Features
+
+* **cursor** Cursor now can be used fully alone without manager.
+
 #### 0.0.5 (2017-9-8)
 
 ##### Refactor
@@ -14,7 +20,7 @@
 
 #### 0.0.3 (2017-9-6)
 
-##### New Featurs
+##### New Features
 
 * **clientId** Removed excess concept of clientId. Only the channel if left, which provides connection with some client, but without information about client. Application can describe it manually.
 
