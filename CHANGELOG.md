@@ -1,3 +1,9 @@
+#### 0.0.5 (2017-9-8)
+
+##### Refactor
+
+* **client** Rename channels to clients
+
 #### 0.0.4 (2017-9-7)
 
 ##### Bug Fixes
