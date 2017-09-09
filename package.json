@@ -1,6 +1,6 @@
 {
   "name": "ancient-cursor",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Utilities for tracking changes of complex or plain remote data.",
   "keywords": [
     "complex",

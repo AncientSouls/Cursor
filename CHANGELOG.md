@@ -1,3 +1,9 @@
+#### 0.0.7 (2017-9-9)
+
+##### New Features
+
+* **BundleQueuesManager** #2 Review BundleQueue to BundleQueuesManager
+
 #### 0.0.6 (2017-9-9)
 
 ##### New Features
