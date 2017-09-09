@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Api - Documentation</title>
+    <title>Global - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -29,7 +29,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">Api</h1>
+    <h1 class="page-title">Global</h1>
     
 
     
@@ -42,9 +42,7 @@
 <header>
     
         <h2>
-            <span class="ancestors"><a href="module-ancient-cursor.html">ancient-cursor</a>.</span>
         
-        Api
         </h2>
         
     
@@ -53,8 +51,6 @@
 <article>
     <div class="container-overview">
     
-        
-            <div class="description"><p>Interface for Api instance returnable from custom <code>adapterFindApi</code>.</p></div>
         
 
         
@@ -86,11 +82,6 @@
 
     
 
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ApiManager.js.html">ApiManager.js</a>, <a href="ApiManager.js.html#line3">line 3</a>
-    </li></ul></dd>
     
 
     
@@ -126,11 +117,15 @@
 
     
 
-    <h4 class="name" id="clientDisconnected"><span class="type-signature"></span>clientDisconnected<span class="signature">(clientId, sendBundles)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="generateAdapterForBundleQueuesManager"><span class="type-signature"></span>generateAdapterForBundleQueuesManager<span class="signature">(cursorsManager)</span><span class="type-signature"> &rarr; {Object}</span></h4>
 
     
 
 
+
+<div class="description">
+    <p>Method for generate example local storage for <code>bundles</code>, <code>nextBundleIds</code> and adapters for <code>BandleQueuesManager</code> <code>constructor</code>.</p>
+</div>
 
 
 
@@ -165,7 +160,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ApiManager.js.html">ApiManager.js</a>, <a href="ApiManager.js.html#line19">line 19</a>
+        <a href="BundleQueuesManager.js.html">BundleQueuesManager.js</a>, <a href="BundleQueuesManager.js.html#line13">line 13</a>
     </li></ul></dd>
     
 
@@ -209,39 +204,13 @@
 
         <tr>
             
-                <td class="name"><code>clientId</code></td>
+                <td class="name"><code>cursorsManager</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type"><code>UniqueId</code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                
-                
-            </td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>sendBundles</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>Api~sendBundles</code></span>
+<span class="param-type"><code>CursorsManager</code></span>
 
 
             
@@ -274,21 +243,338 @@
 
 
 
+<div class="section-returns">
+<h5>Returns:</h5>
 
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Object</code></span>
+
+
+    </dd>
+</dl>
+
+
+    
+</div>
+
+
+
+<div class="section-examples">
+<h5>Example</h5>
+
+    <pre class="prettyprint"><code>var cm = new CursorsManager(Cursor);
+var memory = generateAdapterForBundleQueuesManager(cm);
+var bqm = new BundleQueuesManage(...memory.adapters);
+var c = cm.new('any',{'some':['things','and','others']});</code></pre>
+
+</div>
 
 </div>
         
+    
+
+    
+        <h3 class="subsection-title">Type Definitions</h3>
+
+        
+                
+<div class="section-members">
+<h4 class="name" id="Bundle">Bundle</h4>
+
+
+
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
             
-<div class="section-method">
+                <td class="name"><code>id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>number</code></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>id of bundle in personal cursor bundle queue</p></td>
+        </tr>
+
+        
 
     
 
-    <h4 class="name" id="cursorDestroyed"><span class="type-signature"></span>cursorDestroyed<span class="signature">(clientId, cursorId, sendBundles)</span><span class="type-signature"></span></h4>
+        <tr>
+            
+                <td class="name"><code>cursor</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>number</code></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>id of cursor on current client</p></td>
+        </tr>
+
+        
 
     
 
+        <tr>
+            
+                <td class="name"><code>type</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>string</code></span>
 
 
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>set, unset or splice string</p></td>
+        </tr>
+
+        
+
+    
+
+        <tr>
+            
+                <td class="name"><code>path</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>string</code></span>
+|
+
+<span class="param-type"><code>Array.&lt;string></code></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+        
+
+    
+
+        <tr>
+            
+                <td class="name"><code>value</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>*</code></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>if used set type</p></td>
+        </tr>
+
+        
+
+    
+
+        <tr>
+            
+                <td class="name"><code>start</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>number</code></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>if used splice type</p></td>
+        </tr>
+
+        
+
+    
+
+        <tr>
+            
+                <td class="name"><code>deleteCount</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>number</code></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>if used splice type</p></td>
+        </tr>
+
+        
+
+    
+
+        <tr>
+            
+                <td class="name"><code>items</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>Array</code></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>if used splice type</p></td>
+        </tr>
+
+        
+
+    
+    </tbody>
+</table>
 
 
 
@@ -322,7 +608,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ApiManager.js.html">ApiManager.js</a>, <a href="ApiManager.js.html#line27">line 27</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line25">line 25</a>
     </li></ul></dd>
     
 
@@ -335,343 +621,23 @@
 
 
 
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
+    <h5>Type:</h5>
+    <ul>
+        <li>
             
-                <td class="name"><code>clientId</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>UniqueId</code></span>
+<span class="param-type"><code>Object</code></span>
 
 
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                
-                
-            </td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>cursorId</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>UniqueId</code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                
-                
-            </td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>sendBundles</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>Api~sendBundles</code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                
-                
-            </td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
+        </li>
+    </ul>
 
 
 
 
 
 </div>
-        
-            
-<div class="section-method">
-
-    
-
-    <h4 class="name" id="receiveQuery"><span class="type-signature"></span>receiveQuery<span class="signature">(clientId, query, cursorId, sendBundles)</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ApiManager.js.html">ApiManager.js</a>, <a href="ApiManager.js.html#line9">line 9</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>clientId</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>UniqueId</code></span>
-
 
             
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                
-                
-            </td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>query</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>Query</code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                
-                
-            </td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>cursorId</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>UniqueId</code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                
-                
-            </td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>sendBundles</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>Api~sendBundles</code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                
-                
-            </td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</div>
-        
-    
-
     
 
     
