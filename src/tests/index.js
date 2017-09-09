@@ -3,16 +3,32 @@ require('source-map-support').install();
 import { assert } from 'chai';
 import {
   Cursor,
-  BundlesQueue as BundlesQueueProto,
+  BundleQueuesManager,
+  generateAdapterForBundleQueuesManager,
   CursorsManager,
   ApiManager,
-  executeBundle,
-  executers,
 } from '../lib';
 import reactTest from './react';
 
 import lodash from 'lodash';
 import mingo from 'mingo';
+
+/*
+```js
+var bqm = new ExtendedBundleQueuesManager({
+  getCursor(cursorId) {}, // If not founded, 
+  // Adapters for custom bundles storage.
+  addBundle(cursorId, bundleId, bundle) {},
+  removeBundle(cursorId, bundleId, bundle) {},
+  // Adapters for custom nextBundleId storage.
+  getQueueState(cursorId) {}, // { cursorId, handling: Boolean, nextBundleId: Number  }
+  setQueueState(cursorId, handling, nextBundleId) {},
+});
+
+// Add bundle to personal cursor queue.
+// If bundleId equal to last cursor nextBundleId, then execute bundle.
+bqm.useBundle(cursorId, bundleId, bundle);
+```
 
 class BundlesQueue extends BundlesQueueProto {
   _handler(id, task, done) {
@@ -20,6 +36,7 @@ class BundlesQueue extends BundlesQueueProto {
     done();
   }
 }
+*/
 
 describe('AncientSouls/Cursor', () => {
   describe('Cursor', () => {
@@ -92,15 +109,72 @@ describe('AncientSouls/Cursor', () => {
       cursor.destroy();
     });
   });
-  describe('BundlesQueue', () => {
-    it('only nextId bundle can be handled', () => {
-      var testString = '';
-      var queue = new BundlesQueue();
-      queue.addBundle(2, () => testString += 'c');
-      queue.addBundle(1, () => testString += 'b');
-      queue.addBundle(0, () => testString += 'a');
-      queue.addBundle(3, () => testString += 'd');
-      assert.equal(testString, 'abcd');
+  describe('BundleQueuesManager', () => {
+    it('set', (done) => {
+      var cm = new CursorsManager(Cursor);
+      var bqm = new BundleQueuesManager(...generateAdapterForBundleQueuesManager(cm).adapters);
+      var c = cm.new('any',{'some':'thing'});
+      
+      bqm.useBundle({
+        id: 5, cursor: c.id, type: 'set',
+        path: 'some', value: 'nothing',
+      }, () => {
+        bqm.useBundle({
+          id: 1, cursor: c.id, type: 'set',
+          path: 'some', value: 'result',
+        }, () => {
+          bqm.useBundle({
+            id: 0, cursor: c.id, type: 'set',
+            path: 'some', value: 'other',
+          }, () => {
+            assert.deepEqual(c.get('some'), 'result');
+            done();
+          });
+        });
+      });
+    });
+    it('unset', (done) => {
+      var cm = new CursorsManager(Cursor);
+      var bqm = new BundleQueuesManager(...generateAdapterForBundleQueuesManager(cm).adapters);
+      var c = cm.new('any',{'some':'thing'});
+      
+      bqm.useBundle({
+        id: 5, cursor: c.id, type: 'set',
+        path: 'some', value: 'nothing',
+      }, () => {
+        bqm.useBundle({
+          id: 1, cursor: c.id, type: 'unset',
+          path: 'some',
+        }, () => {
+          bqm.useBundle({
+            id: 0, cursor: c.id, type: 'set',
+            path: 'some', value: 'other',
+          }, () => {
+            assert.deepEqual(c.get('some'), undefined);
+            done();
+          });
+        });
+      });
+    });
+    it('splice', (done) => {
+      var cm = new CursorsManager(Cursor);
+      var bqm = new BundleQueuesManager(...generateAdapterForBundleQueuesManager(cm).adapters);
+      var c = cm.new('any',{'some':['things','and','others']});
+      
+      bqm.useBundle({
+        id: 1, cursor: c.id, type: 'splice',
+        path: 'some',
+        start: 3, deleteCount: 1, items: ['nothing'],
+      }, () => {
+        bqm.useBundle({
+          id: 0, cursor: c.id, type: 'splice',
+          path: 'some',
+          start: 2, deleteCount: 0, items: ['some'],
+        }, () => {
+          assert.deepEqual(c.get('some'), ['things','and','some','nothing']);
+          done();
+        });
+      });
     });
   });
   describe('ApiManager', () => {
@@ -156,37 +230,6 @@ describe('AncientSouls/Cursor', () => {
       assert.equal(cursor.data, 'something');
     });
   });
-  describe('bundles', () => {
-    it('set', () => {
-      var manager = new CursorsManager(Cursor);
-      var cursor = manager.new('any',{'some':'thing'});
-      executeBundle({
-        cursor: cursor.id, type: 'set',
-        path: 'some',
-        value: 'other',
-      }, cursor, executers);
-      assert.deepEqual(cursor.get('some'), 'other');
-    });
-    it('unset', () => {
-      var manager = new CursorsManager(Cursor);
-      var cursor = manager.new('any',{'some':'thing'});
-      executeBundle({
-        cursor: cursor.id, type: 'unset',
-        path: 'some',
-      }, cursor, executers);
-      assert.deepEqual(cursor.get('some'), undefined);
-    });
-    it('splice', () => {
-      var manager = new CursorsManager(Cursor);
-      var cursor = manager.new('any',{'some':['things','and','others']});
-      executeBundle({
-        cursor: cursor.id, type: 'splice',
-        path: 'some',
-        start: 2, deleteCount: 0, items: ['some'],
-      }, cursor, executers);
-      assert.deepEqual(cursor.get('some'), ['things','and','some','others']);
-    });
-  });
   describe('concepts', () => {
     it('fake primitive server-client with one api provider', () => {
       var server = (() => {
@@ -232,29 +275,14 @@ describe('AncientSouls/Cursor', () => {
       })();
       
       var client = (() => {
-        class ClientBundlesQueue extends BundlesQueueProto {
-          constructor(cursor) {
-            super();
-            this.cursor = cursor;
-          }
-          _handler(id, task, done) {
-            executeBundle(task, this.cursor, executers);
-            done();
-          }
-        }
-        
-        var manager = new CursorsManager(class extends Cursor {
-          constructor() {
-            super(...arguments);
-            this.bundlesQueue = new ClientBundlesQueue(this);
-          }
-        });
+        var cm = new CursorsManager(Cursor);
+        var bqm = new BundleQueuesManager(...generateAdapterForBundleQueuesManager(cm).adapters);
         
         return {
           api: {
-            manager,
+            cm,
             needData: (query) => {
-              var cursor = manager.new(query);
+              var cursor = cm.new(query);
               var data = server.request(cursor.id, query);
               cursor.set(null, data);
               return cursor;
@@ -262,8 +290,8 @@ describe('AncientSouls/Cursor', () => {
           },
           changes: (bundles) => {
             for (var b in bundles) {
-              if (manager.cursors[bundles[b].cursor]) {
-                manager.cursors[bundles[b].cursor].bundlesQueue.addBundle(bundles[b].id, bundles[b]);
+              if (cm.cursors[bundles[b].cursor]) {
+                bqm.useBundle(bundles[b]);
               }
             }
           }
