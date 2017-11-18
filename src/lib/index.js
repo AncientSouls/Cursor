@@ -25,7 +25,7 @@ export {
 /**
  * @typedef {Object} Bundle
  * @property {number} id - id of bundle in personal cursor bundle queue
- * @property {number} cursor - id of cursor on current client
+ * @property {number} cursor - id of cursor on current channel
  * @property {string} type - set, unset or splice string
  * @property {string|string[]} path
  * @property {*=} value - if used set type

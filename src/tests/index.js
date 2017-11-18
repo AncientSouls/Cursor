@@ -181,34 +181,40 @@ describe('AncientSouls/Cursor', () => {
     it('api instance must receive queries and send bundles', (done) => {
       var counter = 1;
       var interval;
+      var disconnected = false;
       var manager = new ApiManager(
         function adapterFindApi(apiQuery) {
           assert.equal(apiQuery, 'a');
-          function sendBundles(clientId, bundles) {
-            manager.adapterSend(clientId, bundles);
+          function sendBundles(channelId, bundles) {
+            manager.adapterSend(channelId, bundles);
           };
           return new Promise((resolve) => resolve({
-            receiveQuery(clientId, query, cursorId, sendBundles) {
-              assert.equal(clientId, 2);
+            receiveQuery(channelId, query, cursorId, sendBundles) {
+              assert.equal(channelId, 2);
               assert.equal(query, null);
               assert.equal(cursorId, 3);
               interval = setInterval(() => {
-                sendBundles(clientId, ++counter);
+                sendBundles(channelId, ++counter);
               }, 100);
             },
-            cursorDestroyed(clientId, cursorId, sendBundles) {
-              assert.equal(clientId, 2);
+            cursorDestroyed(channelId, cursorId, sendBundles) {
+              assert.equal(channelId, 2);
               assert.equal(cursorId, 3);
               clearInterval(interval);
+              assert.equal(disconnected, true);
               done();
+            },
+            channelDisconnected(channelId, sendBundles) {
+              assert.equal(disconnected, false)
+              disconnected = true;
             },
           }));
         },
-        function adapterSend(clientId, bundles) {
-          assert.equal(clientId, 2);
+        function adapterSend(channelId, bundles) {
+          assert.equal(channelId, 2);
           assert.equal(bundles, counter);
           if (counter > 3) {
-            manager.clientDisconnected(clientId);
+            manager.channelDisconnected(channelId);
           }
         },
       );
@@ -231,37 +237,37 @@ describe('AncientSouls/Cursor', () => {
     });
   });
   describe('concepts', () => {
-    it('fake primitive server-client with one api provider', () => {
+    it('fake primitive server-channel with one api provider', () => {
       var server = (() => {
         var cursor = new Cursor(undefined, { a: { b: [{ c: 'd' }, { e: 'f' }] } });
-        var clientCursors = {};
+        var channelCursors = {};
         
         cursor.on(null, (old, current, stop) => {
           var bundles = {};
-          for (var c in clientCursors) {
-            let currentPerCursor = lodash.get(current, clientCursors[c].query);
-            if (!lodash.isEqual(clientCursors[c].old, currentPerCursor)) {
-              clientCursors[c].old = currentPerCursor;
+          for (var c in channelCursors) {
+            let currentPerCursor = lodash.get(current, channelCursors[c].query);
+            if (!lodash.isEqual(channelCursors[c].old, currentPerCursor)) {
+              channelCursors[c].old = currentPerCursor;
               bundles[c] = {
-                id: clientCursors[c].bundlesCounter, 
+                id: channelCursors[c].bundlesCounter, 
                 type: 'set', cursor: c,
                 path: '', value: currentPerCursor,
               };
-              clientCursors[c].bundlesCounter++;
+              channelCursors[c].bundlesCounter++;
             }
           }
-          client.changes(bundles);
+          channel.changes(bundles);
         });
         
         var server = {
           api: {
             cursor,
-            clientCursors,
+            channelCursors,
           },
-          request: (clientCursorId, query) => {
+          request: (channelCursorId, query) => {
             var result = lodash.cloneDeep(cursor.get(query));
-            if (!clientCursors[clientCursorId]) {
-              clientCursors[clientCursorId] = {
+            if (!channelCursors[channelCursorId]) {
+              channelCursors[channelCursorId] = {
                 bundlesCounter: 0,
                 query: query,
                 old: result,
@@ -274,7 +280,7 @@ describe('AncientSouls/Cursor', () => {
         return server;
       })();
       
-      var client = (() => {
+      var channel = (() => {
         var cm = new CursorsManager(Cursor);
         var bqm = new BundleQueuesManager(...generateAdapterForBundleQueuesManager(cm).adapters);
         
@@ -298,8 +304,8 @@ describe('AncientSouls/Cursor', () => {
         };
       })();
       
-      var cursor1 = client.api.needData('a');
-      var cursor2 = client.api.needData('a.b[0]');
+      var cursor1 = channel.api.needData('a');
+      var cursor2 = channel.api.needData('a.b[0]');
       
       assert.deepEqual(cursor1.get(), server.api.cursor.get('a'));
       assert.deepEqual(cursor2.get('c'), server.api.cursor.get('a.b[0].c'));
