@@ -71,16 +71,11 @@ class Cursor {
     return lodash.isNull(path)?this.data:lodash.get(this.data, path);
   }
   
-  /**
-   * Handle event changed, as get handler argument, but returns stop method.
-   * @param {string|string[]} path
-   * @param {Cursor~handler} [handler] - Notify you about changes in data by path.
-   * @return {Function} stop
-   */
-  on(path = null, handler) {
+  _generateListener(path, handler) {
     var eventPath = lodash.toPath(path);
+    var stop, listener;
     if (typeof(handler) == 'function') {
-      var listener = (changes) => {
+      listener = (changes) => {
         var isClone, oldValue, currentValue;
         var eventPathLocal = eventPath.slice(changes.path.length);
         
@@ -99,10 +94,32 @@ class Cursor {
         
         handler(oldValue, currentValue, stop, changes, isClone, this);
       };
-      var stop = () => this.emitter.removeListener('changed', listener);
-      this.emitter.on('changed', listener);
-      return stop;
+      stop = () => this.emitter.removeListener('changed', listener);
     }
+    return { listener, stop };
+  }
+  
+  /**
+   * Handle event changed, as get handler argument, but returns stop method.
+   * @param {string|string[]} path
+   * @param {Cursor~handler} [handler] - Notify you about changes in data by path.
+   * @return {Function} stop
+   */
+  on(path = null, handler) {
+    var { listener, stop } = this._generateListener(path, handler);
+    if (listener) this.emitter.on('changed', listener);
+    return stop;
+  }
+  
+  /**
+   * Adds a one time listener function for the data by path changes. The next time changes is triggered, this listener is removed after invoked.
+   * @param {string|string[]} path
+   * @param {Cursor~handler} [handler] - Notify you about changes in data by path.
+   */
+  once(path = null, handler) {
+    var { listener, stop } = this._generateListener(path, handler);
+    if (listener) this.emitter.once('changed', listener);
+    return stop;
   }
 
   /**

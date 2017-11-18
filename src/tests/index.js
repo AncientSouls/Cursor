@@ -108,6 +108,17 @@ describe('AncientSouls/Cursor', () => {
       var cursor = new Cursor(true, { a: [{ b: 'x' }, { c: 'y' }, { d: 'z' }], e: 'f' });
       cursor.destroy();
     });
+    it('once', (done) => {
+      var cursor = new Cursor(true, 'a');
+      cursor.on('', (old, current) => {
+        if (current == 'c') done();
+      });
+      cursor.once('', (old, current) => {
+        assert.equal(current, 'b');
+      });
+      cursor.set('', 'b');
+      cursor.set('', 'c');
+    });
   });
   describe('BundleQueuesManager', () => {
     it('set', (done) => {
