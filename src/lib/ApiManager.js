@@ -37,7 +37,7 @@ import lodash from 'lodash';
  * @callback ApiManager~sendBundles
  * @memberof module:ancient-cursor
  * @param {UniqueId} channelId
- * @param {Bundle[]} bundles
+ * @param {...Bundle} bundles
  */
 
 /**
@@ -80,7 +80,7 @@ class ApiManager {
       lodash.set(this.relations, [channelId, cursorId], apiQuery);
       api.receiveQuery(
         channelId, query, cursorId,
-        (channelId, bundles) => {
+        (channelId, ...bundles) => {
           this.adapterSend(channelId, bundles);
         }
       );
@@ -106,7 +106,7 @@ class ApiManager {
               lodash.set(this.relations, [channelId, cursorId], cursors[cursorId]);
               if (typeof api.channelDisconnected == 'function') {
                 api.channelDisconnected(
-                  channelId, (channelId, bundles) => {
+                  channelId, (channelId, ...bundles) => {
                     this.adapterSend(channelId, bundles);
                   }
                 );
@@ -137,7 +137,7 @@ class ApiManager {
       if (typeof api.cursorDestroyed == 'function') {
         api.cursorDestroyed(
           channelId, cursorId,
-          (channelId, bundles) => {
+          (channelId, ...bundles) => {
             this.adapterSend(channelId, bundles);
           }
         );

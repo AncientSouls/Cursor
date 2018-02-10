@@ -205,7 +205,7 @@ describe('AncientSouls/Cursor', () => {
               assert.equal(query, null);
               assert.equal(cursorId, 3);
               interval = setInterval(() => {
-                sendBundles(channelId, ++counter);
+                sendBundles(channelId, ++counter, counter);
               }, 100);
             },
             cursorDestroyed(channelId, cursorId, sendBundles) {
@@ -223,7 +223,8 @@ describe('AncientSouls/Cursor', () => {
         },
         function adapterSend(channelId, bundles) {
           assert.equal(channelId, 2);
-          assert.equal(bundles, counter);
+          assert.equal(bundles[0], counter);
+          assert.equal(bundles[1], counter);
           if (counter > 3) {
             manager.channelDisconnected(channelId);
           }
