@@ -1,4 +1,0 @@
-[submodule "doc"]
-	path = doc
-	url = https://github.com/AncientSouls/Cursor.git
-	branch = gh-pages
