@@ -157,8 +157,9 @@ function mixin<T extends TClass<IInstance>>(
     }
     
     parse(bundle) {
-      if (!bundleParsers[bundle.type])
+      if (!bundleParsers[bundle.type]) {
         throw new Error(`Parser ${bundle.type} is not founded.`);
+      }
         
       return bundleParsers[bundle.type](this, bundle);
     }

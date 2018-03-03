@@ -53,12 +53,15 @@ const bundleParsers: IBundleParsers = {
   set(container, bundle: IBundleSet) {
     const { oldValue, bundlePath } = prepare(container, bundle);
     
-    if (!bundlePath.length) container.data = bundle.value;
-    else container.data = lodash.set(
-      container.data || {},
-      bundlePath,
-      bundle.value,
-    );
+    if (!bundlePath.length) {
+      container.data = bundle.value;
+    } else {
+      container.data = lodash.set(
+        container.data || {},
+        bundlePath,
+        bundle.value,
+      );
+    }
     
     const newValue = get(container.data, bundlePath);
     
