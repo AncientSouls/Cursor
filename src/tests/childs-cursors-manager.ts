@@ -1,0 +1,80 @@
+import 'mocha';
+import * as _ from 'lodash';
+import { assert } from 'chai';
+
+import {
+  Cursor,
+} from '../lib/cursor';
+
+import {
+  ChildsCursorsManager,
+} from '../lib/childs-cursors-manager';
+
+function test(path) {
+  const _path = path ? `${path}.` : path;
+  const parent = new Cursor();
+  const ccm = new ChildsCursorsManager();
+  
+  parent.on('changed', ccm.maintain(path));
+  
+  parent.apply({
+    type: 'set',
+    path: `${path}`,
+    value: {
+      a: { a: 1 },
+      b: { b: 2 },
+      c: { c: 3 },
+    },
+  });
+  
+  assert.deepEqual(_.get(parent.data, `${_path}a`), ccm.nodes.a.data);
+  assert.deepEqual(_.get(parent.data, `${_path}b`), ccm.nodes.b.data);
+  assert.deepEqual(_.get(parent.data, `${_path}c`), ccm.nodes.c.data);
+  
+  parent.apply({
+    type: 'set',
+    path: `${_path}b.b`,
+    value: 4,
+  });
+  
+  assert.deepEqual(_.get(parent.data, `${_path}a`), ccm.nodes.a.data);
+  assert.deepEqual(_.get(parent.data, `${_path}b`), { b: 4 });
+  assert.deepEqual(_.get(parent.data, `${_path}b`), ccm.nodes.b.data);
+  assert.deepEqual(_.get(parent.data, `${_path}c`), ccm.nodes.c.data);
+  
+  parent.apply({
+    type: 'set',
+    path: `${_path}d.d`,
+    value: 5,
+  });
+  
+  assert.deepEqual(_.get(parent.data, `${_path}a`), ccm.nodes.a.data);
+  assert.deepEqual(_.get(parent.data, `${_path}b`), ccm.nodes.b.data);
+  assert.deepEqual(_.get(parent.data, `${_path}c`), ccm.nodes.c.data);
+  assert.deepEqual(_.get(parent.data, `${_path}d`), { d: 5 });
+  assert.deepEqual(_.get(parent.data, `${_path}d`), ccm.nodes.d.data);
+  
+  parent.apply({
+    type: 'unset',
+    path: `${_path}d`,
+  });
+  
+  assert.deepEqual(_.get(parent.data, `${_path}a`), ccm.nodes.a.data);
+  assert.deepEqual(_.get(parent.data, `${_path}b`), ccm.nodes.b.data);
+  assert.deepEqual(_.get(parent.data, `${_path}c`), ccm.nodes.c.data);
+  assert.isNotOk(ccm.nodes.d);
+}
+
+export default function () {
+  describe('ChildsCursorsManager:', () => {
+    it('maintain ""', () => {
+      test('');
+    });
+    it('maintain "x"', () => {
+      test('x');
+    });
+    it('maintain "x.y"', () => {
+      test('x.y');
+    });
+  });
+}
