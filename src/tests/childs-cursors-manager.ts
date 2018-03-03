@@ -1,4 +1,3 @@
-import 'mocha';
 import * as _ from 'lodash';
 import { assert } from 'chai';
 

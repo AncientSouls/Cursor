@@ -1,6 +1,5 @@
 "use strict";
 exports.__esModule = true;
-require("mocha");
 var chai_1 = require("chai");
 var cursors_manager_1 = require("../lib/cursors-manager");
 function default_1() {

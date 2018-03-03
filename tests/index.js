@@ -1,7 +1,6 @@
 "use strict";
 exports.__esModule = true;
 require('source-map-support').install();
-require("mocha");
 var bundle_1 = require("./bundle");
 var cursor_1 = require("./cursor");
 var cursors_manager_1 = require("./cursors-manager");

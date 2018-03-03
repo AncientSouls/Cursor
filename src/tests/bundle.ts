@@ -1,4 +1,3 @@
-import 'mocha';
 import { assert } from 'chai';
 import { bundleParsers } from '../lib/bundle';
 

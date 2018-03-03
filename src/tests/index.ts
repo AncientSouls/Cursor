@@ -1,5 +1,4 @@
 require('source-map-support').install();
-import 'mocha';
 
 import bundle from './bundle';
 import cursor from './cursor';

@@ -6,7 +6,7 @@
   "repository": "AncientSouls/Cursor",
   "license": "MIT",
   "scripts": {
-    "tsc": "tsc ./src/*/*.ts --outDir ./ --sourceMap -d true --module CommonJS",
+    "tsc": "rm -rf ./lib ./tests && tsc ./src/*/*.ts --outDir ./ --sourceMap -d true --module CommonJS",
     "test": "mocha ./tests/index.js --require source-map-support/register"
   },
   "dependencies": {
