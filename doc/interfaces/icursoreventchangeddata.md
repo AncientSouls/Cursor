@@ -25,7 +25,7 @@
 
 **●  bundle**:  *[IBundle](ibundle.md)* 
 
-*Defined in [cursor.ts:28](https://github.com/AncientSouls/Cursor/blob/084d940/src/lib/cursor.ts#L28)*
+*Defined in [cursor.ts:28](https://github.com/AncientSouls/Cursor/blob/72c569d/src/lib/cursor.ts#L28)*
 
 
 
@@ -39,7 +39,7 @@ ___
 
 **●  bundlePath**:  *`string`[]* 
 
-*Defined in [cursor.ts:27](https://github.com/AncientSouls/Cursor/blob/084d940/src/lib/cursor.ts#L27)*
+*Defined in [cursor.ts:27](https://github.com/AncientSouls/Cursor/blob/72c569d/src/lib/cursor.ts#L27)*
 
 
 
@@ -53,7 +53,7 @@ ___
 
 **●  cursor**:  *[TCursor](../#tcursor)* 
 
-*Defined in [cursor.ts:30](https://github.com/AncientSouls/Cursor/blob/084d940/src/lib/cursor.ts#L30)*
+*Defined in [cursor.ts:30](https://github.com/AncientSouls/Cursor/blob/72c569d/src/lib/cursor.ts#L30)*
 
 
 
@@ -67,7 +67,7 @@ ___
 
 **●  data**:  *`any`* 
 
-*Defined in [cursor.ts:24](https://github.com/AncientSouls/Cursor/blob/084d940/src/lib/cursor.ts#L24)*
+*Defined in [cursor.ts:24](https://github.com/AncientSouls/Cursor/blob/72c569d/src/lib/cursor.ts#L24)*
 
 
 
@@ -81,7 +81,7 @@ ___
 
 **●  newValue**:  *`any`* 
 
-*Defined in [cursor.ts:26](https://github.com/AncientSouls/Cursor/blob/084d940/src/lib/cursor.ts#L26)*
+*Defined in [cursor.ts:26](https://github.com/AncientSouls/Cursor/blob/72c569d/src/lib/cursor.ts#L26)*
 
 
 
@@ -95,7 +95,7 @@ ___
 
 **●  oldValue**:  *`any`* 
 
-*Defined in [cursor.ts:25](https://github.com/AncientSouls/Cursor/blob/084d940/src/lib/cursor.ts#L25)*
+*Defined in [cursor.ts:25](https://github.com/AncientSouls/Cursor/blob/72c569d/src/lib/cursor.ts#L25)*
 
 
 
@@ -109,7 +109,7 @@ ___
 
 **●  watch**:  *[ICursorWatch](icursorwatch.md)* 
 
-*Defined in [cursor.ts:29](https://github.com/AncientSouls/Cursor/blob/084d940/src/lib/cursor.ts#L29)*
+*Defined in [cursor.ts:29](https://github.com/AncientSouls/Cursor/blob/72c569d/src/lib/cursor.ts#L29)*
 
 
 

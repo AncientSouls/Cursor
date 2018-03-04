@@ -27,7 +27,7 @@
 
 *Inherited from [ICursorEventChangedData](icursoreventchangeddata.md).[bundle](icursoreventchangeddata.md#bundle)*
 
-*Defined in [cursor.ts:28](https://github.com/AncientSouls/Cursor/blob/084d940/src/lib/cursor.ts#L28)*
+*Defined in [cursor.ts:28](https://github.com/AncientSouls/Cursor/blob/72c569d/src/lib/cursor.ts#L28)*
 
 
 
@@ -43,7 +43,7 @@ ___
 
 *Inherited from [ICursorEventChangedData](icursoreventchangeddata.md).[bundlePath](icursoreventchangeddata.md#bundlepath)*
 
-*Defined in [cursor.ts:27](https://github.com/AncientSouls/Cursor/blob/084d940/src/lib/cursor.ts#L27)*
+*Defined in [cursor.ts:27](https://github.com/AncientSouls/Cursor/blob/72c569d/src/lib/cursor.ts#L27)*
 
 
 
@@ -59,7 +59,7 @@ ___
 
 *Inherited from [ICursorEventChangedData](icursoreventchangeddata.md).[cursor](icursoreventchangeddata.md#cursor)*
 
-*Defined in [cursor.ts:30](https://github.com/AncientSouls/Cursor/blob/084d940/src/lib/cursor.ts#L30)*
+*Defined in [cursor.ts:30](https://github.com/AncientSouls/Cursor/blob/72c569d/src/lib/cursor.ts#L30)*
 
 
 
@@ -75,7 +75,7 @@ ___
 
 *Inherited from [ICursorEventChangedData](icursoreventchangeddata.md).[data](icursoreventchangeddata.md#data)*
 
-*Defined in [cursor.ts:24](https://github.com/AncientSouls/Cursor/blob/084d940/src/lib/cursor.ts#L24)*
+*Defined in [cursor.ts:24](https://github.com/AncientSouls/Cursor/blob/72c569d/src/lib/cursor.ts#L24)*
 
 
 
@@ -89,7 +89,7 @@ ___
 
 **●  manager**:  *[TCursorsManager](../#tcursorsmanager)* 
 
-*Defined in [cursors-manager.ts:34](https://github.com/AncientSouls/Cursor/blob/084d940/src/lib/cursors-manager.ts#L34)*
+*Defined in [cursors-manager.ts:34](https://github.com/AncientSouls/Cursor/blob/72c569d/src/lib/cursors-manager.ts#L34)*
 
 
 
@@ -105,7 +105,7 @@ ___
 
 *Inherited from [ICursorEventChangedData](icursoreventchangeddata.md).[newValue](icursoreventchangeddata.md#newvalue)*
 
-*Defined in [cursor.ts:26](https://github.com/AncientSouls/Cursor/blob/084d940/src/lib/cursor.ts#L26)*
+*Defined in [cursor.ts:26](https://github.com/AncientSouls/Cursor/blob/72c569d/src/lib/cursor.ts#L26)*
 
 
 
@@ -121,7 +121,7 @@ ___
 
 *Inherited from [ICursorEventChangedData](icursoreventchangeddata.md).[oldValue](icursoreventchangeddata.md#oldvalue)*
 
-*Defined in [cursor.ts:25](https://github.com/AncientSouls/Cursor/blob/084d940/src/lib/cursor.ts#L25)*
+*Defined in [cursor.ts:25](https://github.com/AncientSouls/Cursor/blob/72c569d/src/lib/cursor.ts#L25)*
 
 
 
@@ -137,7 +137,7 @@ ___
 
 *Inherited from [ICursorEventChangedData](icursoreventchangeddata.md).[watch](icursoreventchangeddata.md#watch)*
 
-*Defined in [cursor.ts:29](https://github.com/AncientSouls/Cursor/blob/084d940/src/lib/cursor.ts#L29)*
+*Defined in [cursor.ts:29](https://github.com/AncientSouls/Cursor/blob/72c569d/src/lib/cursor.ts#L29)*
 
 
 

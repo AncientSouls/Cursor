@@ -44,7 +44,7 @@ ___
 
 **●  changed**:  *[ICursorsManagerChangedEventData](icursorsmanagerchangedeventdata.md)* 
 
-*Defined in [cursors-manager.ts:42](https://github.com/AncientSouls/Cursor/blob/084d940/src/lib/cursors-manager.ts#L42)*
+*Defined in [cursors-manager.ts:42](https://github.com/AncientSouls/Cursor/blob/72c569d/src/lib/cursors-manager.ts#L42)*
 
 
 
@@ -74,7 +74,7 @@ ___
 
 **●  exec**:  *[ICursorsManagerExecEventData](icursorsmanagerexeceventdata.md)* 
 
-*Defined in [cursors-manager.ts:43](https://github.com/AncientSouls/Cursor/blob/084d940/src/lib/cursors-manager.ts#L43)*
+*Defined in [cursors-manager.ts:43](https://github.com/AncientSouls/Cursor/blob/72c569d/src/lib/cursors-manager.ts#L43)*
 
 
 
