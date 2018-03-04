@@ -1,4 +1,4 @@
-[ancient-cursor](../README.md) > [ICursorWatch](../interfaces/icursorwatch.md)
+[ancient-cursor](../README.md) > ["cursor"](../modules/_cursor_.md) > [ICursorWatch](../interfaces/_cursor_.icursorwatch.md)
 
 
 
@@ -9,7 +9,7 @@
 
 
 
-*Defined in [lib/cursor.ts:52](https://github.com/AncientSouls/Cursor/blob/e099e34/src/lib/cursor.ts#L52)*
+*Defined in [cursor.ts:52](https://github.com/AncientSouls/Cursor/blob/e099e34/src/lib/cursor.ts#L52)*
 
 
 

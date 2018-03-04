@@ -27,7 +27,7 @@
 
 *Inherited from [ICursorEventExecData](icursoreventexecdata.md).[cursor](icursoreventexecdata.md#cursor)*
 
-*Defined in [lib/cursor.ts:34](https://github.com/AncientSouls/Cursor/blob/b31dcfc/src/lib/cursor.ts#L34)*
+*Defined in [lib/cursor.ts:34](https://github.com/AncientSouls/Cursor/blob/e099e34/src/lib/cursor.ts#L34)*
 
 
 
@@ -41,7 +41,7 @@ ___
 
 **●  manager**:  *[TCursorsManager](../#tcursorsmanager)* 
 
-*Defined in [lib/cursors-manager.ts:38](https://github.com/AncientSouls/Cursor/blob/b31dcfc/src/lib/cursors-manager.ts#L38)*
+*Defined in [lib/cursors-manager.ts:38](https://github.com/AncientSouls/Cursor/blob/e099e34/src/lib/cursors-manager.ts#L38)*
 
 
 
@@ -57,7 +57,7 @@ ___
 
 *Inherited from [ICursorEventExecData](icursoreventexecdata.md).[oldData](icursoreventexecdata.md#olddata)*
 
-*Defined in [lib/cursor.ts:36](https://github.com/AncientSouls/Cursor/blob/b31dcfc/src/lib/cursor.ts#L36)*
+*Defined in [lib/cursor.ts:36](https://github.com/AncientSouls/Cursor/blob/e099e34/src/lib/cursor.ts#L36)*
 
 
 
@@ -73,7 +73,7 @@ ___
 
 *Inherited from [ICursorEventExecData](icursoreventexecdata.md).[oldQuery](icursoreventexecdata.md#oldquery)*
 
-*Defined in [lib/cursor.ts:35](https://github.com/AncientSouls/Cursor/blob/b31dcfc/src/lib/cursor.ts#L35)*
+*Defined in [lib/cursor.ts:35](https://github.com/AncientSouls/Cursor/blob/e099e34/src/lib/cursor.ts#L35)*
 
 
 
@@ -89,7 +89,7 @@ ___
 
 *Inherited from [ICursorEventExecData](icursoreventexecdata.md).[oldQueryId](icursoreventexecdata.md#oldqueryid)*
 
-*Defined in [lib/cursor.ts:37](https://github.com/AncientSouls/Cursor/blob/b31dcfc/src/lib/cursor.ts#L37)*
+*Defined in [lib/cursor.ts:37](https://github.com/AncientSouls/Cursor/blob/e099e34/src/lib/cursor.ts#L37)*
 
 
 

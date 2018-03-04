@@ -28,7 +28,7 @@
 
 **●  deleteCount**:  *`number`* 
 
-*Defined in [lib/bundle.ts:33](https://github.com/AncientSouls/Cursor/blob/b31dcfc/src/lib/bundle.ts#L33)*
+*Defined in [lib/bundle.ts:33](https://github.com/AncientSouls/Cursor/blob/e099e34/src/lib/bundle.ts#L33)*
 
 
 
@@ -44,7 +44,7 @@ ___
 
 *Inherited from [IBundle](ibundle.md).[path](ibundle.md#path)*
 
-*Defined in [lib/bundle.ts:5](https://github.com/AncientSouls/Cursor/blob/b31dcfc/src/lib/bundle.ts#L5)*
+*Defined in [lib/bundle.ts:5](https://github.com/AncientSouls/Cursor/blob/e099e34/src/lib/bundle.ts#L5)*
 
 
 
@@ -58,7 +58,7 @@ ___
 
 **●  start**:  *`number`* 
 
-*Defined in [lib/bundle.ts:32](https://github.com/AncientSouls/Cursor/blob/b31dcfc/src/lib/bundle.ts#L32)*
+*Defined in [lib/bundle.ts:32](https://github.com/AncientSouls/Cursor/blob/e099e34/src/lib/bundle.ts#L32)*
 
 
 
@@ -74,7 +74,7 @@ ___
 
 *Inherited from [IBundle](ibundle.md).[type](ibundle.md#type)*
 
-*Defined in [lib/bundle.ts:4](https://github.com/AncientSouls/Cursor/blob/b31dcfc/src/lib/bundle.ts#L4)*
+*Defined in [lib/bundle.ts:4](https://github.com/AncientSouls/Cursor/blob/e099e34/src/lib/bundle.ts#L4)*
 
 
 
@@ -88,7 +88,7 @@ ___
 
 **●  values**:  *`any`[]* 
 
-*Defined in [lib/bundle.ts:34](https://github.com/AncientSouls/Cursor/blob/b31dcfc/src/lib/bundle.ts#L34)*
+*Defined in [lib/bundle.ts:34](https://github.com/AncientSouls/Cursor/blob/e099e34/src/lib/bundle.ts#L34)*
 
 
 

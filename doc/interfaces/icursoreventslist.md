@@ -7,7 +7,7 @@
 ## Hierarchy
 
 
- `INodeEventsList`
+ `any`
 
 **↳ ICursorEventsList**
 
@@ -17,9 +17,6 @@
 
 
 
-## Indexable
-
-\[key: `string`\]:&nbsp;`any`
 
 ## Properties
 <a id="changed"></a>
@@ -28,23 +25,7 @@
 
 **●  changed**:  *[ICursorEventChangedData](icursoreventchangeddata.md)* 
 
-*Defined in [lib/cursor.ts:61](https://github.com/AncientSouls/Cursor/blob/b31dcfc/src/lib/cursor.ts#L61)*
-
-
-
-
-
-___
-
-<a id="destroyed"></a>
-
-###  destroyed
-
-**●  destroyed**:  *`INodeEventData`* 
-
-*Inherited from INodeEventsList.destroyed*
-
-*Defined in /home/ubuntu/workspace/dev/packages/ancient-cursor/node_modules/ancient-mixins/lib/node.d.ts:8*
+*Defined in [lib/cursor.ts:61](https://github.com/AncientSouls/Cursor/blob/e099e34/src/lib/cursor.ts#L61)*
 
 
 
@@ -58,7 +39,7 @@ ___
 
 **●  exec**:  *[ICursorEventExecData](icursoreventexecdata.md)* 
 
-*Defined in [lib/cursor.ts:62](https://github.com/AncientSouls/Cursor/blob/b31dcfc/src/lib/cursor.ts#L62)*
+*Defined in [lib/cursor.ts:62](https://github.com/AncientSouls/Cursor/blob/e099e34/src/lib/cursor.ts#L62)*
 
 
 

@@ -7,7 +7,8 @@
   "license": "MIT",
   "scripts": {
     "tsc": "rm -rf ./lib ./tests && tsc ./src/*/*.ts --outDir ./ --sourceMap -d true --module CommonJS",
-    "test": "mocha ./tests/index.js --require source-map-support/register"
+    "test": "mocha ./tests/index.js --require source-map-support/register",
+    "dev-init": "rm -rf .dev && git clone -b dev git@github.com:AncientSouls/AncientSouls.github.io.git .dev && cd .dev && npm run dev-init"
   },
   "dependencies": {
     "lodash": "^4.17.5",
