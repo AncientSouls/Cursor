@@ -6,6 +6,9 @@
 
 ### Classes
 
+* [ChildsCursorsManager](classes/childscursorsmanager.md)
+* [Cursor](classes/cursor.md)
+* [CursorsManager](classes/cursorsmanager.md)
 
 
 ### Interfaces
@@ -71,7 +74,7 @@
 
 **Τ TChildsCursorsManager**:  *[IChildsCursorsManager](interfaces/ichildscursorsmanager.md)[TCursor](#tcursor), [ICursorsManagerEventsList](interfaces/icursorsmanagereventslist.md)* 
 
-*Defined in [lib/childs-cursors-manager.ts:29](https://github.com/AncientSouls/Cursor/blob/e099e34/src/lib/childs-cursors-manager.ts#L29)*
+*Defined in [lib/childs-cursors-manager.ts:29](https://github.com/AncientSouls/Cursor/blob/2cea2ca/src/lib/childs-cursors-manager.ts#L29)*
 
 
 
@@ -85,7 +88,7 @@ ___
 
 **Τ TCursor**:  *[ICursor](interfaces/icursor.md)[ICursorEventsList](interfaces/icursoreventslist.md)* 
 
-*Defined in [lib/cursor.ts:21](https://github.com/AncientSouls/Cursor/blob/e099e34/src/lib/cursor.ts#L21)*
+*Defined in [lib/cursor.ts:21](https://github.com/AncientSouls/Cursor/blob/2cea2ca/src/lib/cursor.ts#L21)*
 
 
 
@@ -99,7 +102,7 @@ ___
 
 **Τ TCursorsManager**:  *[ICursorsManager](interfaces/icursorsmanager.md)[TCursor](#tcursor), [ICursorsManagerEventsList](interfaces/icursorsmanagereventslist.md)* 
 
-*Defined in [lib/cursors-manager.ts:27](https://github.com/AncientSouls/Cursor/blob/e099e34/src/lib/cursors-manager.ts#L27)*
+*Defined in [lib/cursors-manager.ts:27](https://github.com/AncientSouls/Cursor/blob/2cea2ca/src/lib/cursors-manager.ts#L27)*
 
 
 
@@ -115,7 +118,7 @@ ___
 
 **●  MixedChildsCursorsManager**:  *`TClass`.<[TChildsCursorsManager](#tchildscursorsmanager)>*  =  mixin(CursorsManager)
 
-*Defined in [lib/childs-cursors-manager.ts:71](https://github.com/AncientSouls/Cursor/blob/e099e34/src/lib/childs-cursors-manager.ts#L71)*
+*Defined in [lib/childs-cursors-manager.ts:71](https://github.com/AncientSouls/Cursor/blob/2cea2ca/src/lib/childs-cursors-manager.ts#L71)*
 
 
 
@@ -129,7 +132,7 @@ ___
 
 **●  MixedCursor**:  *`TClass`.<[ICursor](interfaces/icursor.md)[ICursorEventsList](interfaces/icursoreventslist.md)>*  =  mixin(Node)
 
-*Defined in [lib/cursor.ts:173](https://github.com/AncientSouls/Cursor/blob/e099e34/src/lib/cursor.ts#L173)*
+*Defined in [lib/cursor.ts:173](https://github.com/AncientSouls/Cursor/blob/2cea2ca/src/lib/cursor.ts#L173)*
 
 
 
@@ -143,7 +146,7 @@ ___
 
 **●  MixedCursorsManager**:  *`TClass`.<[TCursorsManager](#tcursorsmanager)>*  =  mixin(Manager)
 
-*Defined in [lib/cursors-manager.ts:57](https://github.com/AncientSouls/Cursor/blob/e099e34/src/lib/cursors-manager.ts#L57)*
+*Defined in [lib/cursors-manager.ts:57](https://github.com/AncientSouls/Cursor/blob/2cea2ca/src/lib/cursors-manager.ts#L57)*
 
 
 
@@ -161,7 +164,7 @@ ___
 
 
 
-*Defined in [lib/cursor.ts:112](https://github.com/AncientSouls/Cursor/blob/e099e34/src/lib/cursor.ts#L112)*
+*Defined in [lib/cursor.ts:112](https://github.com/AncientSouls/Cursor/blob/2cea2ca/src/lib/cursor.ts#L112)*
 
 
 
@@ -192,7 +195,7 @@ ___
 
 
 
-*Defined in [tests/bundle.ts:2](https://github.com/AncientSouls/Cursor/blob/e099e34/src/tests/bundle.ts#L2)*
+*Defined in [tests/bundle.ts:2](https://github.com/AncientSouls/Cursor/blob/2cea2ca/src/tests/bundle.ts#L2)*
 
 
 
@@ -214,7 +217,7 @@ ___
 
 
 
-*Defined in [lib/bundle.ts:37](https://github.com/AncientSouls/Cursor/blob/e099e34/src/lib/bundle.ts#L37)*
+*Defined in [lib/bundle.ts:37](https://github.com/AncientSouls/Cursor/blob/2cea2ca/src/lib/bundle.ts#L37)*
 
 
 
@@ -245,7 +248,7 @@ ___
 
 
 
-*Defined in [lib/cursor.ts:131](https://github.com/AncientSouls/Cursor/blob/e099e34/src/lib/cursor.ts#L131)*
+*Defined in [lib/cursor.ts:131](https://github.com/AncientSouls/Cursor/blob/2cea2ca/src/lib/cursor.ts#L131)*
 
 
 
@@ -278,7 +281,7 @@ ___
 
 
 
-*Defined in [lib/bundle.ts:42](https://github.com/AncientSouls/Cursor/blob/e099e34/src/lib/bundle.ts#L42)*
+*Defined in [lib/bundle.ts:42](https://github.com/AncientSouls/Cursor/blob/2cea2ca/src/lib/bundle.ts#L42)*
 
 
 
@@ -309,7 +312,7 @@ ___
 
 
 
-*Defined in [tests/childs-cursors-manager.ts:12](https://github.com/AncientSouls/Cursor/blob/e099e34/src/tests/childs-cursors-manager.ts#L12)*
+*Defined in [tests/childs-cursors-manager.ts:12](https://github.com/AncientSouls/Cursor/blob/2cea2ca/src/tests/childs-cursors-manager.ts#L12)*
 
 
 
@@ -339,7 +342,7 @@ ___
 
 
 
-*Defined in [lib/cursor.ts:75](https://github.com/AncientSouls/Cursor/blob/e099e34/src/lib/cursor.ts#L75)*
+*Defined in [lib/cursor.ts:75](https://github.com/AncientSouls/Cursor/blob/2cea2ca/src/lib/cursor.ts#L75)*
 
 
 
@@ -377,7 +380,7 @@ ___
 
 
 
-*Defined in [lib/bundle.ts:88](https://github.com/AncientSouls/Cursor/blob/e099e34/src/lib/bundle.ts#L88)*
+*Defined in [lib/bundle.ts:88](https://github.com/AncientSouls/Cursor/blob/2cea2ca/src/lib/bundle.ts#L88)*
 
 
 
@@ -407,7 +410,7 @@ ___
 
 
 
-*Defined in [lib/bundle.ts:53](https://github.com/AncientSouls/Cursor/blob/e099e34/src/lib/bundle.ts#L53)*
+*Defined in [lib/bundle.ts:53](https://github.com/AncientSouls/Cursor/blob/2cea2ca/src/lib/bundle.ts#L53)*
 
 
 
@@ -437,7 +440,7 @@ ___
 
 
 
-*Defined in [lib/bundle.ts:70](https://github.com/AncientSouls/Cursor/blob/e099e34/src/lib/bundle.ts#L70)*
+*Defined in [lib/bundle.ts:70](https://github.com/AncientSouls/Cursor/blob/2cea2ca/src/lib/bundle.ts#L70)*
 
 
 

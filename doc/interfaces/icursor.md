@@ -9,15 +9,51 @@
 ## Hierarchy
 
 
- `any`
+ `INode`.<`IEventsList`>
 
 **↳ ICursor**
 
+↳  [Cursor](../classes/cursor.md)
 
 
 
 
 
+
+
+
+
+
+## Indexable
+
+\[key: `string`\]:&nbsp;`any`
+
+## Constructors
+<a id="constructor"></a>
+
+
+### ⊕ **new ICursor**(id?: *`string`*): `any`
+
+
+*Inherited from INode.__new*
+
+*Defined in /home/ubuntu/workspace/dev/packages/ancient-cursor/node_modules/ancient-mixins/lib/node.d.ts:11*
+
+
+
+**Parameters:**
+
+| Param | Type | Description |
+| ------ | ------ | ------ |
+| id | `string`   |  - |
+
+
+
+
+
+**Returns:** `any`
+
+---
 
 
 ## Properties
@@ -27,7 +63,109 @@
 
 **●  data**:  *`any`* 
 
-*Defined in [lib/cursor.ts:68](https://github.com/AncientSouls/Cursor/blob/e099e34/src/lib/cursor.ts#L68)*
+*Defined in [lib/cursor.ts:68](https://github.com/AncientSouls/Cursor/blob/2cea2ca/src/lib/cursor.ts#L68)*
+
+
+
+
+
+___
+
+<a id="destroy"></a>
+
+###  destroy
+
+**●  destroy**:  *`function`* 
+
+*Inherited from INode.destroy*
+
+*Defined in /home/ubuntu/workspace/dev/packages/ancient-cursor/node_modules/ancient-mixins/lib/node.d.ts:15*
+
+
+#### Type declaration
+►(): `void`
+
+
+
+
+
+**Returns:** `void`
+
+
+
+
+
+
+___
+
+<a id="emitter"></a>
+
+###  emitter
+
+**●  emitter**:  *`EventEmitter`* 
+
+*Inherited from IEvents.emitter*
+
+*Defined in /home/ubuntu/workspace/dev/packages/ancient-cursor/node_modules/ancient-mixins/lib/events.d.ts:5*
+
+
+
+
+
+___
+
+<a id="generateid"></a>
+
+###  generateId
+
+**●  generateId**:  *`function`* 
+
+*Inherited from INode.generateId*
+
+*Defined in /home/ubuntu/workspace/dev/packages/ancient-cursor/node_modules/ancient-mixins/lib/node.d.ts:13*
+
+
+#### Type declaration
+►(): `string`
+
+
+
+
+
+**Returns:** `string`
+
+
+
+
+
+
+___
+
+<a id="id"></a>
+
+###  id
+
+**●  id**:  *`string`* 
+
+*Inherited from INode.id*
+
+*Defined in /home/ubuntu/workspace/dev/packages/ancient-cursor/node_modules/ancient-mixins/lib/node.d.ts:11*
+
+
+
+
+
+___
+
+<a id="isdestroyed"></a>
+
+###  isDestroyed
+
+**●  isDestroyed**:  *`boolean`* 
+
+*Inherited from INode.isDestroyed*
+
+*Defined in /home/ubuntu/workspace/dev/packages/ancient-cursor/node_modules/ancient-mixins/lib/node.d.ts:14*
 
 
 
@@ -41,7 +179,7 @@ ___
 
 **●  query**:  *`any`* 
 
-*Defined in [lib/cursor.ts:67](https://github.com/AncientSouls/Cursor/blob/e099e34/src/lib/cursor.ts#L67)*
+*Defined in [lib/cursor.ts:67](https://github.com/AncientSouls/Cursor/blob/2cea2ca/src/lib/cursor.ts#L67)*
 
 
 
@@ -55,7 +193,7 @@ ___
 
 **●  queryId**:  *`string`* 
 
-*Defined in [lib/cursor.ts:66](https://github.com/AncientSouls/Cursor/blob/e099e34/src/lib/cursor.ts#L66)*
+*Defined in [lib/cursor.ts:66](https://github.com/AncientSouls/Cursor/blob/2cea2ca/src/lib/cursor.ts#L66)*
 
 
 
@@ -73,7 +211,7 @@ ___
 
 
 
-*Defined in [lib/cursor.ts:70](https://github.com/AncientSouls/Cursor/blob/e099e34/src/lib/cursor.ts#L70)*
+*Defined in [lib/cursor.ts:70](https://github.com/AncientSouls/Cursor/blob/2cea2ca/src/lib/cursor.ts#L70)*
 
 
 
@@ -95,6 +233,42 @@ ___
 
 ___
 
+<a id="emit"></a>
+
+###  emit
+
+► **emit**IE(eventName: *`string`*, data: *`IEventsList[IE]`*): `this`
+
+
+
+*Inherited from IEvents.emit*
+
+*Defined in /home/ubuntu/workspace/dev/packages/ancient-cursor/node_modules/ancient-mixins/lib/events.d.ts:6*
+
+
+
+**Type parameters:**
+
+#### IE :  `keyof IEventsList`
+**Parameters:**
+
+| Param | Type | Description |
+| ------ | ------ | ------ |
+| eventName | `string`   |  - |
+| data | `IEventsList[IE]`   |  - |
+
+
+
+
+
+**Returns:** `this`
+
+
+
+
+
+___
+
 <a id="exec"></a>
 
 ###  exec
@@ -103,7 +277,7 @@ ___
 
 
 
-*Defined in [lib/cursor.ts:69](https://github.com/AncientSouls/Cursor/blob/e099e34/src/lib/cursor.ts#L69)*
+*Defined in [lib/cursor.ts:69](https://github.com/AncientSouls/Cursor/blob/2cea2ca/src/lib/cursor.ts#L69)*
 
 
 
@@ -134,7 +308,7 @@ ___
 
 
 
-*Defined in [lib/cursor.ts:72](https://github.com/AncientSouls/Cursor/blob/e099e34/src/lib/cursor.ts#L72)*
+*Defined in [lib/cursor.ts:72](https://github.com/AncientSouls/Cursor/blob/2cea2ca/src/lib/cursor.ts#L72)*
 
 
 
@@ -156,6 +330,114 @@ ___
 
 ___
 
+<a id="off"></a>
+
+###  off
+
+► **off**IE(eventName: *`string`*, listener: *`function`*): `this`
+
+
+
+*Inherited from IEvents.off*
+
+*Defined in /home/ubuntu/workspace/dev/packages/ancient-cursor/node_modules/ancient-mixins/lib/events.d.ts:9*
+
+
+
+**Type parameters:**
+
+#### IE :  `keyof IEventsList`
+**Parameters:**
+
+| Param | Type | Description |
+| ------ | ------ | ------ |
+| eventName | `string`   |  - |
+| listener | `function`   |  - |
+
+
+
+
+
+**Returns:** `this`
+
+
+
+
+
+___
+
+<a id="on"></a>
+
+###  on
+
+► **on**IE(eventName: *`string`*, listener: *`function`*): `this`
+
+
+
+*Inherited from IEvents.on*
+
+*Defined in /home/ubuntu/workspace/dev/packages/ancient-cursor/node_modules/ancient-mixins/lib/events.d.ts:7*
+
+
+
+**Type parameters:**
+
+#### IE :  `keyof IEventsList`
+**Parameters:**
+
+| Param | Type | Description |
+| ------ | ------ | ------ |
+| eventName | `string`   |  - |
+| listener | `function`   |  - |
+
+
+
+
+
+**Returns:** `this`
+
+
+
+
+
+___
+
+<a id="once"></a>
+
+###  once
+
+► **once**IE(eventName: *`string`*, listener: *`function`*): `this`
+
+
+
+*Inherited from IEvents.once*
+
+*Defined in /home/ubuntu/workspace/dev/packages/ancient-cursor/node_modules/ancient-mixins/lib/events.d.ts:8*
+
+
+
+**Type parameters:**
+
+#### IE :  `keyof IEventsList`
+**Parameters:**
+
+| Param | Type | Description |
+| ------ | ------ | ------ |
+| eventName | `string`   |  - |
+| listener | `function`   |  - |
+
+
+
+
+
+**Returns:** `this`
+
+
+
+
+
+___
+
 <a id="parse"></a>
 
 ###  parse
@@ -164,7 +446,7 @@ ___
 
 
 
-*Defined in [lib/cursor.ts:71](https://github.com/AncientSouls/Cursor/blob/e099e34/src/lib/cursor.ts#L71)*
+*Defined in [lib/cursor.ts:71](https://github.com/AncientSouls/Cursor/blob/2cea2ca/src/lib/cursor.ts#L71)*
 
 
 

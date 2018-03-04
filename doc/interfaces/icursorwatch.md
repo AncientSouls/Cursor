@@ -9,7 +9,7 @@
 
 
 
-*Defined in [lib/cursor.ts:52](https://github.com/AncientSouls/Cursor/blob/e099e34/src/lib/cursor.ts#L52)*
+*Defined in [lib/cursor.ts:52](https://github.com/AncientSouls/Cursor/blob/2cea2ca/src/lib/cursor.ts#L52)*
 
 
 
