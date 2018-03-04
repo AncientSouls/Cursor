@@ -1,0 +1,18 @@
+language: node_js
+
+node_js:
+  - "9"
+  - "8"
+  - "7"
+  - "6"
+  - "5"
+  - "4"
+
+os:
+  - linux
+  - osx
+
+script:
+  - npm run tsc
+  - npm run test
+  - npm run dev-init

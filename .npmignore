@@ -58,6 +58,9 @@ typings/
 # dotenv environment variables file
 .env
 
+# Development environment temp directories
+.dev
+
 # Sources
 /src
 /DOCUMENTATION
