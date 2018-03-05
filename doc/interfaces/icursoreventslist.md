@@ -28,7 +28,7 @@
 
 **●  changed**:  *[ICursorEventChangedData](icursoreventchangeddata.md)* 
 
-*Defined in [cursor.ts:61](https://github.com/AncientSouls/Cursor/blob/72c569d/src/lib/cursor.ts#L61)*
+*Defined in [cursor.ts:61](https://github.com/AncientSouls/Cursor/blob/a4fb998/src/lib/cursor.ts#L61)*
 
 
 
@@ -44,7 +44,7 @@ ___
 
 *Inherited from INodeEventsList.destroyed*
 
-*Defined in /home/ubuntu/workspace/dev/packages/ancient-cursor/node_modules/ancient-mixins/lib/node.d.ts:8*
+*Defined in /home/ivansglazunov/dev/packages/ancient-cursor/node_modules/ancient-mixins/lib/node.d.ts:8*
 
 
 
@@ -58,7 +58,7 @@ ___
 
 **●  exec**:  *[ICursorEventExecData](icursoreventexecdata.md)* 
 
-*Defined in [cursor.ts:62](https://github.com/AncientSouls/Cursor/blob/72c569d/src/lib/cursor.ts#L62)*
+*Defined in [cursor.ts:62](https://github.com/AncientSouls/Cursor/blob/a4fb998/src/lib/cursor.ts#L62)*
 
 
 

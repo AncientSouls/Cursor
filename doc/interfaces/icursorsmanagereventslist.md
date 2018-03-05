@@ -30,7 +30,7 @@
 
 *Inherited from IManagerEventsList.added*
 
-*Defined in /home/ubuntu/workspace/dev/packages/ancient-cursor/node_modules/ancient-mixins/lib/manager.d.ts:9*
+*Defined in /home/ivansglazunov/dev/packages/ancient-cursor/node_modules/ancient-mixins/lib/manager.d.ts:9*
 
 
 
@@ -44,7 +44,7 @@ ___
 
 **●  changed**:  *[ICursorsManagerChangedEventData](icursorsmanagerchangedeventdata.md)* 
 
-*Defined in [cursors-manager.ts:42](https://github.com/AncientSouls/Cursor/blob/72c569d/src/lib/cursors-manager.ts#L42)*
+*Defined in [cursors-manager.ts:42](https://github.com/AncientSouls/Cursor/blob/a4fb998/src/lib/cursors-manager.ts#L42)*
 
 
 
@@ -60,7 +60,7 @@ ___
 
 *Inherited from INodeEventsList.destroyed*
 
-*Defined in /home/ubuntu/workspace/dev/packages/ancient-cursor/node_modules/ancient-mixins/lib/node.d.ts:8*
+*Defined in /home/ivansglazunov/dev/packages/ancient-cursor/node_modules/ancient-mixins/lib/node.d.ts:8*
 
 
 
@@ -74,7 +74,7 @@ ___
 
 **●  exec**:  *[ICursorsManagerExecEventData](icursorsmanagerexeceventdata.md)* 
 
-*Defined in [cursors-manager.ts:43](https://github.com/AncientSouls/Cursor/blob/72c569d/src/lib/cursors-manager.ts#L43)*
+*Defined in [cursors-manager.ts:43](https://github.com/AncientSouls/Cursor/blob/a4fb998/src/lib/cursors-manager.ts#L43)*
 
 
 
@@ -90,7 +90,7 @@ ___
 
 *Inherited from IManagerEventsList.removed*
 
-*Defined in /home/ubuntu/workspace/dev/packages/ancient-cursor/node_modules/ancient-mixins/lib/manager.d.ts:10*
+*Defined in /home/ivansglazunov/dev/packages/ancient-cursor/node_modules/ancient-mixins/lib/manager.d.ts:10*
 
 
 

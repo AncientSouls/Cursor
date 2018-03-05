@@ -65,7 +65,7 @@
 
 *Inherited from INode.__new*
 
-*Defined in /home/ubuntu/workspace/dev/packages/ancient-cursor/node_modules/ancient-mixins/lib/node.d.ts:11*
+*Defined in /home/ivansglazunov/dev/packages/ancient-cursor/node_modules/ancient-mixins/lib/node.d.ts:11*
 
 
 
@@ -93,7 +93,7 @@
 
 *Inherited from IManager.Node*
 
-*Defined in /home/ubuntu/workspace/dev/packages/ancient-cursor/node_modules/ancient-mixins/lib/manager.d.ts:13*
+*Defined in /home/ivansglazunov/dev/packages/ancient-cursor/node_modules/ancient-mixins/lib/manager.d.ts:13*
 
 
 
@@ -109,7 +109,7 @@ ___
 
 *Inherited from INode.destroy*
 
-*Defined in /home/ubuntu/workspace/dev/packages/ancient-cursor/node_modules/ancient-mixins/lib/node.d.ts:15*
+*Defined in /home/ivansglazunov/dev/packages/ancient-cursor/node_modules/ancient-mixins/lib/node.d.ts:15*
 
 
 #### Type declaration
@@ -136,7 +136,7 @@ ___
 
 *Inherited from IEvents.emitter*
 
-*Defined in /home/ubuntu/workspace/dev/packages/ancient-cursor/node_modules/ancient-mixins/lib/events.d.ts:5*
+*Defined in /home/ivansglazunov/dev/packages/ancient-cursor/node_modules/ancient-mixins/lib/events.d.ts:5*
 
 
 
@@ -152,7 +152,7 @@ ___
 
 *Inherited from INode.generateId*
 
-*Defined in /home/ubuntu/workspace/dev/packages/ancient-cursor/node_modules/ancient-mixins/lib/node.d.ts:13*
+*Defined in /home/ivansglazunov/dev/packages/ancient-cursor/node_modules/ancient-mixins/lib/node.d.ts:13*
 
 
 #### Type declaration
@@ -179,7 +179,7 @@ ___
 
 *Inherited from INode.id*
 
-*Defined in /home/ubuntu/workspace/dev/packages/ancient-cursor/node_modules/ancient-mixins/lib/node.d.ts:11*
+*Defined in /home/ivansglazunov/dev/packages/ancient-cursor/node_modules/ancient-mixins/lib/node.d.ts:11*
 
 
 
@@ -195,7 +195,7 @@ ___
 
 *Inherited from INode.isDestroyed*
 
-*Defined in /home/ubuntu/workspace/dev/packages/ancient-cursor/node_modules/ancient-mixins/lib/node.d.ts:14*
+*Defined in /home/ivansglazunov/dev/packages/ancient-cursor/node_modules/ancient-mixins/lib/node.d.ts:14*
 
 
 
@@ -211,7 +211,7 @@ ___
 
 *Inherited from IManager.nodes*
 
-*Defined in /home/ubuntu/workspace/dev/packages/ancient-cursor/node_modules/ancient-mixins/lib/manager.d.ts:14*
+*Defined in /home/ivansglazunov/dev/packages/ancient-cursor/node_modules/ancient-mixins/lib/manager.d.ts:14*
 
 
 #### Type declaration
@@ -238,7 +238,7 @@ ___
 
 *Inherited from IManager.add*
 
-*Defined in /home/ubuntu/workspace/dev/packages/ancient-cursor/node_modules/ancient-mixins/lib/manager.d.ts:17*
+*Defined in /home/ivansglazunov/dev/packages/ancient-cursor/node_modules/ancient-mixins/lib/manager.d.ts:17*
 
 
 
@@ -270,7 +270,7 @@ ___
 
 *Inherited from IManager.create*
 
-*Defined in /home/ubuntu/workspace/dev/packages/ancient-cursor/node_modules/ancient-mixins/lib/manager.d.ts:20*
+*Defined in /home/ivansglazunov/dev/packages/ancient-cursor/node_modules/ancient-mixins/lib/manager.d.ts:20*
 
 
 
@@ -302,7 +302,7 @@ ___
 
 *Inherited from IEvents.emit*
 
-*Defined in /home/ubuntu/workspace/dev/packages/ancient-cursor/node_modules/ancient-mixins/lib/events.d.ts:6*
+*Defined in /home/ivansglazunov/dev/packages/ancient-cursor/node_modules/ancient-mixins/lib/events.d.ts:6*
 
 
 
@@ -338,7 +338,7 @@ ___
 
 *Inherited from [IChildsCursorsManager](../interfaces/ichildscursorsmanager.md).[maintain](../interfaces/ichildscursorsmanager.md#maintain)*
 
-*Defined in [childs-cursors-manager.ts:33](https://github.com/AncientSouls/Cursor/blob/72c569d/src/lib/childs-cursors-manager.ts#L33)*
+*Defined in [childs-cursors-manager.ts:33](https://github.com/AncientSouls/Cursor/blob/a4fb998/src/lib/childs-cursors-manager.ts#L33)*
 
 
 
@@ -370,7 +370,7 @@ ___
 
 *Inherited from IEvents.off*
 
-*Defined in /home/ubuntu/workspace/dev/packages/ancient-cursor/node_modules/ancient-mixins/lib/events.d.ts:9*
+*Defined in /home/ivansglazunov/dev/packages/ancient-cursor/node_modules/ancient-mixins/lib/events.d.ts:9*
 
 
 
@@ -406,7 +406,7 @@ ___
 
 *Inherited from IEvents.on*
 
-*Defined in /home/ubuntu/workspace/dev/packages/ancient-cursor/node_modules/ancient-mixins/lib/events.d.ts:7*
+*Defined in /home/ivansglazunov/dev/packages/ancient-cursor/node_modules/ancient-mixins/lib/events.d.ts:7*
 
 
 
@@ -442,7 +442,7 @@ ___
 
 *Inherited from IEvents.once*
 
-*Defined in /home/ubuntu/workspace/dev/packages/ancient-cursor/node_modules/ancient-mixins/lib/events.d.ts:8*
+*Defined in /home/ivansglazunov/dev/packages/ancient-cursor/node_modules/ancient-mixins/lib/events.d.ts:8*
 
 
 
@@ -478,7 +478,7 @@ ___
 
 *Inherited from IManager.remove*
 
-*Defined in /home/ubuntu/workspace/dev/packages/ancient-cursor/node_modules/ancient-mixins/lib/manager.d.ts:19*
+*Defined in /home/ivansglazunov/dev/packages/ancient-cursor/node_modules/ancient-mixins/lib/manager.d.ts:19*
 
 
 
@@ -510,7 +510,7 @@ ___
 
 *Inherited from IManager.wrap*
 
-*Defined in /home/ubuntu/workspace/dev/packages/ancient-cursor/node_modules/ancient-mixins/lib/manager.d.ts:18*
+*Defined in /home/ivansglazunov/dev/packages/ancient-cursor/node_modules/ancient-mixins/lib/manager.d.ts:18*
 
 
 

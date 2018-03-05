@@ -64,7 +64,7 @@
 
 *Inherited from INode.__new*
 
-*Defined in /home/ubuntu/workspace/dev/packages/ancient-cursor/node_modules/ancient-mixins/lib/node.d.ts:11*
+*Defined in /home/ivansglazunov/dev/packages/ancient-cursor/node_modules/ancient-mixins/lib/node.d.ts:11*
 
 
 
@@ -92,7 +92,7 @@
 
 *Inherited from [ICursor](../interfaces/icursor.md).[data](../interfaces/icursor.md#data)*
 
-*Defined in [cursor.ts:68](https://github.com/AncientSouls/Cursor/blob/72c569d/src/lib/cursor.ts#L68)*
+*Defined in [cursor.ts:68](https://github.com/AncientSouls/Cursor/blob/a4fb998/src/lib/cursor.ts#L68)*
 
 
 
@@ -108,7 +108,7 @@ ___
 
 *Inherited from INode.destroy*
 
-*Defined in /home/ubuntu/workspace/dev/packages/ancient-cursor/node_modules/ancient-mixins/lib/node.d.ts:15*
+*Defined in /home/ivansglazunov/dev/packages/ancient-cursor/node_modules/ancient-mixins/lib/node.d.ts:15*
 
 
 #### Type declaration
@@ -135,7 +135,7 @@ ___
 
 *Inherited from IEvents.emitter*
 
-*Defined in /home/ubuntu/workspace/dev/packages/ancient-cursor/node_modules/ancient-mixins/lib/events.d.ts:5*
+*Defined in /home/ivansglazunov/dev/packages/ancient-cursor/node_modules/ancient-mixins/lib/events.d.ts:5*
 
 
 
@@ -151,7 +151,7 @@ ___
 
 *Inherited from INode.generateId*
 
-*Defined in /home/ubuntu/workspace/dev/packages/ancient-cursor/node_modules/ancient-mixins/lib/node.d.ts:13*
+*Defined in /home/ivansglazunov/dev/packages/ancient-cursor/node_modules/ancient-mixins/lib/node.d.ts:13*
 
 
 #### Type declaration
@@ -178,7 +178,7 @@ ___
 
 *Inherited from INode.id*
 
-*Defined in /home/ubuntu/workspace/dev/packages/ancient-cursor/node_modules/ancient-mixins/lib/node.d.ts:11*
+*Defined in /home/ivansglazunov/dev/packages/ancient-cursor/node_modules/ancient-mixins/lib/node.d.ts:11*
 
 
 
@@ -194,7 +194,7 @@ ___
 
 *Inherited from INode.isDestroyed*
 
-*Defined in /home/ubuntu/workspace/dev/packages/ancient-cursor/node_modules/ancient-mixins/lib/node.d.ts:14*
+*Defined in /home/ivansglazunov/dev/packages/ancient-cursor/node_modules/ancient-mixins/lib/node.d.ts:14*
 
 
 
@@ -210,7 +210,7 @@ ___
 
 *Inherited from [ICursor](../interfaces/icursor.md).[query](../interfaces/icursor.md#query)*
 
-*Defined in [cursor.ts:67](https://github.com/AncientSouls/Cursor/blob/72c569d/src/lib/cursor.ts#L67)*
+*Defined in [cursor.ts:67](https://github.com/AncientSouls/Cursor/blob/a4fb998/src/lib/cursor.ts#L67)*
 
 
 
@@ -226,7 +226,7 @@ ___
 
 *Inherited from [ICursor](../interfaces/icursor.md).[queryId](../interfaces/icursor.md#queryid)*
 
-*Defined in [cursor.ts:66](https://github.com/AncientSouls/Cursor/blob/72c569d/src/lib/cursor.ts#L66)*
+*Defined in [cursor.ts:66](https://github.com/AncientSouls/Cursor/blob/a4fb998/src/lib/cursor.ts#L66)*
 
 
 
@@ -246,7 +246,7 @@ ___
 
 *Inherited from [ICursor](../interfaces/icursor.md).[apply](../interfaces/icursor.md#apply)*
 
-*Defined in [cursor.ts:70](https://github.com/AncientSouls/Cursor/blob/72c569d/src/lib/cursor.ts#L70)*
+*Defined in [cursor.ts:70](https://github.com/AncientSouls/Cursor/blob/a4fb998/src/lib/cursor.ts#L70)*
 
 
 
@@ -278,7 +278,7 @@ ___
 
 *Inherited from IEvents.emit*
 
-*Defined in /home/ubuntu/workspace/dev/packages/ancient-cursor/node_modules/ancient-mixins/lib/events.d.ts:6*
+*Defined in /home/ivansglazunov/dev/packages/ancient-cursor/node_modules/ancient-mixins/lib/events.d.ts:6*
 
 
 
@@ -314,7 +314,7 @@ ___
 
 *Inherited from [ICursor](../interfaces/icursor.md).[exec](../interfaces/icursor.md#exec)*
 
-*Defined in [cursor.ts:69](https://github.com/AncientSouls/Cursor/blob/72c569d/src/lib/cursor.ts#L69)*
+*Defined in [cursor.ts:69](https://github.com/AncientSouls/Cursor/blob/a4fb998/src/lib/cursor.ts#L69)*
 
 
 
@@ -347,7 +347,7 @@ ___
 
 *Inherited from [ICursor](../interfaces/icursor.md).[get](../interfaces/icursor.md#get)*
 
-*Defined in [cursor.ts:72](https://github.com/AncientSouls/Cursor/blob/72c569d/src/lib/cursor.ts#L72)*
+*Defined in [cursor.ts:72](https://github.com/AncientSouls/Cursor/blob/a4fb998/src/lib/cursor.ts#L72)*
 
 
 
@@ -379,7 +379,7 @@ ___
 
 *Inherited from IEvents.off*
 
-*Defined in /home/ubuntu/workspace/dev/packages/ancient-cursor/node_modules/ancient-mixins/lib/events.d.ts:9*
+*Defined in /home/ivansglazunov/dev/packages/ancient-cursor/node_modules/ancient-mixins/lib/events.d.ts:9*
 
 
 
@@ -415,7 +415,7 @@ ___
 
 *Inherited from IEvents.on*
 
-*Defined in /home/ubuntu/workspace/dev/packages/ancient-cursor/node_modules/ancient-mixins/lib/events.d.ts:7*
+*Defined in /home/ivansglazunov/dev/packages/ancient-cursor/node_modules/ancient-mixins/lib/events.d.ts:7*
 
 
 
@@ -451,7 +451,7 @@ ___
 
 *Inherited from IEvents.once*
 
-*Defined in /home/ubuntu/workspace/dev/packages/ancient-cursor/node_modules/ancient-mixins/lib/events.d.ts:8*
+*Defined in /home/ivansglazunov/dev/packages/ancient-cursor/node_modules/ancient-mixins/lib/events.d.ts:8*
 
 
 
@@ -487,7 +487,7 @@ ___
 
 *Inherited from [ICursor](../interfaces/icursor.md).[parse](../interfaces/icursor.md#parse)*
 
-*Defined in [cursor.ts:71](https://github.com/AncientSouls/Cursor/blob/72c569d/src/lib/cursor.ts#L71)*
+*Defined in [cursor.ts:71](https://github.com/AncientSouls/Cursor/blob/a4fb998/src/lib/cursor.ts#L71)*
 
 
 
