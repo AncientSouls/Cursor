@@ -338,7 +338,7 @@ ___
 
 *Inherited from [IChildsCursorsManager](../interfaces/ichildscursorsmanager.md).[maintain](../interfaces/ichildscursorsmanager.md#maintain)*
 
-*Defined in [childs-cursors-manager.ts:33](https://github.com/AncientSouls/Cursor/blob/a4fb998/src/lib/childs-cursors-manager.ts#L33)*
+*Defined in [childs-cursors-manager.ts:33](https://github.com/AncientSouls/Cursor/blob/f9430c8/src/lib/childs-cursors-manager.ts#L33)*
 
 
 

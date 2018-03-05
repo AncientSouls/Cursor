@@ -28,7 +28,7 @@
 
 **●  changed**:  *[ICursorEventChangedData](icursoreventchangeddata.md)* 
 
-*Defined in [cursor.ts:61](https://github.com/AncientSouls/Cursor/blob/a4fb998/src/lib/cursor.ts#L61)*
+*Defined in [cursor.ts:61](https://github.com/AncientSouls/Cursor/blob/f9430c8/src/lib/cursor.ts#L61)*
 
 
 
@@ -58,7 +58,7 @@ ___
 
 **●  exec**:  *[ICursorEventExecData](icursoreventexecdata.md)* 
 
-*Defined in [cursor.ts:62](https://github.com/AncientSouls/Cursor/blob/a4fb998/src/lib/cursor.ts#L62)*
+*Defined in [cursor.ts:62](https://github.com/AncientSouls/Cursor/blob/f9430c8/src/lib/cursor.ts#L62)*
 
 
 

@@ -25,7 +25,7 @@
 
 **●  cursor**:  *[TCursor](../#tcursor)* 
 
-*Defined in [cursor.ts:34](https://github.com/AncientSouls/Cursor/blob/a4fb998/src/lib/cursor.ts#L34)*
+*Defined in [cursor.ts:34](https://github.com/AncientSouls/Cursor/blob/f9430c8/src/lib/cursor.ts#L34)*
 
 
 
@@ -39,7 +39,7 @@ ___
 
 **●  oldData**:  *`any`* 
 
-*Defined in [cursor.ts:36](https://github.com/AncientSouls/Cursor/blob/a4fb998/src/lib/cursor.ts#L36)*
+*Defined in [cursor.ts:36](https://github.com/AncientSouls/Cursor/blob/f9430c8/src/lib/cursor.ts#L36)*
 
 
 
@@ -53,7 +53,7 @@ ___
 
 **●  oldQuery**:  *`any`* 
 
-*Defined in [cursor.ts:35](https://github.com/AncientSouls/Cursor/blob/a4fb998/src/lib/cursor.ts#L35)*
+*Defined in [cursor.ts:35](https://github.com/AncientSouls/Cursor/blob/f9430c8/src/lib/cursor.ts#L35)*
 
 
 
@@ -67,7 +67,7 @@ ___
 
 **●  oldQueryId**:  *`string`* 
 
-*Defined in [cursor.ts:37](https://github.com/AncientSouls/Cursor/blob/a4fb998/src/lib/cursor.ts#L37)*
+*Defined in [cursor.ts:37](https://github.com/AncientSouls/Cursor/blob/f9430c8/src/lib/cursor.ts#L37)*
 
 
 

@@ -30,7 +30,7 @@
 
 *Inherited from [IBundle](ibundle.md).[path](ibundle.md#path)*
 
-*Defined in [bundle.ts:5](https://github.com/AncientSouls/Cursor/blob/a4fb998/src/lib/bundle.ts#L5)*
+*Defined in [bundle.ts:5](https://github.com/AncientSouls/Cursor/blob/f9430c8/src/lib/bundle.ts#L5)*
 
 
 
@@ -46,7 +46,7 @@ ___
 
 *Inherited from [IBundle](ibundle.md).[type](ibundle.md#type)*
 
-*Defined in [bundle.ts:4](https://github.com/AncientSouls/Cursor/blob/a4fb998/src/lib/bundle.ts#L4)*
+*Defined in [bundle.ts:4](https://github.com/AncientSouls/Cursor/blob/f9430c8/src/lib/bundle.ts#L4)*
 
 
 
