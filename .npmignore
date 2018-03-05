@@ -64,3 +64,10 @@ typings/
 # Sources
 /src
 /DOCUMENTATION
+
+# Lock not needed
+package-lock.json
+/DOCUMENTATION
+
+# Lock not needed
+package-lock.json
