@@ -309,7 +309,7 @@ ___
 
 
 
-*Defined in [childs-cursors-manager.ts:33](https://github.com/AncientSouls/Cursor/blob/f9430c8/src/lib/childs-cursors-manager.ts#L33)*
+*Defined in [childs-cursors-manager.ts:33](https://github.com/AncientSouls/Cursor/blob/0bc4576/src/lib/childs-cursors-manager.ts#L33)*
 
 
 

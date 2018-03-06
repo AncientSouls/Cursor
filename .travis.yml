@@ -16,6 +16,21 @@ install:
   - npm install
 
 script:
-  - npm run tsc
-  - npm run test
   - npm run dev-test
+jobs:
+  include:
+      stage: deploy
+      node_js: "9"
+      os: "linux"
+      before_deploy:
+        - git stash --all
+        - npm install
+        - npm run tsc
+        - npm pack
+      deploy:
+        - provider: npm
+          skip_cleanup: true
+          email: "ancientpublicator@gmail.com"
+          api_key: $AP_NPM_API_KEY
+          on:
+            branch: develop

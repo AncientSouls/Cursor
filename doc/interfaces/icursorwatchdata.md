@@ -12,7 +12,7 @@
 
 **●  bundle**:  *[IBundle](ibundle.md)* 
 
-*Defined in [cursor.ts:49](https://github.com/AncientSouls/Cursor/blob/f9430c8/src/lib/cursor.ts#L49)*
+*Defined in [cursor.ts:49](https://github.com/AncientSouls/Cursor/blob/0bc4576/src/lib/cursor.ts#L49)*
 
 
 
@@ -26,7 +26,7 @@ ___
 
 **●  bundlePath**:  *`string`[]* 
 
-*Defined in [cursor.ts:45](https://github.com/AncientSouls/Cursor/blob/f9430c8/src/lib/cursor.ts#L45)*
+*Defined in [cursor.ts:45](https://github.com/AncientSouls/Cursor/blob/0bc4576/src/lib/cursor.ts#L45)*
 
 
 
@@ -40,7 +40,7 @@ ___
 
 **●  data**:  *`any`* 
 
-*Defined in [cursor.ts:41](https://github.com/AncientSouls/Cursor/blob/f9430c8/src/lib/cursor.ts#L41)*
+*Defined in [cursor.ts:41](https://github.com/AncientSouls/Cursor/blob/0bc4576/src/lib/cursor.ts#L41)*
 
 
 
@@ -54,7 +54,7 @@ ___
 
 **●  isClone**:  *`boolean`* 
 
-*Defined in [cursor.ts:44](https://github.com/AncientSouls/Cursor/blob/f9430c8/src/lib/cursor.ts#L44)*
+*Defined in [cursor.ts:44](https://github.com/AncientSouls/Cursor/blob/0bc4576/src/lib/cursor.ts#L44)*
 
 
 
@@ -68,7 +68,7 @@ ___
 
 **●  localBundlePath**:  *`string`[]* 
 
-*Defined in [cursor.ts:47](https://github.com/AncientSouls/Cursor/blob/f9430c8/src/lib/cursor.ts#L47)*
+*Defined in [cursor.ts:47](https://github.com/AncientSouls/Cursor/blob/0bc4576/src/lib/cursor.ts#L47)*
 
 
 
@@ -82,7 +82,7 @@ ___
 
 **●  localWatchPath**:  *`string`[]* 
 
-*Defined in [cursor.ts:48](https://github.com/AncientSouls/Cursor/blob/f9430c8/src/lib/cursor.ts#L48)*
+*Defined in [cursor.ts:48](https://github.com/AncientSouls/Cursor/blob/0bc4576/src/lib/cursor.ts#L48)*
 
 
 
@@ -96,7 +96,7 @@ ___
 
 **●  newValue**:  *`any`* 
 
-*Defined in [cursor.ts:43](https://github.com/AncientSouls/Cursor/blob/f9430c8/src/lib/cursor.ts#L43)*
+*Defined in [cursor.ts:43](https://github.com/AncientSouls/Cursor/blob/0bc4576/src/lib/cursor.ts#L43)*
 
 
 
@@ -110,7 +110,7 @@ ___
 
 **●  oldValue**:  *`any`* 
 
-*Defined in [cursor.ts:42](https://github.com/AncientSouls/Cursor/blob/f9430c8/src/lib/cursor.ts#L42)*
+*Defined in [cursor.ts:42](https://github.com/AncientSouls/Cursor/blob/0bc4576/src/lib/cursor.ts#L42)*
 
 
 
@@ -124,7 +124,7 @@ ___
 
 **●  watchPath**:  *`string`[]* 
 
-*Defined in [cursor.ts:46](https://github.com/AncientSouls/Cursor/blob/f9430c8/src/lib/cursor.ts#L46)*
+*Defined in [cursor.ts:46](https://github.com/AncientSouls/Cursor/blob/0bc4576/src/lib/cursor.ts#L46)*
 
 
 
