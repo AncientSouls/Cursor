@@ -26,11 +26,10 @@ jobs:
         - git stash --all
         - npm install
         - npm run tsc
-        - npm pack
       deploy:
         - provider: npm
           skip_cleanup: true
           email: "ancientpublicator@gmail.com"
           api_key: $AP_NPM_API_KEY
           on:
-            branch: develop
+            branch: master

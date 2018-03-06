@@ -63,7 +63,7 @@
 
 **●  data**:  *`any`* 
 
-*Defined in [cursor.ts:68](https://github.com/AncientSouls/Cursor/blob/588b28d/src/lib/cursor.ts#L68)*
+*Defined in [cursor.ts:68](https://github.com/AncientSouls/Cursor/blob/6da6cc9/src/lib/cursor.ts#L68)*
 
 
 
@@ -179,7 +179,7 @@ ___
 
 **●  query**:  *`any`* 
 
-*Defined in [cursor.ts:67](https://github.com/AncientSouls/Cursor/blob/588b28d/src/lib/cursor.ts#L67)*
+*Defined in [cursor.ts:67](https://github.com/AncientSouls/Cursor/blob/6da6cc9/src/lib/cursor.ts#L67)*
 
 
 
@@ -193,7 +193,7 @@ ___
 
 **●  queryId**:  *`string`* 
 
-*Defined in [cursor.ts:66](https://github.com/AncientSouls/Cursor/blob/588b28d/src/lib/cursor.ts#L66)*
+*Defined in [cursor.ts:66](https://github.com/AncientSouls/Cursor/blob/6da6cc9/src/lib/cursor.ts#L66)*
 
 
 
@@ -211,7 +211,7 @@ ___
 
 
 
-*Defined in [cursor.ts:70](https://github.com/AncientSouls/Cursor/blob/588b28d/src/lib/cursor.ts#L70)*
+*Defined in [cursor.ts:70](https://github.com/AncientSouls/Cursor/blob/6da6cc9/src/lib/cursor.ts#L70)*
 
 
 
@@ -277,7 +277,7 @@ ___
 
 
 
-*Defined in [cursor.ts:69](https://github.com/AncientSouls/Cursor/blob/588b28d/src/lib/cursor.ts#L69)*
+*Defined in [cursor.ts:69](https://github.com/AncientSouls/Cursor/blob/6da6cc9/src/lib/cursor.ts#L69)*
 
 
 
@@ -308,7 +308,7 @@ ___
 
 
 
-*Defined in [cursor.ts:72](https://github.com/AncientSouls/Cursor/blob/588b28d/src/lib/cursor.ts#L72)*
+*Defined in [cursor.ts:72](https://github.com/AncientSouls/Cursor/blob/6da6cc9/src/lib/cursor.ts#L72)*
 
 
 
@@ -446,7 +446,7 @@ ___
 
 
 
-*Defined in [cursor.ts:71](https://github.com/AncientSouls/Cursor/blob/588b28d/src/lib/cursor.ts#L71)*
+*Defined in [cursor.ts:71](https://github.com/AncientSouls/Cursor/blob/6da6cc9/src/lib/cursor.ts#L71)*
 
 
 
