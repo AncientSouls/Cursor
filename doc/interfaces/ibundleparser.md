@@ -9,7 +9,7 @@
 
 
 
-*Defined in [bundle.ts:17](https://github.com/AncientSouls/Cursor/blob/6da6cc9/src/lib/bundle.ts#L17)*
+*Defined in [bundle.ts:17](https://github.com/AncientSouls/Cursor/blob/01edbe2/src/lib/bundle.ts#L17)*
 
 
 
