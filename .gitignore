@@ -60,6 +60,3 @@ typings/
 
 # Development environment temp directories
 .dev
-
-# Lock not needed
-package-lock.json
