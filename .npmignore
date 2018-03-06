@@ -1,3 +1,4 @@
+### Node ###
 # Logs
 logs
 *.log
@@ -17,7 +18,7 @@ lib-cov
 # Coverage directory used by tools like istanbul
 coverage
 
-# NYC test coverage
+# nyc test coverage
 .nyc_output
 
 # Grunt intermediate storage (http://gruntjs.com/creating-plugins#storing-task-files)
@@ -29,7 +30,7 @@ bower_components
 # node-waf configuration
 .lock-wscript
 
-# Compiled binary addons (https://nodejs.org/api/addons.html)
+# Compiled binary addons (http://nodejs.org/api/addons.html)
 build/Release
 
 # Dependency directories
@@ -57,21 +58,8 @@ typings/
 # dotenv environment variables file
 .env
 
-# Cloud9 IDE (https://c9.io/)
-.c9revisions
-.c9
+# Development environment temp directories
+.dev
 
-# Configuration files
-.gitignore
-.gitmodules
-.travis.yml
-jsdoc.conf.json
-
-# Repository
-.git/
-
-# Documentation
-/doc
-
-# Source
+# Sources
 /src

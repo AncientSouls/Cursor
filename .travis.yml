@@ -1,45 +1,35 @@
 language: node_js
 
 node_js:
-    - "8"
-    - "7"
-    - "6"
-    - "5"
-    - "4"
+  - "9"
+  - "8"
+  - "7"
+  - "6"
+  - "5"
+  - "4"
 
 os:
-    - linux
-    - osx
-
-notifications:
-    email:
-        - "ivansglazunov@gmail.com"
-
-before_install:
-    - npm install --global nyc
-    - npm install --global codacy-coverage
+  - linux
+  - osx
 
 install:
-    - npm install --only=production
-    - npm install --only=development
+  - npm install
 
 script:
-    - nyc npm run test
-    - nyc report --reporter=lcov
-
-after_success:
-    - nyc report --reporter=lcov
-    - cat ./coverage/lcov.info | codacy-coverage
-
+  - npm run dev-test
 jobs:
-    include:
-        - stage: deploy
-          node_js: "8"
-          os: "linux"
-          before_deploy:
-              - npm run compile
-          deploy:
-              provider: npm
-              skip_cleanup: true
-              email: "info@valentineus.link"
-              api_key: $NPM_PROJECT_TOKEN
+  include:
+      stage: deploy
+      node_js: "9"
+      os: "linux"
+      before_deploy:
+        - git stash --all
+        - npm install
+        - npm run tsc
+      deploy:
+        - provider: npm
+          skip_cleanup: true
+          email: "ancientpublicator@gmail.com"
+          api_key: $AP_NPM_API_KEY
+          on:
+            branch: master
