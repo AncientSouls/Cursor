@@ -12,7 +12,7 @@
 
 **●  bundle**:  *[IBundle](ibundle.md)* 
 
-*Defined in [bundle.ts:14](https://github.com/AncientSouls/Cursor/blob/0bc4576/src/lib/bundle.ts#L14)*
+*Defined in [bundle.ts:14](https://github.com/AncientSouls/Cursor/blob/588b28d/src/lib/bundle.ts#L14)*
 
 
 
@@ -26,7 +26,7 @@ ___
 
 **●  bundlePath**:  *`string`[]* 
 
-*Defined in [bundle.ts:12](https://github.com/AncientSouls/Cursor/blob/0bc4576/src/lib/bundle.ts#L12)*
+*Defined in [bundle.ts:12](https://github.com/AncientSouls/Cursor/blob/588b28d/src/lib/bundle.ts#L12)*
 
 
 
@@ -40,7 +40,7 @@ ___
 
 **●  data**:  *`any`* 
 
-*Defined in [bundle.ts:13](https://github.com/AncientSouls/Cursor/blob/0bc4576/src/lib/bundle.ts#L13)*
+*Defined in [bundle.ts:13](https://github.com/AncientSouls/Cursor/blob/588b28d/src/lib/bundle.ts#L13)*
 
 
 
@@ -54,7 +54,7 @@ ___
 
 **●  newValue**:  *`any`* 
 
-*Defined in [bundle.ts:11](https://github.com/AncientSouls/Cursor/blob/0bc4576/src/lib/bundle.ts#L11)*
+*Defined in [bundle.ts:11](https://github.com/AncientSouls/Cursor/blob/588b28d/src/lib/bundle.ts#L11)*
 
 
 
@@ -68,7 +68,7 @@ ___
 
 **●  oldValue**:  *`any`* 
 
-*Defined in [bundle.ts:10](https://github.com/AncientSouls/Cursor/blob/0bc4576/src/lib/bundle.ts#L10)*
+*Defined in [bundle.ts:10](https://github.com/AncientSouls/Cursor/blob/588b28d/src/lib/bundle.ts#L10)*
 
 
 

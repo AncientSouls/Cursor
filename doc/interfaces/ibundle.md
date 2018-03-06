@@ -43,7 +43,7 @@
 
 **●  path**:  *`string`* 
 
-*Defined in [bundle.ts:5](https://github.com/AncientSouls/Cursor/blob/0bc4576/src/lib/bundle.ts#L5)*
+*Defined in [bundle.ts:5](https://github.com/AncientSouls/Cursor/blob/588b28d/src/lib/bundle.ts#L5)*
 
 
 
@@ -57,7 +57,7 @@ ___
 
 **●  type**:  *`string`* 
 
-*Defined in [bundle.ts:4](https://github.com/AncientSouls/Cursor/blob/0bc4576/src/lib/bundle.ts#L4)*
+*Defined in [bundle.ts:4](https://github.com/AncientSouls/Cursor/blob/588b28d/src/lib/bundle.ts#L4)*
 
 
 
