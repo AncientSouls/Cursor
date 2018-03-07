@@ -5,6 +5,7 @@
   ],
   "rules": {
     "no-increment-decrement": false,
+    "no-unused-variable": [true],
     "variable-name": [
       true,
       "ban-keywords",
