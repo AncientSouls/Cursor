@@ -20,7 +20,7 @@ export default function () {
       bundleParsers.extend(container, {
         type: 'extend',
         path: 'a.0.b',
-        extend: { d: 234 },
+        value: { d: 234 },
       });
       assert.deepEqual(
         container.data,
@@ -80,7 +80,7 @@ export default function () {
         type: 'arrayFilterAndExtend',
         path: 'a',
         selector: { b: {} },
-        extend: { d: 234 },
+        value: { d: 234 },
       });
       assert.deepEqual(
         container.data,
@@ -96,7 +96,7 @@ export default function () {
         type: 'arrayFindAndExtend',
         path: 'a',
         selector: { b: {} },
-        extend: { d: 234 },
+        value: { d: 234 },
       });
       assert.deepEqual(
         container.data,

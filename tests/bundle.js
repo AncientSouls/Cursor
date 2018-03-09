@@ -18,7 +18,7 @@ function default_1() {
             bundle_1.bundleParsers.extend(container, {
                 type: 'extend',
                 path: 'a.0.b',
-                extend: { d: 234 }
+                value: { d: 234 }
             });
             chai_1.assert.deepEqual(container.data, { a: [{ b: { c: 123, d: 234 } }] });
         });
@@ -66,7 +66,7 @@ function default_1() {
                 type: 'arrayFilterAndExtend',
                 path: 'a',
                 selector: { b: {} },
-                extend: { d: 234 }
+                value: { d: 234 }
             });
             chai_1.assert.deepEqual(container.data, { a: [
                     { b: { c: 123 }, d: 234 },
@@ -79,7 +79,7 @@ function default_1() {
                 type: 'arrayFindAndExtend',
                 path: 'a',
                 selector: { b: {} },
-                extend: { d: 234 }
+                value: { d: 234 }
             });
             chai_1.assert.deepEqual(container.data, { a: [
                     { b: { c: 123 }, d: 234 },

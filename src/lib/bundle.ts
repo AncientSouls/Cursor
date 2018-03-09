@@ -22,12 +22,8 @@ interface IBundleParsers {
   [name: string]: IBundleParser;
 }
 
-interface IBundleSet extends IBundle {
+interface IBundleValue extends IBundle {
   value: any;
-}
-
-interface IBundleExtend extends IBundle {
-  extend: any;
 }
 
 interface IBundleUnset extends IBundle {}
@@ -42,9 +38,8 @@ interface IBundleArrayRemove extends IBundle {
   selector: object;
 }
 
-interface IBundleArrayExtend extends IBundle {
+interface IBundleArrayExtend extends IBundleValue {
   selector: object;
-  extend: any;
 }
 
 function get(data: any, path: any): any {
@@ -63,7 +58,7 @@ function prepare(container, bundle): {
 }
 
 const bundleParsers: IBundleParsers = {
-  set(container, bundle: IBundleSet) {
+  set(container, bundle: IBundleValue) {
     const { oldValue, bundlePath } = prepare(container, bundle);
     
     if (!bundlePath.length) {
@@ -80,13 +75,13 @@ const bundleParsers: IBundleParsers = {
     
     return { oldValue, newValue, bundlePath, bundle, data: container.data };
   },
-  extend(container, bundle: IBundleExtend) {
+  extend(container, bundle: IBundleValue) {
     const { oldValue, bundlePath } = prepare(container, bundle);
 
     if (!bundlePath.length) {
-      _.extend(container.data, bundle.extend);
+      _.extend(container.data, bundle.value);
     } else {
-      _.extend(get(container.data, bundlePath), bundle.extend);
+      _.extend(get(container.data, bundlePath), bundle.value);
     }
     
     const newValue = get(container.data, bundlePath);
@@ -147,7 +142,7 @@ const bundleParsers: IBundleParsers = {
       throw new Error(`Data by path "${bundle.path}" is not an array but ${typeof(value)}.`);
     }
     
-    _.each(value, v => _.matches(bundle.selector) ? _.extend(v, bundle.extend) : null);
+    _.each(value, v => _.matches(bundle.selector) ? _.extend(v, bundle.value) : null);
     
     const newValue = value;
     
@@ -161,7 +156,7 @@ const bundleParsers: IBundleParsers = {
       throw new Error(`Data by path "${bundle.path}" is not an array but ${typeof(value)}.`);
     }
     
-    _.extend(_.find(value, bundle.selector), bundle.extend);
+    _.extend(_.find(value, bundle.selector), bundle.value);
     
     const newValue = value;
     
@@ -174,8 +169,11 @@ export {
   IBundleParsers,
   IBundleChanges,
   IBundle,
-  IBundleSet,
+  IBundleValue,
+  IBundleUnset,
   IBundleArraySplice,
+  IBundleArrayRemove,
+  IBundleArrayExtend,
   bundleParsers,
   get,
   prepare,
