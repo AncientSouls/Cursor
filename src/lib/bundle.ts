@@ -1,4 +1,4 @@
-import * as lodash from 'lodash';
+import * as _ from 'lodash';
 
 interface IBundle {
   type: string;
@@ -34,16 +34,20 @@ interface IBundleArraySplice extends IBundle {
   values: any[];
 }
 
+interface IBundleArrayRemove extends IBundle {
+  selector: object;
+}
+
 function get(data: any, path: any): any {
-  const arrayPath = lodash.toPath(path);
-  return path.length ? lodash.get(data, path) : data;
+  const arrayPath = _.toPath(path);
+  return path.length ? _.get(data, path) : data;
 }
 
 function prepare(container, bundle): {
   bundlePath: string[],
   oldValue: any,
 } {
-  const bundlePath = lodash.toPath(bundle.path);
+  const bundlePath = _.toPath(bundle.path);
   const oldValue = get(container.data, bundlePath);
   
   return { oldValue, bundlePath };
@@ -56,7 +60,7 @@ const bundleParsers: IBundleParsers = {
     if (!bundlePath.length) {
       container.data = bundle.value;
     } else {
-      container.data = lodash.set(
+      container.data = _.set(
         container.data || {},
         bundlePath,
         bundle.value,
@@ -89,11 +93,26 @@ const bundleParsers: IBundleParsers = {
     const { oldValue, bundlePath } = prepare(container, bundle);
     const value = get(container.data, bundlePath);
     
-    if (!lodash.isArray(value)) {
+    if (!_.isArray(value)) {
       throw new Error(`Data by path "${bundle.path}" is not an array but ${typeof(value)}.`);
     }
     
     value.splice(bundle.start, bundle.deleteCount, ...bundle.values);
+    
+    const newValue = value;
+    
+    return { oldValue, newValue, bundlePath, bundle, data: container.data };
+  },
+  arrayRemove(container, bundle: IBundleArrayRemove) {
+    const { bundlePath } = prepare(container, bundle);
+    const value = get(container.data, bundlePath);
+    const oldValue = _.clone(value);
+    
+    if (!_.isArray(value)) {
+      throw new Error(`Data by path "${bundle.path}" is not an array but ${typeof(value)}.`);
+    }
+    
+    _.remove(value, _.matches(bundle.selector));
     
     const newValue = value;
     
