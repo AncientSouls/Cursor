@@ -5,6 +5,8 @@
   ],
   "rules": {
     "no-increment-decrement": false,
+    "no-unused-variable": [true],
+    "function-name": false,
     "variable-name": [
       true,
       "ban-keywords",

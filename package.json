@@ -1,14 +1,14 @@
 {
   "name": "ancient-cursor",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Abstract container of data synchronization.",
   "bugs": "https://github.com/AncientSouls/Cursor/issues",
   "repository": "AncientSouls/Cursor",
   "license": "MIT",
   "scripts": {
-    "tsc": "rm -rf ./lib ./tests && tsc ./src/*/*.ts --outDir ./ --sourceMap -d true --module CommonJS",
-    "test": "mocha ./tests/index.js --require source-map-support/register",
-    "tslint": "tslint -c tslint.json './src/**/*.ts'",
+    "tsc": "rm -rf ./lib ./tests && ./node_modules/typescript/bin/tsc",
+    "test": "./node_modules/mocha/bin/mocha ./tests/index.js --require source-map-support/register",
+    "tslint": "./node_modules/tslint/bin/tslint -c tslint.json './src/**/*.ts'",
     "dev-link": "npm link ancient-mixins",
     "dev-test": "(rm -rf .dev && git clone -b dev https://github.com/AncientSouls/AncientSouls.github.io.git .dev && cd .dev && git submodule init && git submodule update && npm run dev-install) && npm link ./ && (cd .dev && npm run dev-use-links && npm run dev-check)"
   },
