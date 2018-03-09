@@ -6,7 +6,7 @@ export default function () {
     it('set', () => {
       const container = { data: { a: [{ b: { c: 123 } }] } };
       bundleParsers.set(container, {
-        type: 'set()',
+        type: 'set',
         path: 'a.0.b.c',
         value: 234,
       });
@@ -18,7 +18,7 @@ export default function () {
     it('unset', () => {
       const container = { data: { a: [{ b: { c: 123 } }] } };
       bundleParsers.unset(container, {
-        type: 'unset()',
+        type: 'unset',
         path: 'a.0.b.c',
       });
       assert.deepEqual(
@@ -29,7 +29,7 @@ export default function () {
     it('arraySplice', () => {
       const container = { data: { a: [{ b: { c: 123 } }, { b: { c: 456 } }] } };
       bundleParsers.arraySplice(container, {
-        type: 'arraySplice()',
+        type: 'arraySplice',
         path: 'a',
         start: 1,
         deleteCount: 0,
@@ -44,6 +44,20 @@ export default function () {
           { b: { c: 123 } },
           { b: { c: 234 } },
           { b: { c: 345 } },
+          { b: { c: 456 } },
+        ] },
+      );
+    });
+    it('arrayRemove', () => {
+      const container = { data: { a: [{ b: { c: 123 } }, { b: { c: 456 } }] } };
+      bundleParsers.arrayRemove(container, {
+        type: 'arrayRemove',
+        path: 'a',
+        selector: { b: { c: 123 } },
+      });
+      assert.deepEqual(
+        container.data,
+        { a: [
           { b: { c: 456 } },
         ] },
       );
