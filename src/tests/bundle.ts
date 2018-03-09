@@ -15,6 +15,18 @@ export default function () {
         { a: [{ b: { c: 234 } }] },
       );
     });
+    it('extend', () => {
+      const container = { data: { a: [{ b: { c: 123 } }] } };
+      bundleParsers.extend(container, {
+        type: 'extend',
+        path: 'a.0.b',
+        value: { d: 234 },
+      });
+      assert.deepEqual(
+        container.data,
+        { a: [{ b: { c: 123, d: 234 } }] },
+      );
+    });
     it('unset', () => {
       const container = { data: { a: [{ b: { c: 123 } }] } };
       bundleParsers.unset(container, {
@@ -58,6 +70,38 @@ export default function () {
       assert.deepEqual(
         container.data,
         { a: [
+          { b: { c: 456 } },
+        ] },
+      );
+    });
+    it('arrayFilterAndExtend', () => {
+      const container = { data: { a: [{ b: { c: 123 } }, { b: { c: 456 } }] } };
+      bundleParsers.arrayFilterAndExtend(container, {
+        type: 'arrayFilterAndExtend',
+        path: 'a',
+        selector: { b: {} },
+        value: { d: 234 },
+      });
+      assert.deepEqual(
+        container.data,
+        { a: [
+          { b: { c: 123 }, d: 234 },
+          { b: { c: 456 }, d: 234 },
+        ] },
+      );
+    });
+    it('arrayFindAndExtend', () => {
+      const container = { data: { a: [{ b: { c: 123 } }, { b: { c: 456 } }] } };
+      bundleParsers.arrayFindAndExtend(container, {
+        type: 'arrayFindAndExtend',
+        path: 'a',
+        selector: { b: {} },
+        value: { d: 234 },
+      });
+      assert.deepEqual(
+        container.data,
+        { a: [
+          { b: { c: 123 }, d: 234 },
           { b: { c: 456 } },
         ] },
       );
