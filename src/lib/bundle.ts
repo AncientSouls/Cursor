@@ -42,7 +42,7 @@ type TBundlePathsStep = TBundlePath|TBundleSelector;
 type TBundlePaths = string|TBundlePathsStep[];
 
 function toPath(data: any, paths: TBundlePaths): TBundlePath {
-  if (_.isString(paths)) return paths;
+  if (typeof(paths) === 'string') return paths;
   if (!_.isArray(paths)) throw new Error('Path must be array TBundlePaths.');
   let pointer = data;
   let result = '';
