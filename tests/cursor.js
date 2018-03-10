@@ -62,6 +62,13 @@ function default_1() {
                     chai_1.assert.deepEqual(newValue, { d: { e: 'f' } });
                     counter++;
                 });
+                watch(['a', {}, 'b'], function (_a) {
+                    var isClone = _a.isClone, oldValue = _a.oldValue, newValue = _a.newValue;
+                    chai_1.assert.isTrue(isClone);
+                    chai_1.assert.deepEqual(oldValue, { c: 'd' });
+                    chai_1.assert.deepEqual(newValue, undefined);
+                    counter++;
+                });
                 watch('a.0.b', function (_a) {
                     var isClone = _a.isClone, oldValue = _a.oldValue, newValue = _a.newValue;
                     chai_1.assert.isTrue(isClone);
@@ -102,7 +109,7 @@ function default_1() {
                     var isClone = _a.isClone, oldValue = _a.oldValue, newValue = _a.newValue;
                     throw new Error('"b" path is not changed, wrong watch calling');
                 });
-                chai_1.assert.equal(counter, 7);
+                chai_1.assert.equal(counter, 8);
                 done();
             });
             cursor.apply({
