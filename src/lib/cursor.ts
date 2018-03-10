@@ -15,6 +15,8 @@ import {
   IBundle,
   bundleParsers,
   IBundleChanges,
+  TBundlePaths,
+  toPath,
   get,
 } from './bundle';
 
@@ -69,19 +71,19 @@ interface ICursor<IEventsList extends ICursorEventsList> extends INode<IEventsLi
   exec(query: any, data?: any): this;
   apply(bundle: IBundle): this;
   parse(bundle: IBundle): IBundleChanges; 
-  get(path: string): any;
+  get(paths: TBundlePaths): any;
 }
 
 function watch(
   { oldValue, newValue, bundlePath, data, bundle }: IBundleChanges,
-  path: string,
+  paths: TBundlePaths,
   listener: (data: ICursorWatchData) => void,
 ) {
-  const watchPath = _.toPath(path);
+  const watchPath = _.toPath(toPath(data, paths));
   const localWatchPath = watchPath.slice(bundlePath.length);
   const localBundlePath = bundlePath.slice(watchPath.length);
   const leastPathLength = Math.min(watchPath.length, bundlePath.length);
-  const value = get(data, path);
+  const value = get(data, paths);
   let localOldValue;
   let localNewValue;
   let isClone;
@@ -97,7 +99,7 @@ function watch(
     localNewValue = value;
     isClone = true;
   } else {
-    localOldValue = localNewValue = get(data, path);
+    localOldValue = localNewValue = get(data, paths);
     isClone = false;
   }
   
@@ -120,7 +122,7 @@ function apply(cursor, bundle) {
     bundlePath,
     bundle,
     cursor,
-    watch: (path: string, listener: (data: ICursorWatchData) => void) => {
+    watch: (path: TBundlePaths, listener: (data: ICursorWatchData) => void) => {
       watch(bundleChanges, path, listener);
     },
   };
@@ -164,8 +166,8 @@ function mixin<T extends TClass<IInstance>>(
       return bundleParsers[bundle.type](this, bundle);
     }
     
-    get(path) {
-      return get(this.data, path);
+    get(paths) {
+      return get(this.data, paths);
     }
   };
 }

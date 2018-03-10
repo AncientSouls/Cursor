@@ -2,7 +2,7 @@ import * as _ from 'lodash';
 
 interface IBundle {
   type: string;
-  path: string;
+  path: TBundlePaths;
   [key: string]: any;
 }
 
@@ -26,24 +26,45 @@ interface IBundleValue extends IBundle {
   value: any;
 }
 
-interface IBundleUnset extends IBundle {}
+interface IBundleSelector extends IBundle {
+  selector: TBundleSelector;
+}
 
-interface IBundleArraySplice extends IBundle {
+interface IBundleSplice extends IBundle {
   start: number;
   deleteCount: number;
   values: any[];
 }
 
-interface IBundleArrayRemove extends IBundle {
-  selector: object;
+type TBundlePath = string;
+type TBundleSelector = any;
+type TBundlePathsStep = TBundlePath|TBundleSelector;
+type TBundlePaths = string|TBundlePathsStep[];
+
+function toPath(data: any, paths: TBundlePaths): TBundlePath {
+  if (_.isString(paths)) return paths;
+  if (!_.isArray(paths)) throw new Error('Path must be array TBundlePaths.');
+  let pointer = data;
+  let result = '';
+  _.each(paths, (p) => {
+    let path;
+    if (_.isString(p)) {
+      path = p;
+    } else {
+      path = '' + _.findIndex(pointer, p);
+      if (path === '-1') throw new Error(`Not founded by selector in path ${paths}.`);
+    }
+    pointer = getByPath(pointer, path);
+    result += path ? (result ? '.' + path : path) : '';
+  });
+  return result;
 }
 
-interface IBundleArrayExtend extends IBundleValue {
-  selector: object;
+function get(data: any, paths: TBundlePaths): any {
+  return getByPath(data, toPath(data, paths));
 }
 
-function get(data: any, path: any): any {
-  const arrayPath = _.toPath(path);
+function getByPath(data: any, path: any): any {
   return path.length ? _.get(data, path) : data;
 }
 
@@ -51,9 +72,8 @@ function prepare(container, bundle): {
   bundlePath: string[],
   oldValue: any,
 } {
-  const bundlePath = _.toPath(bundle.path);
+  const bundlePath = _.toPath(toPath(container.data, bundle.path));
   const oldValue = _.clone(get(container.data, bundlePath));
-  
   return { oldValue, bundlePath };
 }
 
@@ -88,7 +108,7 @@ const bundleParsers: IBundleParsers = {
     
     return { oldValue, newValue, bundlePath, bundle, data: container.data };
   },
-  unset(container, bundle: IBundleUnset) {
+  unset(container, bundle: IBundle) {
     const { oldValue, bundlePath } = prepare(container, bundle);
     
     if (!bundlePath.length) {
@@ -106,7 +126,7 @@ const bundleParsers: IBundleParsers = {
     
     return { oldValue, newValue, bundlePath, bundle, data: container.data };
   },
-  arraySplice(container, bundle: IBundleArraySplice) {
+  splice(container, bundle: IBundleSplice) {
     const { oldValue, bundlePath } = prepare(container, bundle);
     const value = get(container.data, bundlePath);
     
@@ -120,7 +140,7 @@ const bundleParsers: IBundleParsers = {
     
     return { oldValue, newValue, bundlePath, bundle, data: container.data };
   },
-  arrayRemove(container, bundle: IBundleArrayRemove) {
+  remove(container, bundle: IBundle) {
     const { oldValue, bundlePath } = prepare(container, bundle);
     const value = get(container.data, bundlePath);
     
@@ -134,34 +154,6 @@ const bundleParsers: IBundleParsers = {
     
     return { oldValue, newValue, bundlePath, bundle, data: container.data };
   },
-  arrayFilterAndExtend(container, bundle: IBundleArrayExtend) {
-    const { oldValue, bundlePath } = prepare(container, bundle);
-    const value = get(container.data, bundlePath);
-    
-    if (!_.isArray(value)) {
-      throw new Error(`Data by path "${bundle.path}" is not an array but ${typeof(value)}.`);
-    }
-    
-    _.each(value, v => _.matches(bundle.selector) ? _.extend(v, bundle.value) : null);
-    
-    const newValue = value;
-    
-    return { oldValue, newValue, bundlePath, bundle, data: container.data };
-  },
-  arrayFindAndExtend(container, bundle: IBundleArrayExtend) {
-    const { oldValue, bundlePath } = prepare(container, bundle);
-    const value = get(container.data, bundlePath);
-    
-    if (!_.isArray(value)) {
-      throw new Error(`Data by path "${bundle.path}" is not an array but ${typeof(value)}.`);
-    }
-    
-    _.extend(_.find(value, bundle.selector), bundle.value);
-    
-    const newValue = value;
-    
-    return { oldValue, newValue, bundlePath, bundle, data: container.data };
-  },
 };
 
 export {
@@ -170,11 +162,13 @@ export {
   IBundleChanges,
   IBundle,
   IBundleValue,
-  IBundleUnset,
-  IBundleArraySplice,
-  IBundleArrayRemove,
-  IBundleArrayExtend,
+  TBundlePath,
+  TBundleSelector,
+  TBundlePathsStep,
+  TBundlePaths,
   bundleParsers,
   get,
+  getByPath,
+  toPath,
   prepare,
 };
