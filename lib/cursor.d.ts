@@ -1,6 +1,6 @@
 import { TClass, IInstance } from 'ancient-mixins/lib/mixins';
 import { INode, INodeEventsList } from 'ancient-mixins/lib/node';
-import { IBundle, IBundleChanges } from './bundle';
+import { IBundle, IBundleChanges, TBundlePaths } from './bundle';
 declare type TCursor = ICursor<ICursorEventsList>;
 interface ICursorEventChangedData {
     data: any;
@@ -45,9 +45,9 @@ interface ICursor<IEventsList extends ICursorEventsList> extends INode<IEventsLi
     exec(query: any, data?: any): this;
     apply(bundle: IBundle): this;
     parse(bundle: IBundle): IBundleChanges;
-    get(path: string): any;
+    get(paths: TBundlePaths): any;
 }
-declare function watch({oldValue, newValue, bundlePath, data, bundle}: IBundleChanges, path: string, listener: (data: ICursorWatchData) => void): void;
+declare function watch({oldValue, newValue, bundlePath, data, bundle}: IBundleChanges, paths: TBundlePaths, listener: (data: ICursorWatchData) => void): void;
 declare function mixin<T extends TClass<IInstance>>(superClass: T): any;
 declare const MixedCursor: TClass<ICursor<ICursorEventsList>>;
 declare class Cursor extends MixedCursor {

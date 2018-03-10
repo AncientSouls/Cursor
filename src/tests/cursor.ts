@@ -63,6 +63,12 @@ export default function () {
           assert.deepEqual(newValue, { d: { e: 'f' } });
           counter++;
         });
+        watch(['a', {}, 'b'], ({ isClone, oldValue, newValue }) => {
+          assert.isTrue(isClone);
+          assert.deepEqual(oldValue, { c: 'd' });
+          assert.deepEqual(newValue, undefined);
+          counter++;
+        });
         watch('a.0.b', ({ isClone, oldValue, newValue }) => {
           assert.isTrue(isClone);
           assert.deepEqual(oldValue, { c: 'd' });
@@ -96,7 +102,7 @@ export default function () {
         watch('b', ({ isClone, oldValue, newValue }) => {
           throw new Error('"b" path is not changed, wrong watch calling');
         });
-        assert.equal(counter, 7);
+        assert.equal(counter, 8);
         done();
       });
       cursor.apply({
