@@ -133,7 +133,7 @@ function apply(cursor, bundle) {
 function mixin<T extends TClass<IInstance>>(
   superClass: T,
 ): any {
-  return class Cursor extends Node {
+  return class Cursor extends superClass {
     public queryId;
     public query;
     public data;
