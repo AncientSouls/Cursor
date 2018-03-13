@@ -1,15 +1,14 @@
 "use strict";
-exports.__esModule = true;
-var chai_1 = require("chai");
-var cursors_manager_1 = require("../lib/cursors-manager");
+Object.defineProperty(exports, "__esModule", { value: true });
+const chai_1 = require("chai");
+const cursors_manager_1 = require("../lib/cursors-manager");
 function default_1() {
-    describe('CursorsManager:', function () {
-        it('changed', function (done) {
-            var cursorsManager = new cursors_manager_1.CursorsManager();
-            var cursor = cursorsManager.create();
+    describe('CursorsManager:', () => {
+        it('changed', (done) => {
+            const cursorsManager = new cursors_manager_1.CursorsManager();
+            const cursor = cursorsManager.create();
             cursor.exec(true, { a: [{ b: { c: 'd' } }] });
-            cursorsManager.on('changed', function (_a) {
-                var data = _a.data, oldValue = _a.oldValue, newValue = _a.newValue, bundlePath = _a.bundlePath, bundle = _a.bundle, watch = _a.watch, cursor = _a.cursor, manager = _a.manager;
+            cursorsManager.on('changed', ({ data, oldValue, newValue, bundlePath, bundle, watch, cursor, manager, }) => {
                 chai_1.assert.deepEqual(data, { a: [{ b: { d: 'e' } }] });
                 chai_1.assert.deepEqual(oldValue, { c: 'd' });
                 chai_1.assert.deepEqual(newValue, { d: 'e' });
@@ -18,10 +17,10 @@ function default_1() {
             cursor.apply({
                 type: 'set',
                 path: 'a.0.b',
-                value: { d: 'e' }
+                value: { d: 'e' },
             });
         });
     });
 }
-exports["default"] = default_1;
+exports.default = default_1;
 //# sourceMappingURL=cursors-manager.js.map

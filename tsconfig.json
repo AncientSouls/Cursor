@@ -5,7 +5,8 @@
     "preserveConstEnums": true,
     "sourceMap": true,
     "declaration": true,
-    "outDir": "./"
+    "outDir": "./",
+    "target": "es6"
   },
   "include": [
     "./src/*/*.ts"

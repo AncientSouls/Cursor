@@ -3,7 +3,6 @@ import * as _ from 'lodash';
 
 import {
   Cursor,
-  TCursor,
 } from '../lib/cursor';
 
 export default function () {
