@@ -84,6 +84,31 @@ function default_1() {
                         { y: 2, a: [{ b: { c: 456 } }] },
                     ] });
             });
+            it('push', () => {
+                const container = { data: { x: [
+                            { y: 1, a: [{ b: { c: 123 } }, { b: { c: 456 } }] },
+                            { y: 2, a: [{ b: { c: 123 } }, { b: { c: 456 } }] },
+                        ] } };
+                bundle_1.bundleParsers.push(container, {
+                    type: 'push',
+                    path: ['x', ['y', 2], 'a'],
+                    value: [{ d: 567 }],
+                });
+                chai_1.assert.deepEqual(container.data, { x: [
+                        { y: 1, a: [{ b: { c: 123 } }, { b: { c: 456 } }] },
+                        { y: 2, a: [{ b: { c: 123 } }, { b: { c: 456 } }, { d: 567 }] },
+                    ] });
+            });
+            it('move', () => {
+                const container = { data: { x: [0, 1, 2, 3, 4, 5, 6] } };
+                bundle_1.bundleParsers.move(container, {
+                    type: 'move',
+                    path: ['x'],
+                    from: 3,
+                    to: 5,
+                });
+                chai_1.assert.deepEqual(container.data, { x: [0, 1, 2, 4, 5, 3, 6] });
+            });
         });
     });
 }

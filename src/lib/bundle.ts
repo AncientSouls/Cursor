@@ -36,6 +36,11 @@ interface IBundleSplice extends IBundle {
   values: any[];
 }
 
+interface IBundleMove extends IBundle {
+  from: number;
+  to: number;
+}
+
 type TBundlePath = string;
 type TBundleSelector = any;
 type TBundlePathsStep = TBundlePath|TBundleSelector;
@@ -149,6 +154,34 @@ const bundleParsers: IBundleParsers = {
     }
     
     _.remove(value, _.matches(bundle.selector));
+    
+    const newValue = value;
+    
+    return { oldValue, newValue, bundlePath, bundle, data: container.data };
+  },
+  push(container, bundle: IBundleValue) {
+    const { oldValue, bundlePath } = prepare(container, bundle);
+    const value = get(container.data, bundlePath);
+    
+    if (!_.isArray(value)) {
+      throw new Error(`Data by path "${bundle.path}" is not an array but ${typeof(value)}.`);
+    }
+    
+    value.push(...bundle.value);
+    
+    const newValue = value;
+    
+    return { oldValue, newValue, bundlePath, bundle, data: container.data };
+  },
+  move(container, bundle: IBundleMove) {
+    const { oldValue, bundlePath } = prepare(container, bundle);
+    const value = get(container.data, bundlePath);
+    
+    if (!_.isArray(value)) {
+      throw new Error(`Data by path "${bundle.path}" is not an array but ${typeof(value)}.`);
+    }
+    
+    value.splice(bundle.to, 0, value.splice(bundle.from, 1)[0]);
     
     const newValue = value;
     
