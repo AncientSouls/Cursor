@@ -105,6 +105,46 @@ function default_1() {
                 value: { d: { e: 'f' } },
             });
         });
+        it('storaged', () => {
+            const storageCursors = {};
+            const saveCursor = (cursor) => {
+                const { id, queryId, query, data } = cursor;
+                const stored = storageCursors[id];
+                cursor.on('changed', ({ cursor }) => stored.data = cursor.data);
+                cursor.on('exec', ({ cursor: { queryId, query } }) => {
+                    stored.queryId = queryId;
+                    stored.query = query;
+                });
+                cursor.on('destroyed', ({ node }) => delete storageCursors[id]);
+            };
+            const loadCursor = (cursor) => {
+                const { id, queryId, query, data } = cursor;
+                let stored;
+                if (storageCursors[id]) {
+                    stored = storageCursors[id];
+                    cursor.queryId = stored.queryId;
+                    cursor.query = stored.query;
+                    cursor.data = stored.data;
+                }
+                else {
+                    stored = { queryId, query, data };
+                    storageCursors[id] = stored;
+                }
+            };
+            class StoredCursor extends cursor_1.Cursor {
+                constructor(...args) {
+                    super(...args);
+                    loadCursor(this);
+                    saveCursor(this);
+                }
+            }
+            let cursor;
+            cursor = new StoredCursor('a');
+            cursor.apply({ type: 'set', path: '', value: { x: 123 } });
+            cursor = undefined;
+            cursor = new StoredCursor('a');
+            chai_1.assert.deepEqual(cursor.data, { x: 123 });
+        });
     });
 }
 exports.default = default_1;
