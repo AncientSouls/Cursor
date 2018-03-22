@@ -38,9 +38,16 @@ interface ICursorsManagerExecEventData extends ICursorEventExecData {
   manager: TCursorsManager;
 }
 
+interface ICursorsManagerEventData {
+  node: TCursor;
+  manager: TCursorsManager;
+}
+
 interface ICursorsManagerEventsList extends IManagerEventsList {
   changed: ICursorsManagerChangedEventData;
   exec: ICursorsManagerExecEventData;
+  added: ICursorsManagerEventData;
+  removed: ICursorsManagerEventData;
 }
 
 interface ICursorsManager<IN extends TCursor, IEventsList extends ICursorsManagerEventsList>
@@ -66,6 +73,7 @@ export {
   ICursorBundle,
   ICursorsManagerChangedEventData,
   ICursorsManagerExecEventData,
+  ICursorsManagerEventData,
   ICursorsManagerEventsList,
   TCursorsManager,
 };

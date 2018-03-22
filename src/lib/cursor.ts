@@ -52,7 +52,7 @@ interface ICursorWatchData {
 }
 
 interface ICursorWatch {
-  (path: string, listener: (data: ICursorWatchData) => void): void;
+  (path: TBundlePaths, listener: (data: ICursorWatchData) => void): void;
 }
 
 interface ICursorEventListener {

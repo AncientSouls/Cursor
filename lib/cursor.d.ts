@@ -29,7 +29,7 @@ interface ICursorWatchData {
     bundle: IBundle;
 }
 interface ICursorWatch {
-    (path: string, listener: (data: ICursorWatchData) => void): void;
+    (path: TBundlePaths, listener: (data: ICursorWatchData) => void): void;
 }
 interface ICursorEventListener {
     (data: ICursorEventChangedData): void;
