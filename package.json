@@ -10,7 +10,8 @@
     "test": "./node_modules/mocha/bin/mocha ./tests/index.js --require source-map-support/register",
     "tslint": "./node_modules/tslint/bin/tslint -c tslint.json './src/**/*.ts'",
     "dev-link": "npm link ancient-mixins",
-    "dev-test": "(rm -rf .dev && git clone -b dev https://github.com/AncientSouls/AncientSouls.github.io.git .dev && cd .dev && git submodule init && git submodule update && npm run dev-install) && npm link ./ && (cd .dev && npm run dev-use-links && npm run dev-check)"
+    "dev-test": "(rm -rf .dev && git clone -b dev https://github.com/AncientSouls/AncientSouls.github.io.git .dev && cd .dev && git submodule init && git submodule update && npm run dev-install) && npm link ./ && (cd .dev && npm run dev-use-links && npm run dev-check)",
+    "np": "./node_modules/np/cli.js --no-publish --no-yarn --yolo --any-branch"
   },
   "dependencies": {
     "lodash": "^4.17.5",
@@ -21,6 +22,7 @@
     "@types/node": "^9.4.7",
     "chai": "^4.1.2",
     "mocha": "^5.0.4",
+    "np": "^2.20.1",
     "source-map-support": "^0.5.3",
     "tslint": "^5.9.1",
     "tslint-config-airbnb": "^5.7.0",
