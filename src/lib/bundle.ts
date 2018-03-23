@@ -53,7 +53,7 @@ function toPath(data: any, paths: TBundlePaths): TBundlePath {
   let result = '';
   _.each(paths, (p) => {
     let path;
-    if (_.isString(p)) {
+    if (_.isString(p) || _.isNumber(p)) {
       path = p;
     } else {
       path = '' + _.findIndex(pointer, p);
