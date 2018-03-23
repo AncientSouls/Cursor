@@ -26,9 +26,9 @@ function test(path) {
     },
   });
   
-  assert.deepEqual(_.get(parent.data, `${_path}a`), ccm.nodes.a.data);
-  assert.deepEqual(_.get(parent.data, `${_path}b`), ccm.nodes.b.data);
-  assert.deepEqual(_.get(parent.data, `${_path}c`), ccm.nodes.c.data);
+  assert.deepEqual(_.get(parent.data, `${_path}a`), ccm.list.nodes.a.data);
+  assert.deepEqual(_.get(parent.data, `${_path}b`), ccm.list.nodes.b.data);
+  assert.deepEqual(_.get(parent.data, `${_path}c`), ccm.list.nodes.c.data);
   
   parent.apply({
     type: 'set',
@@ -36,10 +36,10 @@ function test(path) {
     value: 4,
   });
   
-  assert.deepEqual(_.get(parent.data, `${_path}a`), ccm.nodes.a.data);
+  assert.deepEqual(_.get(parent.data, `${_path}a`), ccm.list.nodes.a.data);
   assert.deepEqual(_.get(parent.data, `${_path}b`), { b: 4 });
-  assert.deepEqual(_.get(parent.data, `${_path}b`), ccm.nodes.b.data);
-  assert.deepEqual(_.get(parent.data, `${_path}c`), ccm.nodes.c.data);
+  assert.deepEqual(_.get(parent.data, `${_path}b`), ccm.list.nodes.b.data);
+  assert.deepEqual(_.get(parent.data, `${_path}c`), ccm.list.nodes.c.data);
   
   parent.apply({
     type: 'set',
@@ -47,21 +47,21 @@ function test(path) {
     value: 5,
   });
   
-  assert.deepEqual(_.get(parent.data, `${_path}a`), ccm.nodes.a.data);
-  assert.deepEqual(_.get(parent.data, `${_path}b`), ccm.nodes.b.data);
-  assert.deepEqual(_.get(parent.data, `${_path}c`), ccm.nodes.c.data);
+  assert.deepEqual(_.get(parent.data, `${_path}a`), ccm.list.nodes.a.data);
+  assert.deepEqual(_.get(parent.data, `${_path}b`), ccm.list.nodes.b.data);
+  assert.deepEqual(_.get(parent.data, `${_path}c`), ccm.list.nodes.c.data);
   assert.deepEqual(_.get(parent.data, `${_path}d`), { d: 5 });
-  assert.deepEqual(_.get(parent.data, `${_path}d`), ccm.nodes.d.data);
+  assert.deepEqual(_.get(parent.data, `${_path}d`), ccm.list.nodes.d.data);
   
   parent.apply({
     type: 'unset',
     path: `${_path}d`,
   });
   
-  assert.deepEqual(_.get(parent.data, `${_path}a`), ccm.nodes.a.data);
-  assert.deepEqual(_.get(parent.data, `${_path}b`), ccm.nodes.b.data);
-  assert.deepEqual(_.get(parent.data, `${_path}c`), ccm.nodes.c.data);
-  assert.isNotOk(ccm.nodes.d);
+  assert.deepEqual(_.get(parent.data, `${_path}a`), ccm.list.nodes.a.data);
+  assert.deepEqual(_.get(parent.data, `${_path}b`), ccm.list.nodes.b.data);
+  assert.deepEqual(_.get(parent.data, `${_path}c`), ccm.list.nodes.c.data);
+  assert.isNotOk(ccm.list.nodes.d);
 }
 
 export default function () {

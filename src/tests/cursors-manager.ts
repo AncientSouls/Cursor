@@ -13,9 +13,10 @@ export default function () {
   describe('CursorsManager:', () => {
     it('changed', (done) => {
       const cursorsManager = new CursorsManager();
-      const cursor = cursorsManager.create();
+      const cursor = new cursorsManager.Node();
+      cursorsManager.add(cursor);
       cursor.exec(true, { a: [{ b: { c: 'd' } }] });
-      cursorsManager.on('changed', ({
+      cursorsManager.list.on('changed', ({
         data, oldValue, newValue, bundlePath, bundle, watch, cursor, manager,
       }) => {
         assert.deepEqual(data, { a: [{ b: { d: 'e' } }] });
@@ -57,7 +58,7 @@ export default function () {
       const storageManagers = {};
       const saveManager = (manager) => {
         const { id, queryId, query, data } = manager;
-        manager.on('add', ({ node }) => storageManagers[manager.id] = node.id);
+        manager.on('added', ({ node }) => storageManagers[manager.id] = node.id);
         manager.on('removed', ({ node }) => delete storageManagers[manager.id]);
       };
       const loadManager = (manager) => {
@@ -88,14 +89,16 @@ export default function () {
       let cursor;
 
       manager = new StoredCursorsManager('cursors');
-      cursor = manager.create('a');
+      cursor = new manager.Node('a');
+      manager.add(cursor);
       cursor.apply({ type: 'set', path: '', value: { x: 123 } });
       
       manager = undefined;
       cursor = undefined;
 
       manager = new StoredCursorsManager('cursors');
-      cursor = manager.create('a');
+      cursor = new manager.Node('a');
+      manager.add(cursor);
       assert.deepEqual(cursor.data, { x: 123 });
     });
   });

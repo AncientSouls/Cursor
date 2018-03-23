@@ -18,36 +18,36 @@ function test(path) {
             c: { c: 3 },
         },
     });
-    chai_1.assert.deepEqual(_.get(parent.data, `${_path}a`), ccm.nodes.a.data);
-    chai_1.assert.deepEqual(_.get(parent.data, `${_path}b`), ccm.nodes.b.data);
-    chai_1.assert.deepEqual(_.get(parent.data, `${_path}c`), ccm.nodes.c.data);
+    chai_1.assert.deepEqual(_.get(parent.data, `${_path}a`), ccm.list.nodes.a.data);
+    chai_1.assert.deepEqual(_.get(parent.data, `${_path}b`), ccm.list.nodes.b.data);
+    chai_1.assert.deepEqual(_.get(parent.data, `${_path}c`), ccm.list.nodes.c.data);
     parent.apply({
         type: 'set',
         path: `${_path}b.b`,
         value: 4,
     });
-    chai_1.assert.deepEqual(_.get(parent.data, `${_path}a`), ccm.nodes.a.data);
+    chai_1.assert.deepEqual(_.get(parent.data, `${_path}a`), ccm.list.nodes.a.data);
     chai_1.assert.deepEqual(_.get(parent.data, `${_path}b`), { b: 4 });
-    chai_1.assert.deepEqual(_.get(parent.data, `${_path}b`), ccm.nodes.b.data);
-    chai_1.assert.deepEqual(_.get(parent.data, `${_path}c`), ccm.nodes.c.data);
+    chai_1.assert.deepEqual(_.get(parent.data, `${_path}b`), ccm.list.nodes.b.data);
+    chai_1.assert.deepEqual(_.get(parent.data, `${_path}c`), ccm.list.nodes.c.data);
     parent.apply({
         type: 'set',
         path: `${_path}d.d`,
         value: 5,
     });
-    chai_1.assert.deepEqual(_.get(parent.data, `${_path}a`), ccm.nodes.a.data);
-    chai_1.assert.deepEqual(_.get(parent.data, `${_path}b`), ccm.nodes.b.data);
-    chai_1.assert.deepEqual(_.get(parent.data, `${_path}c`), ccm.nodes.c.data);
+    chai_1.assert.deepEqual(_.get(parent.data, `${_path}a`), ccm.list.nodes.a.data);
+    chai_1.assert.deepEqual(_.get(parent.data, `${_path}b`), ccm.list.nodes.b.data);
+    chai_1.assert.deepEqual(_.get(parent.data, `${_path}c`), ccm.list.nodes.c.data);
     chai_1.assert.deepEqual(_.get(parent.data, `${_path}d`), { d: 5 });
-    chai_1.assert.deepEqual(_.get(parent.data, `${_path}d`), ccm.nodes.d.data);
+    chai_1.assert.deepEqual(_.get(parent.data, `${_path}d`), ccm.list.nodes.d.data);
     parent.apply({
         type: 'unset',
         path: `${_path}d`,
     });
-    chai_1.assert.deepEqual(_.get(parent.data, `${_path}a`), ccm.nodes.a.data);
-    chai_1.assert.deepEqual(_.get(parent.data, `${_path}b`), ccm.nodes.b.data);
-    chai_1.assert.deepEqual(_.get(parent.data, `${_path}c`), ccm.nodes.c.data);
-    chai_1.assert.isNotOk(ccm.nodes.d);
+    chai_1.assert.deepEqual(_.get(parent.data, `${_path}a`), ccm.list.nodes.a.data);
+    chai_1.assert.deepEqual(_.get(parent.data, `${_path}b`), ccm.list.nodes.b.data);
+    chai_1.assert.deepEqual(_.get(parent.data, `${_path}c`), ccm.list.nodes.c.data);
+    chai_1.assert.isNotOk(ccm.list.nodes.d);
 }
 function default_1() {
     describe('ChildsCursorsManager:', () => {

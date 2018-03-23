@@ -8,9 +8,10 @@ function default_1() {
     describe('CursorsManager:', () => {
         it('changed', (done) => {
             const cursorsManager = new cursors_manager_1.CursorsManager();
-            const cursor = cursorsManager.create();
+            const cursor = new cursorsManager.Node();
+            cursorsManager.add(cursor);
             cursor.exec(true, { a: [{ b: { c: 'd' } }] });
-            cursorsManager.on('changed', ({ data, oldValue, newValue, bundlePath, bundle, watch, cursor, manager, }) => {
+            cursorsManager.list.on('changed', ({ data, oldValue, newValue, bundlePath, bundle, watch, cursor, manager, }) => {
                 chai_1.assert.deepEqual(data, { a: [{ b: { d: 'e' } }] });
                 chai_1.assert.deepEqual(oldValue, { c: 'd' });
                 chai_1.assert.deepEqual(newValue, { d: 'e' });
@@ -51,7 +52,7 @@ function default_1() {
             const storageManagers = {};
             const saveManager = (manager) => {
                 const { id, queryId, query, data } = manager;
-                manager.on('add', ({ node }) => storageManagers[manager.id] = node.id);
+                manager.on('added', ({ node }) => storageManagers[manager.id] = node.id);
                 manager.on('removed', ({ node }) => delete storageManagers[manager.id]);
             };
             const loadManager = (manager) => {
@@ -78,12 +79,14 @@ function default_1() {
             let manager;
             let cursor;
             manager = new StoredCursorsManager('cursors');
-            cursor = manager.create('a');
+            cursor = new manager.Node('a');
+            manager.add(cursor);
             cursor.apply({ type: 'set', path: '', value: { x: 123 } });
             manager = undefined;
             cursor = undefined;
             manager = new StoredCursorsManager('cursors');
-            cursor = manager.create('a');
+            cursor = new manager.Node('a');
+            manager.add(cursor);
             chai_1.assert.deepEqual(cursor.data, { x: 123 });
         });
     });

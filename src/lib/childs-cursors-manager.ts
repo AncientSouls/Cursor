@@ -46,20 +46,20 @@ function mixin<T extends TClass<IInstance>>(
             const id = localBundlePath[0];
             const childData = get(newValue, id);
             if (childData) {
-              if (!this.nodes[id]) this.create(id);
-              this.nodes[id].exec(null, childData);
+              if (!this.list.nodes[id]) this.add(new this.Node(id));
+              this.list.nodes[id].exec(null, childData);
             } else {
-              if (this.nodes[id]) this.nodes[id].destroy();
+              if (this.list.nodes[id]) this.list.nodes[id].destroy();
             }
           } else {
-            _.each(this.nodes, (childCursor, id) => {
+            _.each(this.list.nodes, (childCursor, id) => {
               const childData = get(newValue, id);
               if (!childData) childCursor.destroy();
               else childCursor.exec(null, childData);
             });
             _.each(newValue, (childData, id) => {
-              if (!this.nodes[id]) this.create(id);
-              this.nodes[id].exec(null, get(newValue, id));
+              if (!this.list.nodes[id]) this.add(new this.Node(id));
+              this.list.nodes[id].exec(null, get(newValue, id));
             });
           }
         });
