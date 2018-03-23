@@ -44,8 +44,6 @@ interface ICursorsManagerEventData {
 }
 
 interface ICursorsManagerEventsList extends IManagerEventsList {
-  changed: ICursorsManagerChangedEventData;
-  exec: ICursorsManagerExecEventData;
   added: ICursorsManagerEventData;
   removed: ICursorsManagerEventData;
 }
