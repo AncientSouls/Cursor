@@ -11,7 +11,7 @@
     "tslint": "./node_modules/tslint/bin/tslint -c tslint.json './src/**/*.ts'",
     "dev-link": "npm link ancient-mixins",
     "dev-test": "(rm -rf .dev && git clone -b dev https://github.com/AncientSouls/AncientSouls.github.io.git .dev && cd .dev && git submodule init && git submodule update && npm run dev-install) && npm link ./ && (cd .dev && npm run dev-use-links && npm run dev-check)",
-    "np": "./node_modules/np/cli.js --no-publish --no-yarn --yolo"
+    "np": "./node_modules/np/cli.js --no-publish --no-yarn --yolo  --any-branch"
   },
   "dependencies": {
     "lodash": "^4.17.5",
