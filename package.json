@@ -1,6 +1,6 @@
 {
   "name": "ancient-cursor",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "description": "Abstract container of data synchronization.",
   "bugs": "https://github.com/AncientSouls/Cursor/issues",
   "repository": "AncientSouls/Cursor",
