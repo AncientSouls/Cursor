@@ -110,6 +110,17 @@ function default_1() {
                 chai_1.assert.deepEqual(container.data, { x: [0, 1, 2, 4, 5, 3, 6] });
             });
         });
+        describe('fixes', () => {
+            it('set [key,0]', () => {
+                const container = { data: { a: [{ b: { c: 123 } }] } };
+                bundle_1.bundleParsers.set(container, {
+                    type: 'set',
+                    path: ['a', 0],
+                    value: { d: { e: 234 } },
+                });
+                chai_1.assert.deepEqual(container.data, { a: [{ d: { e: 234 } }] });
+            });
+        });
     });
 }
 exports.default = default_1;
