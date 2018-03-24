@@ -142,5 +142,19 @@ export default function () {
         );
       });
     });
+    describe('fixes', () => {
+      it('set [key,0]', () => {
+        const container = { data: { a: [{ b: { c: 123 } }] } };
+        bundleParsers.set(container, {
+          type: 'set',
+          path: ['a', 0],
+          value: { d: { e: 234 } },
+        });
+        assert.deepEqual(
+          container.data,
+          { a: [{ d: { e: 234 } }] },
+        );
+      });
+    });
   });
 }

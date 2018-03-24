@@ -60,7 +60,7 @@ function toPath(data: any, paths: TBundlePaths): TBundlePath {
       if (path === '-1') throw new Error(`Not founded by selector in path ${paths}.`);
     }
     pointer = getByPath(pointer, path);
-    result += path ? (result ? '.' + path : path) : '';
+    result += result ? '.' + path : path;
   });
   return result;
 }
