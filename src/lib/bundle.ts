@@ -7,10 +7,29 @@ interface IBundle {
 }
 
 interface IBundleChanges {
+  /**
+  * Old value stored by bundlePath.
+  */ 
   oldValue: any;
+
+  /**
+  * New value stored by bundlePath.
+  */ 
   newValue: any;
+
+  /**
+  * Transformed to string[] path, which is located in Bundle.
+  */ 
   bundlePath: string[];
+
+  /**
+  * Data, changed by bundle.
+  */ 
   data: any;
+
+  /**
+  * Bundle, which changed data.
+  */ 
   bundle: IBundle;
 }
 
