@@ -23,31 +23,102 @@ import {
 type TCursor = ICursor<ICursorEventsList>;
 
 interface ICursorEventChangedData {
+  /**
+   * Data of cursor.
+   */
   data: any;
+  /**
+   * Value before changes by bundlePath.
+   */
   oldValue: any;
+  /**
+   * Value after changes by bundlePath.
+   */
   newValue: any;
+  /**
+   * Path to changes.
+   */
   bundlePath: string[];
+  /**
+   * Bundle, applied by cursor.
+   */
   bundle: IBundle;
+  /**
+   * Function returns void.
+   */
   watch: ICursorWatch;
+  /**
+   * Cursor, triggered event.
+   */
   cursor: TCursor;
 }
 
 interface ICursorEventExecData {
+  /**
+   * Cursor, triggered event.
+   */
   cursor: TCursor;
+
+  /**
+   * `Query` before exec.
+   */
   oldQuery: any;
+
+  /**
+   * `Data` before exec.
+   */
   oldData: any;
+
+  /**
+   * `QueryId` before exec.
+   */
   oldQueryId: string;
 }
 
 interface ICursorWatchData {
+  /**
+   * Actual state of all data from this cursor.
+   */
   data: any;
+
+  /**
+   * `oldValue` from bundleChanges
+   */
   oldValue: any;
+  
+  /**
+   * `newValue` from bundleChanges
+   */
   newValue: any;
+  
+  /**
+   * Depricated
+   */
   isClone: boolean;
+  
+  /**
+   * Path in data for changing 
+   */
   bundlePath: string[];
+  
+  /**
+   * Path in data for checking
+   */
   watchPath: string[];
+  
+  /**
+   * Endpoint of `bundlePath`.
+   */
   localBundlePath: string[];
+  
+  /**
+   * Endpoint of `watchPath`.
+   */
   localWatchPath: string[];
+  
+  /**
+   * Bundle, applied to data.
+   */
   bundle: IBundle;
 }
 
@@ -60,20 +131,87 @@ interface ICursorEventListener {
 }
 
 interface ICursorEventsList extends INodeEventsList {
+  /**
+   * Event, emitting at every `cursor.apply()`. 
+   */
   changed: ICursorEventChangedData;
+
+  /**
+   * Event, emitting when called `cursor.exec()`. 
+   */
   exec: ICursorEventExecData;
 }
 
 interface ICursor<IEventsList extends ICursorEventsList> extends INode<IEventsList> {
+  /**
+   * Unic id, generating in `cursor.exec()`. 
+   */
   queryId: string;
+
+  /**
+   * Abstract query for some source, which makes the source be able to send bundles to this cursor.
+   */
   query: any;
+  
+  /**
+   * Data executed by `cursor.exec()`.
+   */
   data: any;
+  
+  /**
+   * Initiate `query` execution for some source and set `data` for this cursor.
+   */
   exec(query: any, data?: any): this;
+  
+  /**
+   * Call `cursor.parse(bundle)`and emit 'Changed' event.
+   */
   apply(bundle: IBundle): this;
-  parse(bundle: IBundle): IBundleChanges; 
+  
+  /**
+   * Get bundleChanges with `cursor.data` using bundle.
+   */
+  parse(bundle: IBundle): IBundleChanges;
+  
+  /**
+   * Bundle function to get part of data by path. 
+   */
   get(paths: TBundlePaths): any;
 }
 
+/**
+ * Listen changes in `cursor.data` for current path.
+ * @example
+ * ```typescript
+ * 
+ * import { Cursor, watch } from 'ancient-cursor/lib/cursor';
+ * import { Node } from 'ancient-mixins/lib/node';
+ * import { TClass } from 'ancient-mixins/lib/mixins';
+ * 
+ * const cursor = new Cursor(); 
+ * cursor.exec(true, { a: [{ b: { c: 'd' } }, { e: { f: 'g' } }] });
+ * 
+ * cursor.on('changed', ({ watch }) => {
+ *   watch('a.1', ({ isClone, oldValue, newValue }) => {
+ *     console.log('Watch!');
+ *   });
+ * });
+ * 
+ * cursor.apply({
+ *   type: 'set',
+ *   path: 'a.0',
+ *   value: { d: 1 },
+ * });
+ * // Logs nothing
+ * 
+ * cursor.apply({
+ *   type: 'set',
+ *   path: 'a.1',
+ *   value: { d: 2 },
+ * });
+ * // Watch!
+ * ```
+ */
 function watch(
   { oldValue, newValue, bundlePath, data, bundle }: IBundleChanges,
   paths: TBundlePaths,
@@ -88,6 +226,7 @@ function watch(
   let localNewValue;
   let isClone;
   
+  // Verify inclusion watchPath into part of data, changed by bundle.
   if (leastPathLength) {
     if (!_.isEqual(watchPath.slice(0, leastPathLength), bundlePath.slice(0, leastPathLength))) {
       return;
@@ -111,6 +250,28 @@ function watch(
   });
 }
 
+/**
+ * Apply bundle to cursor and emit 'changed' event.
+ * @example
+ * ```typescript
+ * 
+ * import { Cursor } from 'ancient-cursor/lib/cursor';
+ * import { Node } from 'ancient-mixins/lib/node';
+ * import { TClass } from 'ancient-mixins/lib/mixins';
+ * 
+ * const cursor = new Cursor(); 
+ * cursor.exec(true, { a: [{ b: { c: 'd' } }] });
+ * 
+ * cursor.apply({
+ *   type: 'set',
+ *   path: 'a.0',
+ *   value: { d: { e: 'f' } },
+ * });
+ * 
+ * console.log(cursor.get (['a', '0']));
+ * // { d: { e: 'f' } }
+ * ```
+ */
 function apply(cursor, bundle) {
   const bundleChanges = cursor.parse(bundle);
   const { oldValue, newValue, bundlePath, data } = bundleChanges;
@@ -130,6 +291,18 @@ function apply(cursor, bundle) {
   cursor.emit('changed', eventData);
 }
 
+/**
+ * Mixin your class with Cursor functionality.
+ * @example
+ * ```typescript
+ * 
+ * import { mixin, ICursorEventsList, ICursor } from 'ancient-cursor/lib/cursor';
+ * import { Node } from 'ancient-mixins/lib/node';
+ * import { TClass } from 'ancient-mixins/lib/mixins';
+ * 
+ * const MixedCursor: TClass<ICursor<ICursorEventsList>> = mixin(Node);
+ * ```
+ */
 function mixin<T extends TClass<IInstance>>(
   superClass: T,
 ): any {
@@ -173,6 +346,9 @@ function mixin<T extends TClass<IInstance>>(
 }
 
 const MixedCursor: TClass<ICursor<ICursorEventsList>> = mixin(Node);
+/**
+ * Already mixed class. Plug and play.
+ */
 class Cursor extends MixedCursor {}
 
 export {
