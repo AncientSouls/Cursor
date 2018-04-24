@@ -52,9 +52,11 @@ interface ICursorsManager<IN extends TCursor, IEventsList extends ICursorsManage
 extends IManager<IN, IEventsList> {}
 
 /*
- * Class `Manager`, contains `TCursor` as node in `list`.
+ * Class `Manager`, contains `[TCursor]` in `list`.
  */
-class CursorsManager extends Manager implements TCursorsManager {}
+class CursorsManager extends Manager implements TClass<TCursorsManager> {
+  public Node = Cursor;
+}
 
 export {
   CursorsManager,
