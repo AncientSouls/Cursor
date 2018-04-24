@@ -4,6 +4,13 @@ const chai_1 = require("chai");
 const cursor_1 = require("../lib/cursor");
 function default_1() {
     describe('Cursor-doc:', () => {
+        it('cursor.exec()', () => {
+            const cursor = new cursor_1.Cursor();
+            cursor.exec(true, { a: [{ b: { c: 'd' } }] });
+            chai_1.assert.deepEqual(cursor.data, { a: [{ b: { c: 'd' } }] });
+            chai_1.assert.equal(cursor.query, true);
+            chai_1.assert.notEqual(cursor.queryId, undefined);
+        });
         it('cursor.apply()', () => {
             const cursor = new cursor_1.Cursor();
             cursor.exec(true, { a: [{ b: { c: 'd' } }] });
@@ -24,7 +31,7 @@ function default_1() {
             });
             chai_1.assert.deepEqual(cursor.data, { a: [{ d: { e: 'f' } }] });
         });
-        it('get()', () => {
+        it('cursor.get()', () => {
             const cursor = new cursor_1.Cursor();
             cursor.exec(true, { a: [{ x: 2, b: 123 }] });
             chai_1.assert.equal(cursor.get('a.0[b]'), 123);

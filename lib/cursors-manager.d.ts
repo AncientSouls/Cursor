@@ -1,7 +1,7 @@
-import { TClass, IInstance } from 'ancient-mixins/lib/mixins';
+import { TClass } from 'ancient-mixins/lib/mixins';
 import { IBundle } from './bundle';
-import { IManager, IManagerEventsList } from 'ancient-mixins/lib/manager';
-import { ICursorEventChangedData, ICursorEventExecData, TCursor } from './cursor';
+import { Manager, IManager, IManagerEventsList } from 'ancient-mixins/lib/manager';
+import { Cursor, ICursorEventChangedData, ICursorEventExecData, TCursor } from './cursor';
 declare type TCursorsManager = ICursorsManager<TCursor, ICursorsManagerEventsList>;
 interface ICursorBundle extends IBundle {
     cursorId: string;
@@ -22,8 +22,7 @@ interface ICursorsManagerEventsList extends IManagerEventsList {
 }
 interface ICursorsManager<IN extends TCursor, IEventsList extends ICursorsManagerEventsList> extends IManager<IN, IEventsList> {
 }
-declare function mixin<T extends TClass<IInstance>>(superClass: T): any;
-declare const MixedCursorsManager: TClass<TCursorsManager>;
-declare class CursorsManager extends MixedCursorsManager {
+declare class CursorsManager extends Manager implements TClass<TCursorsManager> {
+    Node: typeof Cursor;
 }
-export { mixin as default, mixin, MixedCursorsManager, CursorsManager, ICursorsManager, ICursorBundle, ICursorsManagerChangedEventData, ICursorsManagerExecEventData, ICursorsManagerEventData, ICursorsManagerEventsList, TCursorsManager };
+export { CursorsManager, ICursorsManager, ICursorBundle, ICursorsManagerChangedEventData, ICursorsManagerExecEventData, ICursorsManagerEventData, ICursorsManagerEventsList, TCursorsManager };

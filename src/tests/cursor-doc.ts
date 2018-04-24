@@ -12,7 +12,7 @@ export default function () {
     it('cursor.exec()', () => {
       const cursor = new Cursor(); 
       cursor.exec(true, { a: [{ b: { c: 'd' } }] });
-      assert.equal(
+      assert.deepEqual(
         cursor.data, 
         { a: [{ b: { c: 'd' } }] },
       );
