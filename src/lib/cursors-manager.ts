@@ -51,21 +51,12 @@ interface ICursorsManagerEventsList extends IManagerEventsList {
 interface ICursorsManager<IN extends TCursor, IEventsList extends ICursorsManagerEventsList>
 extends IManager<IN, IEventsList> {}
 
-function mixin<T extends TClass<IInstance>>(
-  superClass: T,
-): any {
-  return class CursorsManager extends superClass {
-    public Node = Cursor;
-  };
-}
-
-const MixedCursorsManager: TClass<TCursorsManager> = mixin(Manager);
-class CursorsManager extends MixedCursorsManager {}
+/*
+ * Class `Manager`, contains `TCursor` as node in `list`.
+ */
+class CursorsManager extends Manager implements TCursorsManager {}
 
 export {
-  mixin as default,
-  mixin,
-  MixedCursorsManager,
   CursorsManager,
   ICursorsManager,
   ICursorBundle,
