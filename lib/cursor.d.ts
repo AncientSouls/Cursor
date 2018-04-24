@@ -45,8 +45,9 @@ interface ICursor<IEventsList extends ICursorEventsList> extends INode<IEventsLi
     get(paths: TBundlePaths): any;
 }
 declare function watch({newValue, bundlePath, data, bundle}: IBundleChanges, paths: TBundlePaths, listener: (data: ICursorWatchData) => void): void;
+declare function apply(cursor: any, bundle: any): void;
 declare function mixin<T extends TClass<IInstance>>(superClass: T): any;
 declare const MixedCursor: TClass<ICursor<ICursorEventsList>>;
 declare class Cursor extends MixedCursor {
 }
-export { mixin as default, mixin, MixedCursor, Cursor, ICursor, ICursorEventChangedData, ICursorEventExecData, ICursorWatchData, ICursorWatch, ICursorEventListener, ICursorEventsList, watch, TCursor };
+export { mixin as default, mixin, MixedCursor, Cursor, ICursor, ICursorEventChangedData, ICursorEventExecData, ICursorWatchData, ICursorWatch, ICursorEventListener, ICursorEventsList, apply, watch, TCursor };

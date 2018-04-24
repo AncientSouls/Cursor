@@ -4,10 +4,20 @@ const chai_1 = require("chai");
 const cursor_1 = require("../lib/cursor");
 function default_1() {
     describe('Cursor-doc:', () => {
-        it('apply()', () => {
+        it('cursor.apply()', () => {
             const cursor = new cursor_1.Cursor();
             cursor.exec(true, { a: [{ b: { c: 'd' } }] });
             cursor.apply({
+                type: 'set',
+                path: 'a.0',
+                value: { d: { e: 'f' } },
+            });
+            chai_1.assert.deepEqual(cursor.data, { a: [{ d: { e: 'f' } }] });
+        });
+        it('apply()', () => {
+            const cursor = new cursor_1.Cursor();
+            cursor.exec(true, { a: [{ b: { c: 'd' } }] });
+            cursor_1.apply(cursor, {
                 type: 'set',
                 path: 'a.0',
                 value: { d: { e: 'f' } },

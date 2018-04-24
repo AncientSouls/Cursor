@@ -134,9 +134,22 @@ interface ICursor<IEventsList extends ICursorEventsList> extends INode<IEventsLi
    * Data of cursor, changing at every `cursor.apply()`
    */
   data: any;
-  
+
   /**
    * Initiate `query` execution for some source and set `data` for this cursor.
+   * @example
+   * ```typescript
+   * 
+   * import { Cursor } from 'ancient-cursor/lib/cursor';
+   * 
+   * const cursor = new Cursor(); 
+   * 
+   * cursor.exec(true, { a: [{ b: { c: 'd' } }] });
+   * 
+   * cursor.data; // { a: [{ d: { e: 'f' } }] }
+   * cursor.query; // true
+   * cursor.queryId; // some generated id
+   * ```
    */
   exec(query: any, data?: any): this;
   
@@ -249,6 +262,27 @@ function watch(
   });
 }
 
+/**
+ * Apply bundle to cursor and emit 'changed' event.
+ * @example
+ * ```typescript
+ * 
+ * import { Cursor, apply } from 'ancient-cursor/lib/cursor';
+ * 
+ * const cursor = new Cursor(); 
+ * cursor.exec(true, { a: [{ b: { c: 'd' } }] });
+ * 
+ * cursor.data; // { a: [{ b: { c: 'd' } }] }
+ * 
+ * apply( cursor, {
+ *   type: 'set',
+ *   path: 'a.0',
+ *   value: { d: { e: 'f' } },
+ * });
+ * 
+ * cursor.data; // { a: [{ d: { e: 'f' } }] }
+ * ```
+ */
 function apply(cursor, bundle) {
   const bundleChanges = cursor.parse(bundle);
   const { newValue, bundlePath, data } = bundleChanges;
@@ -337,6 +371,7 @@ export {
   ICursorWatch,
   ICursorEventListener,
   ICursorEventsList,
+  apply,
   watch,
   TCursor,
 };
