@@ -300,7 +300,7 @@ function apply(cursor, bundle) {
 }
 
 /**
- * Mixin your class with Cursor functionality.
+ * Mixin your Node with Cursor functionality.
  * @example
  * ```typescript
  * 
