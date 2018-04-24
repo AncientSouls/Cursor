@@ -10,7 +10,7 @@ import {
 } from '../lib/bundle';
 
 export default function () {
-  describe('BundleDoc:', () => {
+  describe('Bundle-doc:', () => {
     it('toPath', () => {
       const paths:TBundlePaths =  ['a', { b:2 }];
       const data = { a:[{ b:3, c:4 }, { b:2, c:5 }] };
