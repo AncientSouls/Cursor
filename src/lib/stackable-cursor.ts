@@ -23,17 +23,45 @@ import {
 
 interface IStackableBundle extends IBundle {
   /*
-   * Extend bundle logic with queue functionality. 
+   * Priority in queue.
    */
   indexInStack?: number;
 }
 
 interface IStackableCursor<IEventsList extends ICursorEventsList> extends ICursor<IEventsList> {
+  /*
+   * Priority for next applying. 
+   */
   nextBundleIndex: number;
+
+  /*
+   * Queue for applying. 
+   */
   bundlesStack: { [index: number]: IStackableBundle };
+
+  /*
+   * Extend `cursor.exec()` with resetting queue.
+   */
+  exec(query: any, data?: any): this;
+
+  /*
+   * Extend `cursor.apply()` logic with queue functionality. 
+   */
   apply(bundle: IStackableBundle): this;
 }
 
+/**
+ * Mixin your Cursor with StackableCursor functionality.
+ * @example
+ * ```typescript
+ * 
+ * import { Cursor, ICursorEventsList } from 'ancient-cursor/lib/cursor';
+ * import { IStackableCursor } from 'ancient-cursor/lib/stackable-cursor';
+ * import { TClass } from 'ancient-mixins/lib/mixins';
+ * 
+ * const MixedStackableCursor: TClass<IStackableCursor<ICursorEventsList>> = mixin(Cursor);
+ * ```
+ */
 function mixin<T extends TClass<IInstance>>(
   superClass: T,
 ): any {
@@ -78,6 +106,9 @@ function mixin<T extends TClass<IInstance>>(
 }
 
 const MixedStackableCursor: TClass<IStackableCursor<ICursorEventsList>> = mixin(Cursor);
+/**
+ * Already mixed class. Plug and play.
+ */
 class StackableCursor extends MixedStackableCursor {}
 
 export {
