@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const chai_1 = require("chai");
 const bundle_1 = require("../lib/bundle");
 function default_1() {
-    describe('BundleDoc:', () => {
+    describe('Bundle-doc:', () => {
         it('toPath', () => {
             const paths = ['a', { b: 2 }];
             const data = { a: [{ b: 3, c: 4 }, { b: 2, c: 5 }] };
@@ -35,4 +35,4 @@ function default_1() {
     });
 }
 exports.default = default_1;
-//# sourceMappingURL=bundleDoc.js.map
+//# sourceMappingURL=bundle-doc.js.map

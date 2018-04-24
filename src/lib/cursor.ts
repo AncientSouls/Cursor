@@ -140,8 +140,27 @@ interface ICursor<IEventsList extends ICursorEventsList> extends INode<IEventsLi
    */
   exec(query: any, data?: any): this;
   
+
   /**
-   * Apply bundle to cursor.
+   * Apply bundle to cursor and emit 'changed' event.
+   * @example
+   * ```typescript
+   * 
+   * import { Cursor } from 'ancient-cursor/lib/cursor';
+   * 
+   * const cursor = new Cursor(); 
+   * cursor.exec(true, { a: [{ b: { c: 'd' } }] });
+   * 
+   * cursor.data; // { a: [{ b: { c: 'd' } }] }
+   * 
+   * cursor.apply({
+   *   type: 'set',
+   *   path: 'a.0',
+   *   value: { d: { e: 'f' } },
+   * });
+   * 
+   * cursor.data; // { a: [{ d: { e: 'f' } }] }
+   * ```
    */
   apply(bundle: IBundle): this;
   
@@ -154,8 +173,13 @@ interface ICursor<IEventsList extends ICursorEventsList> extends INode<IEventsLi
    * Get data by path from cursor.
    * @example
    * ```typescript
+   * import { Cursor } from 'ancient-cursor/lib/cursor';
+   * 
+   * const cursor = new Cursor();
+   * cursor.exec(true, { a: [ { x: 2, b: 123 } ] });
    * 
    * cursor.data; // { a: [ { x: 2, b: 123 } ] }
+   * 
    * cursor.get("a.0[b]"); // 123
    * cursor.get(['a',0,'b']); // 123
    * cursor.get(['a',{ x: 2 },'b']); // 123
@@ -171,14 +195,12 @@ interface ICursor<IEventsList extends ICursorEventsList> extends INode<IEventsLi
  * ```typescript
  * 
  * import { Cursor, watch } from 'ancient-cursor/lib/cursor';
- * import { Node } from 'ancient-mixins/lib/node';
- * import { TClass } from 'ancient-mixins/lib/mixins';
  * 
  * const cursor = new Cursor(); 
  * cursor.exec(true, { a: [{ b: { c: 'd' } }, { e: { f: 'g' } }] });
  * 
- * cursor.on('changed', ({ watch }) => {
- *   watch('a.1', ({ newValue }) => {
+ * cursor.on('changed', ({ bundleChanges }) => {
+ *   watch(bundleChanges, 'a.1', ({ newValue }) => {
  *     console.log('Watch!');
  *   });
  * });
@@ -187,15 +209,13 @@ interface ICursor<IEventsList extends ICursorEventsList> extends INode<IEventsLi
  *   type: 'set',
  *   path: 'a.0',
  *   value: { d: 1 },
- * });
- * // Logs nothing
+ * }); // Logs nothing
  * 
  * cursor.apply({
  *   type: 'set',
  *   path: 'a.1',
  *   value: { d: 2 },
- * });
- * // Watch!
+ * }); // Watch!
  * ```
  */
 function watch(
@@ -229,28 +249,6 @@ function watch(
   });
 }
 
-/**
- * Apply bundle to cursor and emit 'changed' event.
- * @example
- * ```typescript
- * 
- * import { Cursor } from 'ancient-cursor/lib/cursor';
- * import { Node } from 'ancient-mixins/lib/node';
- * import { TClass } from 'ancient-mixins/lib/mixins';
- * 
- * const cursor = new Cursor(); 
- * cursor.exec(true, { a: [{ b: { c: 'd' } }] });
- * 
- * cursor.apply({
- *   type: 'set',
- *   path: 'a.0',
- *   value: { d: { e: 'f' } },
- * });
- * 
- * console.log(cursor.get (['a', '0']));
- * // { d: { e: 'f' } }
- * ```
- */
 function apply(cursor, bundle) {
   const bundleChanges = cursor.parse(bundle);
   const { newValue, bundlePath, data } = bundleChanges;
