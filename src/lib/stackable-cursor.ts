@@ -22,6 +22,9 @@ import {
 } from './bundle';
 
 interface IStackableBundle extends IBundle {
+  /*
+   * Extend bundle logic with queue functionality. 
+   */
   indexInStack?: number;
 }
 
@@ -39,6 +42,13 @@ function mixin<T extends TClass<IInstance>>(
     nextBundleIndex = 0;
     
     bundlesStack = {};
+
+    exec(query, data) {
+      this.nextBundleIndex = 0;
+      this.bundlesStack = {};
+      super.exec(query, data);
+      return this;
+    }
     
     apply(bundle) {
       if (_.isNumber(bundle.indexInStack)) {
