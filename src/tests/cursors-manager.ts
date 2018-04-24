@@ -17,10 +17,9 @@ export default function () {
       cursorsManager.add(cursor);
       cursor.exec(true, { a: [{ b: { c: 'd' } }] });
       cursorsManager.list.on('changed', ({
-        data, oldValue, newValue, bundlePath, bundle, watch, cursor, manager,
+        data, newValue, bundlePath, bundle, watch, cursor, manager,
       }) => {
         assert.deepEqual(data, { a: [{ b: { d: 'e' } }] });
-        assert.deepEqual(oldValue, { c: 'd' });
         assert.deepEqual(newValue, { d: 'e' });
         done();
       });

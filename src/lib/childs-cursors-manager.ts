@@ -24,6 +24,7 @@ import {
 import {
   TCursor,
   ICursorEventListener,
+  watch,
 } from './cursor';
 
 type TChildsCursorsManager = IChildsCursorsManager<TCursor, ICursorsManagerEventsList>;
@@ -38,9 +39,9 @@ function mixin<T extends TClass<IInstance>>(
 ): any {
   return class ChildsCursorsManager extends superClass {
     maintain(path) {
-      return ({ watch, bundlePath }) => {
-        watch(path, ({
-          isClone, oldValue, newValue, bundlePath, watchPath, localBundlePath, localWatchPath,
+      return ({ bundlePath, bundleChanges }) => {
+        watch(bundleChanges, path, ({
+          newValue, bundlePath, watchPath, localBundlePath, localWatchPath,
         }) => {
           if (localBundlePath.length) {
             const id = localBundlePath[0];

@@ -28,49 +28,43 @@ interface ICursorEventChangedData {
    */
   data: any;
   /**
-   * Value before changes by bundlePath.
-   */
-  oldValue: any;
-  /**
-   * Value after changes by bundlePath.
+   * Value in data after changes by `bundlePath`.
    */
   newValue: any;
   /**
-   * Path to changes.
+   * Path to data, changed by bundle in `cursor.data`.
    */
   bundlePath: string[];
   /**
-   * Bundle, applied by cursor.
+   * Bundle, applied to cursor.
    */
   bundle: IBundle;
+
+  bundleChanges: IBundleChanges;
   /**
-   * Function returns void.
-   */
-  watch: ICursorWatch;
-  /**
-   * Cursor, triggered event.
+   * Current cursor.
    */
   cursor: TCursor;
 }
 
 interface ICursorEventExecData {
   /**
-   * Cursor, triggered event.
+   * Current cursor.
    */
   cursor: TCursor;
 
   /**
-   * `Query` before exec.
+   * `cursor.query` before exec.
    */
   oldQuery: any;
 
   /**
-   * `Data` before exec.
+   * `cursor.data` before exec.
    */
   oldData: any;
 
   /**
-   * `QueryId` before exec.
+   * `cursor.queryId` before exec.
    */
   oldQueryId: string;
 }
@@ -80,11 +74,6 @@ interface ICursorWatchData {
    * Actual state of all data from this cursor.
    */
   data: any;
-
-  /**
-   * `oldValue` from bundleChanges
-   */
-  oldValue: any;
   
   /**
    * `newValue` from bundleChanges
@@ -92,28 +81,16 @@ interface ICursorWatchData {
   newValue: any;
   
   /**
-   * Depricated
-   */
-  isClone: boolean;
-  
-  /**
-   * Path in data for changing 
+   * Path to data, changed by bundle in `cursor.data`.
    */
   bundlePath: string[];
   
   /**
-   * Path in data for checking
+   * Path to data, specified in `watch()`.
    */
   watchPath: string[];
-  
-  /**
-   * Endpoint of `bundlePath`.
-   */
+
   localBundlePath: string[];
-  
-  /**
-   * Endpoint of `watchPath`.
-   */
   localWatchPath: string[];
   
   /**
@@ -144,7 +121,7 @@ interface ICursorEventsList extends INodeEventsList {
 
 interface ICursor<IEventsList extends ICursorEventsList> extends INode<IEventsList> {
   /**
-   * Unic id, generating in `cursor.exec()`. 
+   * Unic id for every execution of query.
    */
   queryId: string;
 
@@ -154,7 +131,7 @@ interface ICursor<IEventsList extends ICursorEventsList> extends INode<IEventsLi
   query: any;
   
   /**
-   * Data executed by `cursor.exec()`.
+   * Data of cursor, changing at every `cursor.apply()`
    */
   data: any;
   
@@ -164,17 +141,26 @@ interface ICursor<IEventsList extends ICursorEventsList> extends INode<IEventsLi
   exec(query: any, data?: any): this;
   
   /**
-   * Call `cursor.parse(bundle)`and emit 'Changed' event.
+   * Apply bundle to cursor.
    */
   apply(bundle: IBundle): this;
   
   /**
-   * Get bundleChanges with `cursor.data` using bundle.
+   * Unsafe. Can be used for parsing bundles.
    */
   parse(bundle: IBundle): IBundleChanges;
   
   /**
-   * Bundle function to get part of data by path. 
+   * Get data by path from cursor.
+   * @example
+   * ```typescript
+   * 
+   * cursor.data; // { a: [ { x: 2, b: 123 } ] }
+   * cursor.get("a.0[b]"); // 123
+   * cursor.get(['a',0,'b']); // 123
+   * cursor.get(['a',{ x: 2 },'b']); // 123
+   * 
+   * ```
    */
   get(paths: TBundlePaths): any;
 }
@@ -192,7 +178,7 @@ interface ICursor<IEventsList extends ICursorEventsList> extends INode<IEventsLi
  * cursor.exec(true, { a: [{ b: { c: 'd' } }, { e: { f: 'g' } }] });
  * 
  * cursor.on('changed', ({ watch }) => {
- *   watch('a.1', ({ isClone, oldValue, newValue }) => {
+ *   watch('a.1', ({ newValue }) => {
  *     console.log('Watch!');
  *   });
  * });
@@ -213,7 +199,7 @@ interface ICursor<IEventsList extends ICursorEventsList> extends INode<IEventsLi
  * ```
  */
 function watch(
-  { oldValue, newValue, bundlePath, data, bundle }: IBundleChanges,
+  { newValue, bundlePath, data, bundle }: IBundleChanges,
   paths: TBundlePaths,
   listener: (data: ICursorWatchData) => void,
 ) {
@@ -222,9 +208,7 @@ function watch(
   const localBundlePath = bundlePath.slice(watchPath.length);
   const leastPathLength = Math.min(watchPath.length, bundlePath.length);
   const value = get(data, paths);
-  let localOldValue;
   let localNewValue;
-  let isClone;
   
   // Verify inclusion watchPath into part of data, changed by bundle.
   if (leastPathLength) {
@@ -234,18 +218,13 @@ function watch(
   }
   
   if (bundlePath.length <= watchPath.length) {
-    localOldValue = get(oldValue, localWatchPath);
     localNewValue = value;
-    isClone = true;
   } else {
-    localOldValue = localNewValue = get(data, paths);
-    isClone = false;
+    localNewValue = get(data, paths);
   }
   
   listener({
     bundlePath, watchPath, localBundlePath, localWatchPath, data, bundle,
-    isClone,
-    oldValue: localOldValue,
     newValue: localNewValue,
   });
 }
@@ -274,18 +253,15 @@ function watch(
  */
 function apply(cursor, bundle) {
   const bundleChanges = cursor.parse(bundle);
-  const { oldValue, newValue, bundlePath, data } = bundleChanges;
+  const { newValue, bundlePath, data } = bundleChanges;
   
   const eventData: ICursorEventChangedData = {
     data,
-    oldValue,
     newValue,
     bundlePath,
     bundle,
+    bundleChanges,
     cursor,
-    watch: (path: TBundlePaths, listener: (data: ICursorWatchData) => void) => {
-      watch(bundleChanges, path, listener);
-    },
   };
   
   cursor.emit('changed', eventData);

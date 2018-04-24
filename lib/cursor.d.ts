@@ -4,11 +4,10 @@ import { IBundle, IBundleChanges, TBundlePaths } from './bundle';
 declare type TCursor = ICursor<ICursorEventsList>;
 interface ICursorEventChangedData {
     data: any;
-    oldValue: any;
     newValue: any;
     bundlePath: string[];
     bundle: IBundle;
-    watch: ICursorWatch;
+    bundleChanges: IBundleChanges;
     cursor: TCursor;
 }
 interface ICursorEventExecData {
@@ -19,9 +18,7 @@ interface ICursorEventExecData {
 }
 interface ICursorWatchData {
     data: any;
-    oldValue: any;
     newValue: any;
-    isClone: boolean;
     bundlePath: string[];
     watchPath: string[];
     localBundlePath: string[];
@@ -47,7 +44,7 @@ interface ICursor<IEventsList extends ICursorEventsList> extends INode<IEventsLi
     parse(bundle: IBundle): IBundleChanges;
     get(paths: TBundlePaths): any;
 }
-declare function watch({oldValue, newValue, bundlePath, data, bundle}: IBundleChanges, paths: TBundlePaths, listener: (data: ICursorWatchData) => void): void;
+declare function watch({newValue, bundlePath, data, bundle}: IBundleChanges, paths: TBundlePaths, listener: (data: ICursorWatchData) => void): void;
 declare function mixin<T extends TClass<IInstance>>(superClass: T): any;
 declare const MixedCursor: TClass<ICursor<ICursorEventsList>>;
 declare class Cursor extends MixedCursor {

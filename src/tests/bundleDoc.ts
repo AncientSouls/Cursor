@@ -40,7 +40,7 @@ export default function () {
         type: 'SomeType',
       };
       const container = { data: { a:[{ b:3, c:4 }, { b:2, c:5 }] } };
-      assert.deepEqual(prepare (container, bundle), { oldValue: 5, bundlePath: paths });
+      assert.deepEqual(prepare (container, bundle), { bundlePath: paths });
     });
   });
 }

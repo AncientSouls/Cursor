@@ -30,7 +30,7 @@ function default_1() {
                 type: 'SomeType',
             };
             const container = { data: { a: [{ b: 3, c: 4 }, { b: 2, c: 5 }] } };
-            chai_1.assert.deepEqual(bundle_1.prepare(container, bundle), { oldValue: 5, bundlePath: paths });
+            chai_1.assert.deepEqual(bundle_1.prepare(container, bundle), { bundlePath: paths });
         });
     });
 }

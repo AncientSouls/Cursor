@@ -8,11 +8,6 @@ interface IBundle {
 
 interface IBundleChanges {
   /**
-  * Old value stored by bundlePath.
-  */ 
-  oldValue: any;
-
-  /**
   * New value stored by bundlePath.
   */ 
   newValue: any;
@@ -153,16 +148,14 @@ function getByPath(data: any, path: any): any {
  * const container = { data: { a:[{ b:3, c:4 }, { b:2, c:5 }] } };
  * 
  * console.log (prepare (container, bundle));
- * // { oldValue: 5, bundlePath: ['a', '1', 'c']}
+ * // { bundlePath: ['a', '1', 'c']}
  * ```
  */
 function prepare(container, bundle): {
   bundlePath: string[],
-  oldValue: any,
 } {
   const bundlePath = _.toPath(toPath(container.data, bundle.path));
-  const oldValue = _.clone(get(container.data, bundlePath));
-  return { oldValue, bundlePath };
+  return { bundlePath };
 }
 
 const bundleParsers: IBundleParsers = {
@@ -184,7 +177,7 @@ const bundleParsers: IBundleParsers = {
   * ```
   */
   set(container, bundle: IBundleValue) {
-    const { oldValue, bundlePath } = prepare(container, bundle);
+    const { bundlePath } = prepare(container, bundle);
     
     if (!bundlePath.length) {
       container.data = bundle.value;
@@ -198,7 +191,7 @@ const bundleParsers: IBundleParsers = {
     
     const newValue = get(container.data, bundlePath);
     
-    return { oldValue, newValue, bundlePath, bundle, data: container.data };
+    return { newValue, bundlePath, bundle, data: container.data };
   },
   
   /**
@@ -219,7 +212,7 @@ const bundleParsers: IBundleParsers = {
   * ```
   */
   extend(container, bundle: IBundleValue) {
-    const { oldValue, bundlePath } = prepare(container, bundle);
+    const { bundlePath } = prepare(container, bundle);
 
     if (!bundlePath.length) {
       _.extend(container.data, bundle.value);
@@ -229,7 +222,7 @@ const bundleParsers: IBundleParsers = {
     
     const newValue = get(container.data, bundlePath);
     
-    return { oldValue, newValue, bundlePath, bundle, data: container.data };
+    return { newValue, bundlePath, bundle, data: container.data };
   },
 
   /**
@@ -250,7 +243,7 @@ const bundleParsers: IBundleParsers = {
   * ```
   */
   unset(container, bundle: IBundle) {
-    const { oldValue, bundlePath } = prepare(container, bundle);
+    const { bundlePath } = prepare(container, bundle);
     
     if (!bundlePath.length) {
       container.data = undefined;
@@ -265,7 +258,7 @@ const bundleParsers: IBundleParsers = {
     
     const newValue = get(container.data, bundlePath);
     
-    return { oldValue, newValue, bundlePath, bundle, data: container.data };
+    return { newValue, bundlePath, bundle, data: container.data };
   },
 
   /**
@@ -301,7 +294,7 @@ const bundleParsers: IBundleParsers = {
   * ```
   */
   splice(container, bundle: IBundleSplice) {
-    const { oldValue, bundlePath } = prepare(container, bundle);
+    const { bundlePath } = prepare(container, bundle);
     const value = get(container.data, bundlePath);
     
     if (!_.isArray(value)) {
@@ -312,7 +305,7 @@ const bundleParsers: IBundleParsers = {
     
     const newValue = value;
     
-    return { oldValue, newValue, bundlePath, bundle, data: container.data };
+    return { newValue, bundlePath, bundle, data: container.data };
   },
 
   /**
@@ -340,7 +333,7 @@ const bundleParsers: IBundleParsers = {
   * ```
   */
   remove(container, bundle: IBundle) {
-    const { oldValue, bundlePath } = prepare(container, bundle);
+    const { bundlePath } = prepare(container, bundle);
     const value = get(container.data, bundlePath);
     
     if (!_.isArray(value)) {
@@ -351,7 +344,7 @@ const bundleParsers: IBundleParsers = {
     
     const newValue = value;
     
-    return { oldValue, newValue, bundlePath, bundle, data: container.data };
+    return { newValue, bundlePath, bundle, data: container.data };
   },
 
   /**
@@ -379,7 +372,7 @@ const bundleParsers: IBundleParsers = {
   * ```
   */
   push(container, bundle: IBundleValue) {
-    const { oldValue, bundlePath } = prepare(container, bundle);
+    const { bundlePath } = prepare(container, bundle);
     const value = get(container.data, bundlePath);
     
     if (!_.isArray(value)) {
@@ -390,7 +383,7 @@ const bundleParsers: IBundleParsers = {
     
     const newValue = value;
     
-    return { oldValue, newValue, bundlePath, bundle, data: container.data };
+    return { newValue, bundlePath, bundle, data: container.data };
   },
   
   /**
@@ -416,7 +409,7 @@ const bundleParsers: IBundleParsers = {
   * ```
   */
   move(container, bundle: IBundleMove) {
-    const { oldValue, bundlePath } = prepare(container, bundle);
+    const { bundlePath } = prepare(container, bundle);
     const value = get(container.data, bundlePath);
     
     if (!_.isArray(value)) {
@@ -427,7 +420,7 @@ const bundleParsers: IBundleParsers = {
     
     const newValue = value;
     
-    return { oldValue, newValue, bundlePath, bundle, data: container.data };
+    return { newValue, bundlePath, bundle, data: container.data };
   },
 };
 

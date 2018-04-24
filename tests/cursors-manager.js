@@ -11,9 +11,8 @@ function default_1() {
             const cursor = new cursorsManager.Node();
             cursorsManager.add(cursor);
             cursor.exec(true, { a: [{ b: { c: 'd' } }] });
-            cursorsManager.list.on('changed', ({ data, oldValue, newValue, bundlePath, bundle, watch, cursor, manager, }) => {
+            cursorsManager.list.on('changed', ({ data, newValue, bundlePath, bundle, watch, cursor, manager, }) => {
                 chai_1.assert.deepEqual(data, { a: [{ b: { d: 'e' } }] });
-                chai_1.assert.deepEqual(oldValue, { c: 'd' });
                 chai_1.assert.deepEqual(newValue, { d: 'e' });
                 done();
             });

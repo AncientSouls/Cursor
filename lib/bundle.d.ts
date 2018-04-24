@@ -4,7 +4,6 @@ interface IBundle {
     [key: string]: any;
 }
 interface IBundleChanges {
-    oldValue: any;
     newValue: any;
     bundlePath: string[];
     data: any;
@@ -30,7 +29,6 @@ declare function get(data: any, paths: TBundlePaths): any;
 declare function getByPath(data: any, path: any): any;
 declare function prepare(container: any, bundle: any): {
     bundlePath: string[];
-    oldValue: any;
 };
 declare const bundleParsers: IBundleParsers;
 export { IBundleParser, IBundleParsers, IBundleChanges, IBundle, IBundleValue, TBundlePath, TBundleSelector, TBundlePathsStep, TBundlePaths, bundleParsers, get, getByPath, toPath, prepare };
