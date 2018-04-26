@@ -2,8 +2,8 @@ import { TClass, IInstance } from 'ancient-mixins/lib/mixins';
 import { INode, INodeEventsList } from 'ancient-mixins/lib/node';
 import { TManager } from 'ancient-mixins/lib/manager';
 import { IBundle, IBundleChanges, TBundlePaths } from './bundle';
-declare type TCursor = ICursor<ICursorEventsList>;
-interface ICursorEventChangedData {
+export declare type TCursor = ICursor<ICursorEventsList>;
+export interface ICursorEventChangedData {
     data: any;
     newValue: any;
     bundlePath: string[];
@@ -11,13 +11,13 @@ interface ICursorEventChangedData {
     bundleChanges: IBundleChanges;
     cursor: TCursor;
 }
-interface ICursorEventExecData {
+export interface ICursorEventExecData {
     cursor: TCursor;
     oldQuery: any;
     oldData: any;
     oldQueryId: string;
 }
-interface ICursorWatchData {
+export interface ICursorWatchData {
     data: any;
     newValue: any;
     bundlePath: string[];
@@ -26,17 +26,17 @@ interface ICursorWatchData {
     localWatchPath: string[];
     bundle: IBundle;
 }
-interface ICursorWatch {
+export interface ICursorWatch {
     (path: TBundlePaths, listener: (data: ICursorWatchData) => void): void;
 }
-interface ICursorEventListener {
+export interface ICursorEventListener {
     (data: ICursorEventChangedData): void;
 }
-interface ICursorEventsList extends INodeEventsList {
+export interface ICursorEventsList extends INodeEventsList {
     changed: ICursorEventChangedData;
     exec: ICursorEventExecData;
 }
-interface ICursor<IEventsList extends ICursorEventsList> extends INode<IEventsList> {
+export interface ICursor<IEventsList extends ICursorEventsList> extends INode<IEventsList> {
     queryId: string;
     query: any;
     data: any;
@@ -45,11 +45,10 @@ interface ICursor<IEventsList extends ICursorEventsList> extends INode<IEventsLi
     parse(bundle: IBundle): IBundleChanges;
     get(paths: TBundlePaths): any;
 }
-declare function watch({newValue, bundlePath, data, bundle}: IBundleChanges, paths: TBundlePaths, listener: (data: ICursorWatchData) => void): void;
-declare function apply(cursor: any, bundle: any): void;
-declare function mixin<T extends TClass<IInstance>>(superClass: T): any;
-declare const MixedCursor: TClass<ICursor<ICursorEventsList>>;
-declare class Cursor extends MixedCursor {
+export declare function watch({newValue, bundlePath, data, bundle}: IBundleChanges, paths: TBundlePaths, listener: (data: ICursorWatchData) => void): void;
+export declare function apply(cursor: any, bundle: any): void;
+export declare function mixin<T extends TClass<IInstance>>(superClass: T): any;
+export declare const MixedCursor: TClass<ICursor<ICursorEventsList>>;
+export declare class Cursor extends MixedCursor {
 }
-declare function spray(path: TBundlePaths, manager: TManager, cursor?: TClass<TCursor>): ((data: ICursorEventChangedData) => void);
-export { mixin as default, mixin, MixedCursor, Cursor, ICursor, ICursorEventChangedData, ICursorEventExecData, ICursorWatchData, ICursorWatch, ICursorEventListener, ICursorEventsList, apply, watch, spray, TCursor };
+export declare function spray(path: TBundlePaths, manager: TManager, cursor?: TClass<TCursor>): ((data: ICursorEventChangedData) => void);
