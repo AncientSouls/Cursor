@@ -27,9 +27,9 @@ function test(path) {
     },
   });
   
-  assert.deepEqual(_.get(parent.data, `${_path}a`), sprayed.list.nodes.a.data);
-  assert.deepEqual(_.get(parent.data, `${_path}b`), sprayed.list.nodes.b.data);
-  assert.deepEqual(_.get(parent.data, `${_path}c`), sprayed.list.nodes.c.data);
+  assert.deepEqual(parent.get(`${_path}a`), sprayed.list.nodes.a.data);
+  assert.deepEqual(parent.get(`${_path}b`), sprayed.list.nodes.b.data);
+  assert.deepEqual(parent.get(`${_path}c`), sprayed.list.nodes.c.data);
   
   parent.apply({
     type: 'set',
@@ -37,10 +37,10 @@ function test(path) {
     value: 4,
   });
   
-  assert.deepEqual(_.get(parent.data, `${_path}a`), sprayed.list.nodes.a.data);
-  assert.deepEqual(_.get(parent.data, `${_path}b`), { b: 4 });
-  assert.deepEqual(_.get(parent.data, `${_path}b`), sprayed.list.nodes.b.data);
-  assert.deepEqual(_.get(parent.data, `${_path}c`), sprayed.list.nodes.c.data);
+  assert.deepEqual(parent.get(`${_path}a`), sprayed.list.nodes.a.data);
+  assert.deepEqual(parent.get(`${_path}b`), { b: 4 });
+  assert.deepEqual(parent.get(`${_path}b`), sprayed.list.nodes.b.data);
+  assert.deepEqual(parent.get(`${_path}c`), sprayed.list.nodes.c.data);
   
   parent.apply({
     type: 'set',
@@ -48,32 +48,32 @@ function test(path) {
     value: 5,
   });
   
-  assert.deepEqual(_.get(parent.data, `${_path}a`), sprayed.list.nodes.a.data);
-  assert.deepEqual(_.get(parent.data, `${_path}b`), sprayed.list.nodes.b.data);
-  assert.deepEqual(_.get(parent.data, `${_path}c`), sprayed.list.nodes.c.data);
-  assert.deepEqual(_.get(parent.data, `${_path}d`), { d: 5 });
-  assert.deepEqual(_.get(parent.data, `${_path}d`), sprayed.list.nodes.d.data);
+  assert.deepEqual(parent.get(`${_path}a`), sprayed.list.nodes.a.data);
+  assert.deepEqual(parent.get(`${_path}b`), sprayed.list.nodes.b.data);
+  assert.deepEqual(parent.get(`${_path}c`), sprayed.list.nodes.c.data);
+  assert.deepEqual(parent.get(`${_path}d`), { d: 5 });
+  assert.deepEqual(parent.get(`${_path}d`), sprayed.list.nodes.d.data);
   
   parent.apply({
     type: 'unset',
     path: `${_path}d`,
   });
   
-  assert.deepEqual(_.get(parent.data, `${_path}a`), sprayed.list.nodes.a.data);
-  assert.deepEqual(_.get(parent.data, `${_path}b`), sprayed.list.nodes.b.data);
-  assert.deepEqual(_.get(parent.data, `${_path}c`), sprayed.list.nodes.c.data);
+  assert.deepEqual(parent.get(`${_path}a`), sprayed.list.nodes.a.data);
+  assert.deepEqual(parent.get(`${_path}b`), sprayed.list.nodes.b.data);
+  assert.deepEqual(parent.get(`${_path}c`), sprayed.list.nodes.c.data);
   assert.isNotOk(sprayed.list.nodes.d);
 }
 
 export default function () {
-  describe('ChildsCursorsManager:', () => {
-    it('maintain ""', () => {
+  describe('spray():', () => {
+    it('spray ""', () => {
       test('');
     });
-    it('maintain "x"', () => {
+    it('spray "x"', () => {
       test('x');
     });
-    it('maintain "x.y"', () => {
+    it('spray "x.y"', () => {
       test('x.y');
     });
   });

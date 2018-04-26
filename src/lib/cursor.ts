@@ -363,6 +363,36 @@ export const MixedCursor: TClass<ICursor<ICursorEventsList>> = mixin(Node);
  */
 export class Cursor extends MixedCursor {}
 
+/**
+ * Spray maintining data by path to many cursors in manager`s list.
+ * @example
+ * ```typescript
+ * 
+ * import { Cursor, spray } from 'ancient-cursor/lib/cursor';
+ * import { Manager } from 'ancient-mixins/lib/manager';
+ * 
+ * const path = 'x.y';
+ * const _path = path ? `${path}.` : path;
+ * const parent = new Cursor();
+ * const sprayed = new Manager();
+ * 
+ * parent.on('changed', spray(path, sprayed));
+ * 
+ * parent.apply({
+ *   type: 'set',
+ *   path: `${path}`,
+ *   value: {
+ *     a: { a: 1 },
+ *     b: { b: 2 },
+ *     c: { c: 3 },
+ *   },
+ * });
+ * 
+ * parent.get (`${_path}a`) = sprayed.list.nodes.a.data; // true
+ * parent.get (`${_path}b`) = sprayed.list.nodes.b.data; // true
+ * parent.get (`${_path}c`) = sprayed.list.nodes.c.data; // true
+ *```
+ */
 export function spray(path: TBundlePaths, manager: TManager, cursor: TClass<TCursor> = Cursor): ((data: ICursorEventChangedData) => void) {
   return (({ bundlePath, bundleChanges }) => {
     watch(bundleChanges, path, ({
