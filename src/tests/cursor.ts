@@ -1,9 +1,11 @@
 import { assert } from 'chai';
 import * as _ from 'lodash';
 
+import { Manager } from 'ancient-mixins/lib/manager';
 import {
   Cursor,
   watch,
+  spray,
 } from '../lib/cursor';
 
 export default function () {

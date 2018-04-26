@@ -12,6 +12,10 @@ import {
 } from 'ancient-mixins/lib/node';
 
 import {
+  TManager,
+} from 'ancient-mixins/lib/manager';
+
+import {
   IBundle,
   bundleParsers,
   IBundleChanges,
@@ -20,9 +24,9 @@ import {
   get,
 } from './bundle';
 
-type TCursor = ICursor<ICursorEventsList>;
+export type TCursor = ICursor<ICursorEventsList>;
 
-interface ICursorEventChangedData {
+export interface ICursorEventChangedData {
   /**
    * Data of cursor.
    */
@@ -47,7 +51,7 @@ interface ICursorEventChangedData {
   cursor: TCursor;
 }
 
-interface ICursorEventExecData {
+export interface ICursorEventExecData {
   /**
    * Current cursor.
    */
@@ -69,7 +73,7 @@ interface ICursorEventExecData {
   oldQueryId: string;
 }
 
-interface ICursorWatchData {
+export interface ICursorWatchData {
   /**
    * Actual state of all data from this cursor.
    */
@@ -99,15 +103,15 @@ interface ICursorWatchData {
   bundle: IBundle;
 }
 
-interface ICursorWatch {
+export interface ICursorWatch {
   (path: TBundlePaths, listener: (data: ICursorWatchData) => void): void;
 }
 
-interface ICursorEventListener {
+export interface ICursorEventListener {
   (data: ICursorEventChangedData): void;
 }
 
-interface ICursorEventsList extends INodeEventsList {
+export interface ICursorEventsList extends INodeEventsList {
   /**
    * Event, emitting at every `cursor.apply()`. 
    */
@@ -119,7 +123,7 @@ interface ICursorEventsList extends INodeEventsList {
   exec: ICursorEventExecData;
 }
 
-interface ICursor<IEventsList extends ICursorEventsList> extends INode<IEventsList> {
+export interface ICursor<IEventsList extends ICursorEventsList> extends INode<IEventsList> {
   /**
    * Unic id for every execution of query.
    */
@@ -231,7 +235,7 @@ interface ICursor<IEventsList extends ICursorEventsList> extends INode<IEventsLi
  * }); // Watch!
  * ```
  */
-function watch(
+export function watch(
   { newValue, bundlePath, data, bundle }: IBundleChanges,
   paths: TBundlePaths,
   listener: (data: ICursorWatchData) => void,
@@ -283,7 +287,7 @@ function watch(
  * cursor.data; // { a: [{ d: { e: 'f' } }] }
  * ```
  */
-function apply(cursor, bundle) {
+export function apply(cursor, bundle) {
   const bundleChanges = cursor.parse(bundle);
   const { newValue, bundlePath, data } = bundleChanges;
   
@@ -311,7 +315,7 @@ function apply(cursor, bundle) {
  * const MixedCursor: TClass<ICursor<ICursorEventsList>> = mixin(Node);
  * ```
  */
-function mixin<T extends TClass<IInstance>>(
+export function mixin<T extends TClass<IInstance>>(
   superClass: T,
 ): any {
   return class Cursor extends superClass {
@@ -353,25 +357,37 @@ function mixin<T extends TClass<IInstance>>(
   };
 }
 
-const MixedCursor: TClass<ICursor<ICursorEventsList>> = mixin(Node);
+export const MixedCursor: TClass<ICursor<ICursorEventsList>> = mixin(Node);
 /**
  * Already mixed class. Plug and play.
  */
-class Cursor extends MixedCursor {}
+export class Cursor extends MixedCursor {}
 
-export {
-  mixin as default,
-  mixin,
-  MixedCursor,
-  Cursor,
-  ICursor,
-  ICursorEventChangedData,
-  ICursorEventExecData,
-  ICursorWatchData,
-  ICursorWatch,
-  ICursorEventListener,
-  ICursorEventsList,
-  apply,
-  watch,
-  TCursor,
-};
+export function spray(path: TBundlePaths, manager: TManager, cursor: TClass<TCursor> = Cursor): ((data: ICursorEventChangedData) => void) {
+  return (({ bundlePath, bundleChanges }) => {
+    watch(bundleChanges, path, ({
+      newValue, bundlePath, watchPath, localBundlePath, localWatchPath,
+    }) => {
+      if (localBundlePath.length) {
+        const id = localBundlePath[0];
+        const childData = get(newValue, id);
+        if (childData) {
+          if (!manager.list.nodes[id]) manager.add(new cursor(id));
+          manager.list.nodes[id].exec(null, childData);
+        } else {
+          if (manager.list.nodes[id]) manager.list.nodes[id].destroy();
+        }
+      } else {
+        _.each(manager.list.nodes, (childCursor, id) => {
+          const childData = get(newValue, id);
+          if (!childData) childCursor.destroy();
+          else childCursor.exec(null, childData);
+        });
+        _.each(newValue, (childData, id) => {
+          if (!manager.list.nodes[id]) manager.add(new cursor(id));
+          manager.list.nodes[id].exec(null, get(newValue, id));
+        });
+      }
+    });
+  });
+}

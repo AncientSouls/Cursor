@@ -1,5 +1,6 @@
 import { TClass, IInstance } from 'ancient-mixins/lib/mixins';
 import { INode, INodeEventsList } from 'ancient-mixins/lib/node';
+import { TManager } from 'ancient-mixins/lib/manager';
 import { IBundle, IBundleChanges, TBundlePaths } from './bundle';
 declare type TCursor = ICursor<ICursorEventsList>;
 interface ICursorEventChangedData {
@@ -50,4 +51,5 @@ declare function mixin<T extends TClass<IInstance>>(superClass: T): any;
 declare const MixedCursor: TClass<ICursor<ICursorEventsList>>;
 declare class Cursor extends MixedCursor {
 }
-export { mixin as default, mixin, MixedCursor, Cursor, ICursor, ICursorEventChangedData, ICursorEventExecData, ICursorWatchData, ICursorWatch, ICursorEventListener, ICursorEventsList, apply, watch, TCursor };
+declare function spray(path: TBundlePaths, manager: TManager, cursor?: TClass<TCursor>): ((data: ICursorEventChangedData) => void);
+export { mixin as default, mixin, MixedCursor, Cursor, ICursor, ICursorEventChangedData, ICursorEventExecData, ICursorWatchData, ICursorWatch, ICursorEventListener, ICursorEventsList, apply, watch, spray, TCursor };

@@ -21,14 +21,14 @@ import {
   IBundle,
 } from './bundle';
 
-interface IStackableBundle extends IBundle {
+export interface IStackableBundle extends IBundle {
   /*
    * Priority in queue.
    */
   indexInStack?: number;
 }
 
-interface IStackableCursor<IEventsList extends ICursorEventsList> extends ICursor<IEventsList> {
+export interface IStackableCursor<IEventsList extends ICursorEventsList> extends ICursor<IEventsList> {
   /*
    * Priority for next applying. 
    */
@@ -62,7 +62,7 @@ interface IStackableCursor<IEventsList extends ICursorEventsList> extends ICurso
  * const MixedStackableCursor: TClass<IStackableCursor<ICursorEventsList>> = mixin(Cursor);
  * ```
  */
-function mixin<T extends TClass<IInstance>>(
+export function mixin<T extends TClass<IInstance>>(
   superClass: T,
 ): any {
   return class StackableCursor extends superClass
@@ -105,17 +105,8 @@ function mixin<T extends TClass<IInstance>>(
   };
 }
 
-const MixedStackableCursor: TClass<IStackableCursor<ICursorEventsList>> = mixin(Cursor);
+export const MixedStackableCursor: TClass<IStackableCursor<ICursorEventsList>> = mixin(Cursor);
 /**
  * Already mixed class. Plug and play.
  */
-class StackableCursor extends MixedStackableCursor {}
-
-export {
-  mixin as default,
-  mixin,
-  MixedStackableCursor,
-  StackableCursor,
-  IStackableCursor,
-  IStackableBundle,
-};
+export class StackableCursor extends MixedStackableCursor {}

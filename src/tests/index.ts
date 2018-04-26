@@ -5,8 +5,7 @@ import bundleDoc from './bundle-doc';
 import cursor from './cursor';
 import cursorDoc from './cursor-doc';
 import stackableCursor from './stackable-cursor';
-import cursorsManager from './cursors-manager';
-import childsCursorsManager from './childs-cursors-manager';
+import spray from './spray';
 
 describe('AncientSouls/Cursor:', () => {
   bundle();
@@ -14,6 +13,5 @@ describe('AncientSouls/Cursor:', () => {
   cursor();
   cursorDoc();
   stackableCursor();
-  cursorsManager();
-  childsCursorsManager();
+  spray();
 });

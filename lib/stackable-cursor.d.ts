@@ -9,6 +9,7 @@ interface IStackableCursor<IEventsList extends ICursorEventsList> extends ICurso
     bundlesStack: {
         [index: number]: IStackableBundle;
     };
+    exec(query: any, data?: any): this;
     apply(bundle: IStackableBundle): this;
 }
 declare function mixin<T extends TClass<IInstance>>(superClass: T): any;

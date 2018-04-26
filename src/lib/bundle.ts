@@ -1,12 +1,12 @@
 import * as _ from 'lodash';
 
-interface IBundle {
+export interface IBundle {
   type: string;
   path: TBundlePaths;
   [key: string]: any;
 }
 
-interface IBundleChanges {
+export interface IBundleChanges {
   /**
   * New value stored by bundlePath.
   */ 
@@ -28,37 +28,37 @@ interface IBundleChanges {
   bundle: IBundle;
 }
 
-interface IBundleParser {
+export interface IBundleParser {
   (container: { data: any }, bundle: IBundle): IBundleChanges;
 }
 
-interface IBundleParsers {
+export interface IBundleParsers {
   [name: string]: IBundleParser;
 }
 
-interface IBundleValue extends IBundle {
+export interface IBundleValue extends IBundle {
   value: any;
 }
 
-interface IBundleSelector extends IBundle {
+export interface IBundleSelector extends IBundle {
   selector: TBundleSelector;
 }
 
-interface IBundleSplice extends IBundle {
+export interface IBundleSplice extends IBundle {
   start: number;
   deleteCount: number;
   values: any[];
 }
 
-interface IBundleMove extends IBundle {
+export interface IBundleMove extends IBundle {
   from: number;
   to: number;
 }
 
-type TBundlePath = string;
-type TBundleSelector = any;
-type TBundlePathsStep = TBundlePath|TBundleSelector;
-type TBundlePaths = string|TBundlePathsStep[];
+export type TBundlePath = string;
+export type TBundleSelector = any;
+export type TBundlePathsStep = TBundlePath|TBundleSelector;
+export type TBundlePaths = string|TBundlePathsStep[];
 
 /**
  * Try to transform paths to `lodash.get` path form.
@@ -74,7 +74,7 @@ type TBundlePaths = string|TBundlePathsStep[];
  * // a.1
  * ```
  */
-function toPath(data: any, paths: TBundlePaths): TBundlePath {
+export function toPath(data: any, paths: TBundlePaths): TBundlePath {
   if (typeof(paths) === 'string') return paths;
   if (!_.isArray(paths)) throw new Error('Path must be array TBundlePaths.');
   let pointer = data;
@@ -110,7 +110,7 @@ function toPath(data: any, paths: TBundlePaths): TBundlePath {
  * // 5
  * ```
  */
-function get(data: any, paths: TBundlePaths): any {
+export function get(data: any, paths: TBundlePaths): any {
   return getByPath(data, toPath(data, paths));
 }
 
@@ -128,7 +128,7 @@ function get(data: any, paths: TBundlePaths): any {
  * // 5
  * ```
  */
-function getByPath(data: any, path: any): any {
+export function getByPath(data: any, path: any): any {
   return path.length ? _.get(data, path) : data;
 }
 
@@ -151,14 +151,14 @@ function getByPath(data: any, path: any): any {
  * // { bundlePath: ['a', '1', 'c']}
  * ```
  */
-function prepare(container, bundle): {
+export function prepare(container, bundle): {
   bundlePath: string[],
 } {
   const bundlePath = _.toPath(toPath(container.data, bundle.path));
   return { bundlePath };
 }
 
-const bundleParsers: IBundleParsers = {
+export const bundleParsers: IBundleParsers = {
   /**
   * Set value by path.
   * @example
@@ -422,21 +422,4 @@ const bundleParsers: IBundleParsers = {
     
     return { newValue, bundlePath, bundle, data: container.data };
   },
-};
-
-export {
-  IBundleParser,
-  IBundleParsers,
-  IBundleChanges,
-  IBundle,
-  IBundleValue,
-  TBundlePath,
-  TBundleSelector,
-  TBundlePathsStep,
-  TBundlePaths,
-  bundleParsers,
-  get,
-  getByPath,
-  toPath,
-  prepare,
 };
