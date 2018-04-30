@@ -10,69 +10,101 @@ Abstract container of data synchronization.
 ## Install
 
 ```
-npm i ancient-cursor
+npm i --save ancient-cursor
 ```
 ## About 
 
-Contains superclasses and functions for querying and actualising data at all with possibilities make it able for storing and changing data.
+In most popular realisations of pubsub next abstractions (query, content, transport, source, storage) are stirred or combined, what, for example, makes dependence from current environment or makes schemes for data required.
 
-### Bundle
+- `Query` may be in any form.
+- No need for schemes in `content`. Use it as desired.
+- Cursor knows nothing about `transport`. It have events with data, which should be tracked, and something will make decisions about transporting. (we recommend [ancient-channels](https://github.com/AncientSouls/Channels) and [ancient-peer](https://github.com/AncientSouls/Peer))
+- No dependency from `source` of data. It may be database-client or query-lang executor (like GraphQL). (we recommend [ancient-asket](https://github.com/AncientSouls/Asket))
+- Use any database as `storage`. (we recommend [ancient-tracker](https://github.com/AncientSouls/Tracker))
+
+### Path
+We use this term around all the package. It may be like this
+- _.get path syntax: `'a[1].c'` or `['a', 1, 'c']`
+- _.get + _.match syntax: `['a', { b:2 }, 'c']`. 
+
+## Bundle
 
 "Box" for data-changings with functions and parsers to work with it.
 
-#### Example
+### Example
 
-```ts
+```js
 import {
-  TBundlePaths,
-  get,
   bundleParsers,
 } from 'ancient-cursor/lib/bundle';
 
-const paths:TBundlePaths = ['a', { b:2 }, 'c'];
-const path:TBundlePaths = 'a.1.c';
-const data = { a:[{ b:3, c:4 }, { b:2, c:5 }] };
-get (data, paths) = 5; // true
-get (data, path) = 5; // true
-
-const container = { data };
+const container = { data: { a:[{ b:3, c:4 }] } };
 bundleParsers.extend(container, {
   type: 'extend',
   path: 'a.0',
-  value: { d: 234 },
+  value: { d: 6 },
 });
-
-container.data =  { a:[{ b:3, c:4, d:234 }, { b:2, c:5 }] } // true;
+container.data; // { a:[{ b:3, c:4, d:6 }] }
 ```
 
-### Cursor
+[More bundles](https://ancientsouls.github.io/modules/_ancient_cursor_src_lib_bundle_.html)
 
-Heart of data synchronization, unique container which has bundle parsing/applying functionality.
+## Cursor
 
-#### Example
+Simple capsule to actualize remote data. With `cursor.exec()` you can send query to remote data source.
+All changes apply using bundles as external stand-alone instructions what and where to change, when called `cursor.apply ()` function. `cursor.apply()` emits 'changed' event, where you can use `watch()` to listen changes by specified path.
 
-```ts
+### Example
+
+```js
 import {
   Cursor,
-  apply,
+  watch,
 } from '../lib/cursor';
 
+let changed = false;
+let watched = false;
 const cursor = new Cursor(); 
-cursor.exec(true, { a: [{ b: { c: 'd' } }] });
-apply(
-  cursor, {
-    type: 'set',
-    path: 'a.0',
-    value: { d: { e: 'f' } },
-  },
-);
 
-cursor.data = { a: [{ d: { e: 'f' } }] };
+cursor.on('exec', ({ cursor }) => {
+  // Here is transportation logic and after executing cursor.query by remote data-source may be called cursor.apply();
+  cursor.apply({
+    type: 'set',
+    path: '',
+    value: { a: [{ b: { c: 'd' } }] },
+  });
+});
+cursor.exec('some query');
+
+cursor.on('changed', () => {
+  changed = true;
+  watch('b', () => {
+    watched = true;
+  });
+});
+
+cursor.data // { a: [{ b: { c: 'd' } }] }
+cursor.apply({
+  type: 'set',
+  path: 'a.0',
+  value: { d: { e: 'f' } },
+});
+cursor.data // { a: [{ d: { e: 'f' } }] }
+triggered; // true;
+watched; // false
+
+cursor.apply({
+  type: 'extend',
+  path: '',
+  value: { b: 123 },
+});
+cursor.data // { a: [{ d: { e: 'f' } }], b: 123 }
+watched; // true
 ```
 
 ### Stackable-cursor
 
-Extends Cursor with queue funcionality.
+Extends `Cursor` with queue funcionality.
 
 #### Example
 
@@ -84,13 +116,18 @@ import {
   const cursor = new StackableCursor();
   cursor.exec(undefined, { a: [{ b: { c: 123 } }] });
 
-  cursor.apply({ indexInStack: 2, type: 'set', path: 'a.0.b.c', value: 345 });
-  assert.equal(_.size(cursor.bundlesStack), 1);
-  assert.equal(cursor.nextBundleIndex, 0);
-  assert.equal(cursor.get('a.0.b.c'), 123);
+  cursor.apply({ indexInStack: 2, type: 'extend', path: 'a.0.b', value: {d: 234} });
+  cursor.bundlesStack.length; // 1
+  cursor.nextBundleIndex; // 0
+  cursor.data; // { a: [{ b: { c: 123 } }] }
 
   cursor.apply({ indexInStack: 0, type: 'set', path: 'a.0.b.c', value: 456 });
-  assert.equal(_.size(cursor.bundlesStack), 1);
-  assert.equal(cursor.nextBundleIndex, 1);
-  assert.equal(cursor.get('a.0.b.c'), 456);
+  cursor.bundlesStack.length; // 1
+  cursor.nextBundleIndex; // 1
+  cursor.data; // { a: [{ b: { c: 456 } }] }
+
+  cursor.apply({ indexInStack: 1, type: 'set', path: 'a.0.b.c', value: 345 });
+  cursor.bundlesStack.length; // 0
+  cursor.nextBundleIndex; // 3
+  cursor.data; // { a: [{ b: { c: 345, d: 234 } }] }
 ```
