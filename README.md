@@ -76,9 +76,9 @@ cursor.on('exec', ({ cursor }) => {
 });
 cursor.exec('some query');
 
-cursor.on('changed', () => {
+cursor.on('changed', ({ bundleChanges }) => {
   changed = true;
-  watch('b', () => {
+  watch(bundleChanges, 'b', () => {
     watched = true;
   });
 });
