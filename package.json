@@ -14,12 +14,12 @@
     "np": "./node_modules/np/cli.js --no-publish --no-yarn --yolo  --any-branch"
   },
   "dependencies": {
-    "ancient-mixins": "^0.0.11",
+    "ancient-mixins": "^0.0.13",
     "lodash": "^4.17.10"
   },
   "devDependencies": {
-    "@types/mocha": "^2.2.48",
-    "@types/node": "^9.6.8",
+    "@types/mocha": "^5.2.0",
+    "@types/node": "^10.0.2",
     "chai": "^4.1.2",
     "mocha": "^5.1.1",
     "np": "^2.20.1",
