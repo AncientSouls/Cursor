@@ -1,0 +1,12 @@
+{
+    "mocha.files.glob": "src/tests/*.ts",
+    "mocha.options": {
+        "compilers": {
+            "ts": "ts-node/register"
+        },
+    },
+    "mocha.requires": [
+        "source-map-support/register",
+        "ts-node/register",
+    ],
+}

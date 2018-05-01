@@ -22,9 +22,8 @@ function default_1() {
         it('changed', (done) => {
             const cursor = new cursor_1.Cursor();
             cursor.exec(true, { a: [{ b: { c: 'd' } }] });
-            cursor.on('changed', ({ data, oldValue, newValue, bundlePath, bundle, watch, cursor, }) => {
+            cursor.on('changed', ({ data, newValue, bundlePath, bundle, bundleChanges, cursor, }) => {
                 chai_1.assert.deepEqual(data, { a: [{ b: { d: 'e' } }] });
-                chai_1.assert.deepEqual(oldValue, { c: 'd' });
                 chai_1.assert.deepEqual(newValue, { d: 'e' });
                 done();
             });
@@ -37,63 +36,47 @@ function default_1() {
         it('watch', (done) => {
             const cursor = new cursor_1.Cursor();
             cursor.exec(true, { a: [{ b: { c: 'd' } }] });
-            cursor.on('changed', ({ watch }) => {
+            cursor.on('changed', ({ bundleChanges }) => {
                 let counter = 0;
-                watch('', ({ isClone, oldValue, newValue }) => {
-                    chai_1.assert.isFalse(isClone);
-                    chai_1.assert.deepEqual(oldValue, { a: [{ d: { e: 'f' } }] });
+                cursor_1.watch(bundleChanges, '', ({ newValue }) => {
                     chai_1.assert.deepEqual(newValue, { a: [{ d: { e: 'f' } }] });
                     counter++;
                 });
-                watch('a', ({ isClone, oldValue, newValue }) => {
-                    chai_1.assert.isFalse(isClone);
-                    chai_1.assert.deepEqual(oldValue, [{ d: { e: 'f' } }]);
+                cursor_1.watch(bundleChanges, 'a', ({ newValue }) => {
                     chai_1.assert.deepEqual(newValue, [{ d: { e: 'f' } }]);
                     counter++;
                 });
-                watch('a.0', ({ isClone, oldValue, newValue }) => {
-                    chai_1.assert.isTrue(isClone);
-                    chai_1.assert.deepEqual(oldValue, { b: { c: 'd' } });
+                cursor_1.watch(bundleChanges, 'a.0', ({ newValue }) => {
                     chai_1.assert.deepEqual(newValue, { d: { e: 'f' } });
                     counter++;
                 });
-                watch(['a', {}, 'b'], ({ isClone, oldValue, newValue }) => {
-                    chai_1.assert.isTrue(isClone);
-                    chai_1.assert.deepEqual(oldValue, { c: 'd' });
+                cursor_1.watch(bundleChanges, ['a', {}, 'b'], ({ newValue }) => {
                     chai_1.assert.deepEqual(newValue, undefined);
                     counter++;
                 });
-                watch('a.0.b', ({ isClone, oldValue, newValue }) => {
-                    chai_1.assert.isTrue(isClone);
-                    chai_1.assert.deepEqual(oldValue, { c: 'd' });
+                cursor_1.watch(bundleChanges, 'a.0.b', ({ newValue }) => {
                     chai_1.assert.deepEqual(newValue, undefined);
                     counter++;
                 });
-                watch('a.0.b.c', ({ isClone, oldValue, newValue }) => {
-                    chai_1.assert.isTrue(isClone);
-                    chai_1.assert.deepEqual(oldValue, 'd');
+                cursor_1.watch(bundleChanges, 'a.0.b.c', ({ newValue }) => {
                     chai_1.assert.deepEqual(newValue, undefined);
                     counter++;
                 });
-                watch('a.0.d', ({ isClone, oldValue, newValue }) => {
-                    chai_1.assert.isTrue(isClone);
-                    chai_1.assert.deepEqual(oldValue, undefined);
+                cursor_1.watch(bundleChanges, 'a.0.d', ({ newValue }) => {
                     chai_1.assert.deepEqual(newValue, { e: 'f' });
                     counter++;
                 });
-                watch('a.0.d.e', ({ isClone, oldValue, newValue }) => {
-                    chai_1.assert.isTrue(isClone);
-                    chai_1.assert.deepEqual(oldValue, undefined);
+                cursor_1.watch(bundleChanges, 'a.0.d.e', ({ newValue }) => {
                     chai_1.assert.deepEqual(newValue, 'f');
                     counter++;
                 });
-                watch('x.y.z', ({ isClone, oldValue, newValue }) => {
+                cursor_1.watch(bundleChanges, 'x.y.z', ({ newValue }) => {
                     throw new Error('"x.y.z" path is not changed, wrong watch calling');
                 });
-                watch('a.1', ({ isClone, oldValue, newValue }) => {
+                cursor_1.watch(bundleChanges, 'a.1', ({ newValue }) => {
                     throw new Error('"a.1" path is not changed, wrong watch calling');
                 });
-                watch('b', ({ isClone, oldValue, newValue }) => {
+                cursor_1.watch(bundleChanges, 'b', ({ newValue }) => {
                     throw new Error('"b" path is not changed, wrong watch calling');
                 });
                 chai_1.assert.equal(counter, 8);
